@@ -51,7 +51,7 @@ namespace VRTK.Examples.Utilities
 
         protected virtual void FixOculus()
         {
-#if VRTK_DEFINE_SDK_OCULUS
+#if VRTK_DEFINE_SDK_OCULUS_AVATAR
             string oculusPath = "[VRTK_SDKManager]/[VRTK_SDKSetups]/Oculus";
             GameObject oculusSDK = GameObject.Find(oculusPath);
 
