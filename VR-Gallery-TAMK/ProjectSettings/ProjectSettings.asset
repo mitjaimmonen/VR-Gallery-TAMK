@@ -78,7 +78,7 @@ PlayerSettings:
   usePlayerLog: 1
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
   gpuSkinning: 1
@@ -283,8 +283,8 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 1
     m_Devices:
-    - Oculus
     - OpenVR
+    - Oculus
   - m_BuildTarget: iOS
     m_Enabled: 1
     m_Devices:
@@ -546,6 +546,7 @@ PlayerSettings:
     25: UNITY_POST_PROCESSING_STACK_V2
     26: UNITY_POST_PROCESSING_STACK_V2
     27: UNITY_POST_PROCESSING_STACK_V2
+    28: UNITY_POST_PROCESSING_STACK_V2
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
