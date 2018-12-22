@@ -1,0 +1,3 @@
+[submodule "VR-Gallery-TAMK/Assets/VRTK"]
+	path = VR-Gallery-TAMK/Assets/VRTK
+	url = https://github.com/thestonefox/VRTK.git
