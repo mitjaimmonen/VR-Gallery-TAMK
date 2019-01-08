@@ -30,8 +30,7 @@ public class GameMaster : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameController").Length == 1)
         {
@@ -44,10 +43,18 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!Instance)
             _instance = this;
+    }
+
+    private void Reset() 
+    {
+
+    }
+
+    public void NewScene()
+    {
     }
 }

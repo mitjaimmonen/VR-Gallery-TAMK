@@ -20,27 +20,28 @@ public class SceneContainer : MonoBehaviour
 
     private Rigidbody rb;
     private SceneMaster sceneMaster;
+    private Vector3 spawnPos;
+    private Quaternion spawnRot;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        spawnPos = transform.position;
+        spawnRot = transform.rotation;
     }
 
-    private void Start()
+    public void Reset()
     {
-        //All references to gamemaster should be done after awake to avoid nulls
+        Debug.Log("SceneContainer Reset");
         sceneMaster = GameMaster.Instance.SceneMaster;
         if (loadSceneAtStart)
         {
-            sceneMaster.LoadSceneAsync(sceneName);
+            sceneMaster.PreLoadScene(sceneName);
         }
-    }
-
-    public void NewSceneLoaded(string sceneName)
-    {
-        //Broadcast function from SceneMaster
-        Debug.Log("Brodacast received");
         visuals.SetActive(true);
+        rb.isKinematic = false;
+        transform.position = spawnPos;
+        transform.rotation = spawnRot;
         destroyPS.Stop();
     }
 
@@ -51,6 +52,7 @@ public class SceneContainer : MonoBehaviour
             if (col.impulse.magnitude > breakForce)
             {
                 visuals.SetActive(false);
+                rb.isKinematic = true;
                 destroyPS.Play();
                 if (!disableSceneSwitching)
                     sceneMaster.SwitchScene(sceneName);

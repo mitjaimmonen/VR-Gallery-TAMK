@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
-    public bool keepMainSceneLoaded;
-    public string mainScene;
     public float sceneSwitchDelay = 2f;
     
     private string currentScene;
-    private string nextScene; 
+    private string nextScene;
 
     private float sceneSwitchInitTime;
+
+    private List<SceneContainer> sceneContainers = new List<SceneContainer>();
 
 
     private void Awake() 
@@ -25,36 +25,54 @@ public class SceneMaster : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
-        if (loadMode == LoadSceneMode.Single)
-        {
-        }
-        else if (loadMode == LoadSceneMode.Additive)
-        {
-        }
+
+
     } 
     private void OnSceneUnloaded(Scene scene)
     {
-
+        Debug.Log("Scene unloaded: " + scene.name);
     }
-
     private void OnSceneChanged(Scene oldScene, Scene newScene)
     {
+        Debug.Log("Scene changed");
+        GameMaster.Instance.NewScene();
         currentScene = newScene.name;
-        if (oldScene.isLoaded && !(keepMainSceneLoaded && oldScene.name == mainScene))
-            SceneManager.UnloadSceneAsync(oldScene);
 
-        BroadcastMessage("NewSceneLoaded", newScene.name, SendMessageOptions.DontRequireReceiver);
+        GetSceneContainers();
+        ResetSceneContainers();
+
+        ResetLoadedScenes();
+
+        if (oldScene.isLoaded)
+            SceneManager.UnloadSceneAsync(oldScene);
+    }
+
+    private void GetSceneContainers()
+    {
+        sceneContainers.Clear();
+        GameObject[] go = GameObject.FindGameObjectsWithTag("SceneContainer");
+        for (int i = 0; i < go.Length; i++)
+        {
+            sceneContainers.Add(go[i].GetComponent<SceneContainer>());
+        }
+    }
+    private void ResetSceneContainers()
+    {
+        foreach (SceneContainer item in sceneContainers)
+        {
+            item.Reset();
+        }
     }
 
     private IEnumerator LoadingLoop()
     {
         //Waits until all loaded up and blasts into da new scene
         sceneSwitchInitTime = Time.time;
-        Debug.Log(sceneSwitchInitTime + sceneSwitchDelay > Time.time);
+            Debug.LogWarning("NextScene: " + nextScene);
         while(!SceneManager.GetSceneByName(nextScene).isLoaded || sceneSwitchInitTime + sceneSwitchDelay > Time.time)
         {
             yield return new WaitForSeconds(0.1f);
-            Debug.Log("Next scene not loaded");
+            Debug.Log("Next scene " + nextScene + " not loaded");
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(nextScene));
         currentScene = nextScene;
@@ -64,19 +82,26 @@ public class SceneMaster : MonoBehaviour
         yield return null;
     }
 
-    public void LoadSceneAsync(string sceneName)
+    public void PreLoadScene(string sceneName)
     {
         //Loads scene in the background while player is holding a scene in their hand or whatever
-        nextScene = sceneName;
-        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+        {
+            nextScene = sceneName;
+            Debug.LogWarning("NextScene: " + nextScene);
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        }
     }
-    public void LoadSceneAsync(Scene scene)
+    public void PreLoadScene(Scene scene)
     {
         //Loads scene in the background while player is holding a scene in their hand or whatever
-        nextScene = scene.name;
-        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+        if (!scene.isLoaded)
+        {
+            nextScene = scene.name;
+            Debug.LogWarning("NextScene: " + nextScene);
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+        }
     }
-
     public void SwitchScene(string sceneName)
     {
         if (!Application.CanStreamedLevelBeLoaded(sceneName))
@@ -88,13 +113,13 @@ public class SceneMaster : MonoBehaviour
         //Gets called when player breaks a scene they held in hand.
         //If scene has yet not loaded, it will start loading and switch immediately
         nextScene = sceneName;
+            Debug.LogWarning("NextScene: " + nextScene);
         if (!SceneManager.GetSceneByName(nextScene).isLoaded)
-            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+            PreLoadScene(nextScene);
 
         StartCoroutine(LoadingLoop());
 
     }
-
     public void SwitchToLoadedScene()
     {
         if (Application.CanStreamedLevelBeLoaded(nextScene) && SceneManager.GetSceneByName(nextScene).isLoaded)
@@ -110,15 +135,22 @@ public class SceneMaster : MonoBehaviour
         return scene.isLoaded;
     }
 
-    public void UnloadAllScenes()
+    public void ResetLoadedScenes()
     {
-        //Reset nextSceneToLoad
+
         for(int i = 0; i < SceneManager.sceneCount; i++)
         {
-            if (!(SceneManager.GetSceneAt(i).name == mainScene && keepMainSceneLoaded) && SceneManager.GetSceneAt(i).name != currentScene)
+            if (SceneManager.GetSceneAt(i).name != currentScene &&
+                SceneManager.GetSceneAt(i).name != nextScene &&
+                SceneManager.GetActiveScene() != SceneManager.GetSceneAt(i))
             {
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i).name);
+                Debug.Log("Unloading scene: " + SceneManager.GetSceneAt(i).name +". NextScene: " + nextScene + ", currentScene: " + currentScene);
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
             }
         }
     }
+
+
+
+
 }
