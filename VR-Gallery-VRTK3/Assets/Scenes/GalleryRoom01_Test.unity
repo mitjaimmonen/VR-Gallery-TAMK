@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -546,13 +546,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114001705670023382, guid: 0e7b005f13dd9d644a7593a541b31874,
         type: 2}
-      propertyPath: sceneName
-      value: SceneTest
+      propertyPath: breakingLayers.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     - target: {fileID: 114001705670023382, guid: 0e7b005f13dd9d644a7593a541b31874,
         type: 2}
-      propertyPath: breakingLayers.m_Bits
-      value: 768
+      propertyPath: sceneName
+      value: GalleryRoom00_Main
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e7b005f13dd9d644a7593a541b31874, type: 2}

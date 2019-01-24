@@ -6,7 +6,6 @@ using UnityEngine;
 public class SceneContainer : MonoBehaviour
 {
     [Header("Debug")]
-    public bool loadSceneAtStart = false;
     public bool disableSceneSwitching = false;
 
     [Header("References")]
@@ -34,10 +33,6 @@ public class SceneContainer : MonoBehaviour
     {
         Debug.Log("SceneContainer Reset");
         sceneMaster = GameMaster.Instance.SceneMaster;
-        if (loadSceneAtStart)
-        {
-            sceneMaster.PreLoadScene(sceneName);
-        }
         visuals.SetActive(true);
         rb.isKinematic = false;
         transform.position = spawnPos;
