@@ -8,7 +8,6 @@ public class ControllerSetter : MonoBehaviour {
 	VRTK_SDKManager sdkManager;
 	[SerializeField]GameObject leftController;
 	[SerializeField]GameObject rightController;
-	[SerializeField] GameObject controllerPrefab;
 
 
 	
@@ -24,19 +23,7 @@ public class ControllerSetter : MonoBehaviour {
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
 			{
-				if (!leftController)
-				{
-					leftController = Instantiate(controllerPrefab);
-					leftController.name = "leftController";
-				}
 				sdkManager.scriptAliasLeftController = leftController;
-
-				if (!rightController)
-				{
-					rightController = Instantiate(controllerPrefab);
-					rightController.name = "rightController";
-
-				}
 				sdkManager.scriptAliasRightController = rightController;
 			}
 		}
@@ -53,19 +40,7 @@ public class ControllerSetter : MonoBehaviour {
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
 			{
-				if (!leftController)
-				{
-					leftController = Instantiate(controllerPrefab);
-					leftController.name = "leftController";
-				}
 				sdkManager.scriptAliasLeftController = leftController;
-
-				if (!rightController)
-				{
-					rightController = Instantiate(controllerPrefab);
-					rightController.name = "leftController";
-
-				}
 				sdkManager.scriptAliasRightController = rightController;
 			}
 		}

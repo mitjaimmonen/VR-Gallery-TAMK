@@ -19,14 +19,10 @@ public class SceneContainer : MonoBehaviour
 
     private Rigidbody rb;
     private SceneMaster sceneMaster;
-    private Vector3 spawnPos;
-    private Quaternion spawnRot;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        spawnPos = transform.position;
-        spawnRot = transform.rotation;
     }
 
     public void Reset()
@@ -35,8 +31,6 @@ public class SceneContainer : MonoBehaviour
         sceneMaster = GameMaster.Instance.SceneMaster;
         visuals.SetActive(true);
         rb.isKinematic = false;
-        transform.position = spawnPos;
-        transform.rotation = spawnRot;
         destroyPS.Stop();
     }
 
@@ -51,8 +45,6 @@ public class SceneContainer : MonoBehaviour
                 destroyPS.Play();
                 if (!disableSceneSwitching)
                     sceneMaster.SwitchScene(sceneName);
-
-                Debug.Log("BREAK. force was: " + col.impulse.magnitude);
             }
         }
     }

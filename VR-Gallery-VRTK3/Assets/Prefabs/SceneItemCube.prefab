@@ -85,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244786489890544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.477, y: 0.24, z: 0}
+  m_LocalPosition: {x: 0, y: 0.713, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4999136277133902}
@@ -188,7 +188,7 @@ MonoBehaviour:
   disableSceneSwitching: 0
   visuals: {fileID: 1751062658383080}
   destroyPS: {fileID: 198548581414516738}
-  sceneName: GalleryRoom00_Test2
+  sceneName: GalleryRoom01_Main
   breakForce: 3
   breakingLayers:
     serializedVersion: 2
@@ -212,7 +212,7 @@ MonoBehaviour:
   holdButtonToGrab: 0
   stayGrabbedOnTeleport: 1
   validDrop: 1
-  grabOverrideButton: 2
+  grabOverrideButton: 0
   allowedGrabControllers: 0
   grabAttachMechanicScript: {fileID: 114571758517501296}
   secondaryGrabActionScript: {fileID: 0}
