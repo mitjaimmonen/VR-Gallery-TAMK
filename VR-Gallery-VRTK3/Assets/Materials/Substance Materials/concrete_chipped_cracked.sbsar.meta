@@ -360,15 +360,15 @@ SubstanceImporter:
     - shaderProp: _BumpMap
       material: {instanceID: 0}
       baseUID: 3335588858
+    - shaderProp: _ParallaxMap
+      material: {instanceID: 0}
+      baseUID: 3335588471
     - shaderProp: _MetallicGlossMap
       material: {instanceID: 0}
       baseUID: 3335588860
     - shaderProp: _OcclusionMap
       material: {instanceID: 0}
       baseUID: 3335588424
-    - shaderProp: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 3335588471
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 

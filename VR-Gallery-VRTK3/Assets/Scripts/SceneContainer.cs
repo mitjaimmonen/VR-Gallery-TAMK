@@ -6,16 +6,16 @@ using UnityEngine;
 public class SceneContainer : MonoBehaviour
 {
     [Header("Debug")]
-    public bool disableSceneSwitching = false;
+    [SerializeField]private bool disableSceneSwitching = false;
 
     [Header("References")]
-    public GameObject visuals;
-    public ParticleSystem destroyPS;
+    [SerializeField]private GameObject visuals;
+    [SerializeField]private ParticleSystem destroyPS;
 
     [Header("Parameters")]
-    public string sceneName;
-    public float breakForce;
-    public LayerMask breakingLayers;
+    [SerializeField]private string sceneName;
+    [SerializeField]private float breakForce;
+    [SerializeField]private LayerMask breakingLayers;
 
     private Rigidbody rb;
     private SceneMaster sceneMaster;
