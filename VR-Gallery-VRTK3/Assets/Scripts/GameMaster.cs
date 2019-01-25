@@ -54,7 +54,7 @@ public class GameMaster : MonoBehaviour
 
     }
 
-    public void NewScene()
+    public void ActiveSceneChanged(string sceneName)
     {
     }
 }
