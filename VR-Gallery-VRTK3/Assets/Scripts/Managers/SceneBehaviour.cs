@@ -68,7 +68,9 @@ public class SceneBehaviour : MonoBehaviour {
 			if (fogDensity != endDensity || fogColor != endColor)
 			{
 				//Starts again
-				t = 0; 
+				t = 0;
+				startColor = RenderSettings.fogColor;
+				startDensity = RenderSettings.fogDensity;
 				endColor = fogColor;
 				endDensity = fogDensity;
 			}
