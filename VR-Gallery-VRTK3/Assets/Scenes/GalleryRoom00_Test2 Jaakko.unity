@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.13
@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -2226,7 +2226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &326188812
 GameObject:
@@ -4496,7 +4496,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4735939924902510, guid: 13a64ce2d45ec994caa2ee13418dd877, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224101484754448204, guid: 13a64ce2d45ec994caa2ee13418dd877,
         type: 2}
@@ -11273,8 +11273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426b8c3a0ed9dd34aa4b82a195246dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugFog: 1
+  debugFog: 0
   fog: 1
+  fogColor: {r: 1, g: 1, b: 1, a: 1}
   fogDensity: 0.2
 --- !u!4 &1351291039
 Transform:
@@ -11287,7 +11288,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1354372794
 GameObject:
@@ -12741,7 +12742,7 @@ Transform:
   - {fileID: 779977282}
   - {fileID: 77778727}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1505778485
 GameObject:
@@ -13225,7 +13226,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4999272824003930, guid: ae12a9006dfeba743984374c5a4c6651, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114737441834647600, guid: ae12a9006dfeba743984374c5a4c6651,
         type: 2}
