@@ -28,6 +28,22 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    private SceneBehaviour _sceneBehaviour;
+    public SceneBehaviour SceneBehaviour
+    {
+        get{
+            if (!_sceneBehaviour)
+            {
+                var temp = GameObject.FindGameObjectWithTag("SceneBehaviour");
+                if (temp)
+                {
+                    _sceneBehaviour = temp.GetComponent<SceneBehaviour>();
+                }
+            }
+            return _sceneBehaviour;
+        }
+    }
+
 
 
     private void Awake()
