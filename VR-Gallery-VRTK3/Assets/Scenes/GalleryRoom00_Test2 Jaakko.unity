@@ -11273,8 +11273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426b8c3a0ed9dd34aa4b82a195246dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fog: 0
-  fogDensity: 0
+  debugFog: 1
+  fog: 1
+  fogDensity: 0.2
 --- !u!4 &1351291039
 Transform:
   m_ObjectHideFlags: 0
