@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class SceneBehaviour : MonoBehaviour {
 
 	[Tooltip("Fog will lerp if changed in inspector")]
 	public bool debugFog;
 	public bool fog;
+	public bool cameraColorWithFog;
 	public Color fogColor;
 	[Range(0.0f,0.5f)] 
 	public float fogDensity;
@@ -54,6 +56,10 @@ public class SceneBehaviour : MonoBehaviour {
 		Color endColor = fogColor;
 		if (!RenderSettings.fog)
 		{
+			if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
+			{
+				GameMaster.Instance.CurrentCamera.backgroundColor = fogColor;
+			}
 			RenderSettings.fogColor = fogColor;
 			RenderSettings.fogDensity = 0;
 			RenderSettings.fog = fog;
@@ -64,6 +70,11 @@ public class SceneBehaviour : MonoBehaviour {
 			RenderSettings.fogDensity = Mathf.Lerp(startDensity, endDensity, Easing.Ease(t/lerpTime, curve));
 			RenderSettings.fogColor = Color.Lerp(startColor, endColor, Easing.Ease(t/lerpTime, curve));
 			t += Time.deltaTime;
+
+			if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
+			{
+				GameMaster.Instance.CurrentCamera.backgroundColor = RenderSettings.fogColor;
+			}
 
 			if (fogDensity != endDensity || fogColor != endColor)
 			{

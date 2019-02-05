@@ -12,9 +12,6 @@ public class SceneContainer : MonoBehaviour
     [SerializeField]private GameObject visuals;
     [SerializeField]private ParticleSystem destroyPS;
 
-    [Header("Parameters")]
-    [Range(-2f,2f), Tooltip("Change gravity strength. 1 = Default gravity.")]
-    [SerializeField]private float gravityScale = 1f;
     [SerializeField]private string sceneName;
     [SerializeField]private float breakForce;
     [SerializeField]private LayerMask breakingLayers;
@@ -22,10 +19,9 @@ public class SceneContainer : MonoBehaviour
     private Rigidbody rb;
     private SceneMaster sceneMaster;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
     }
 
     public void Reset()
@@ -35,11 +31,6 @@ public class SceneContainer : MonoBehaviour
         visuals.SetActive(true);
         rb.isKinematic = false;
         destroyPS.Stop();
-    }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce(Physics.gravity * rb.mass * gravityScale);
     }
 
     private void OnCollisionEnter(Collision col)

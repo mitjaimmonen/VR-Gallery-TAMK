@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4793489464659784}
   - component: {fileID: 54028194101992722}
+  - component: {fileID: 114474138656899324}
   - component: {fileID: 114001705670023382}
   - component: {fileID: 114571758517501296}
   - component: {fileID: 114036122991877800}
@@ -85,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244786489890544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.713, z: 0}
+  m_LocalPosition: {x: 0, y: 0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4999136277133902}
@@ -188,7 +189,7 @@ MonoBehaviour:
   disableSceneSwitching: 0
   visuals: {fileID: 1751062658383080}
   destroyPS: {fileID: 198548581414516738}
-  sceneName: GalleryRoom01_Main
+  sceneName: GalleryRoom00_Test2 Jaakko
   breakForce: 3
   breakingLayers:
     serializedVersion: 2
@@ -223,6 +224,18 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   usingState: 0
+--- !u!114 &114474138656899324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244786489890544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33d23b05e3e9be4fa725b2746bb2223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityScale: 1
 --- !u!114 &114571758517501296
 MonoBehaviour:
   m_ObjectHideFlags: 1

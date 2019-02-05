@@ -44,6 +44,11 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public Camera CurrentCamera
+    {
+        get;
+        set;
+    }
 
 
     private void Awake()
