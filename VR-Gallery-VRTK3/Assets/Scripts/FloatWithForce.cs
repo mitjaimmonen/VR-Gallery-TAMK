@@ -15,34 +15,27 @@ public class FloatWithForce : MonoBehaviour {
 	Vector3 originalPos;
 	Vector3 targetPos;
 	Rigidbody rb;
-
 	float intervalTime;
-	Vector3 lerpStartPos;
 
-	bool playing;
-	// Use this for initialization
-	void Awake () {
+	void Awake () 
+	{
 		rb = GetComponent<Rigidbody>();
 		originalPos = transform.position;
 		targetPos = transform.position;
-		playing = true;
+		maxVelocity = maxRadius;
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate ()
 	{
 		if (interval + intervalTime < Time.time)
 		{
 			targetPos = originalPos + (Random.insideUnitSphere*maxRadius);
 			intervalTime = Time.time;
-			lerpStartPos = transform.position;
 			maxVelocity = maxRadius;
 		}
 
 		Vector3 dir =targetPos - transform.position;
 		Vector3 force = dir * velocityMultiplier;
-		// var vel = Vector3.Lerp(lerpStartPos,targetPos, Easing.Ease((Time.time-intervalTime) / interval, Curve.SmoothStep)) - transform.position;
-		// rb.velocity = vel;
 	
 		rb.AddForce(Time.fixedUnscaledDeltaTime * force);
 

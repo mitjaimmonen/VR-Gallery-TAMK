@@ -5,21 +5,72 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class GravityScale : MonoBehaviour {
 
+
+	[SerializeField]private bool affectChildren;
     [Range(-2f,2f), Tooltip("Change gravity strength. 1 = Default gravity.")]
     [SerializeField]private float gravityScale = 1f;
     private Rigidbody rb;
+	private List<Rigidbody> rbChildren = new List<Rigidbody>();
 
+
+	bool checkAffectChildren;
 	bool gravityScaleUpdating = false;
 	float tempGravity;
 
-    private void Awake()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+		Init();
     }
+
+	private void Init()
+	{
+		checkAffectChildren = affectChildren;
+		
+		if (rbChildren != null && rbChildren.Count > 0)
+		{
+			for(int i = 0; i < rbChildren.Count; i++)
+			{
+				rbChildren[i].useGravity = true;
+			}
+			rbChildren.Clear();
+		}
+
+		if (affectChildren)
+		{
+			foreach (var temp in GetComponentsInChildren<Rigidbody>(true))
+			{
+				rbChildren.Add(temp);
+				temp.useGravity = false;
+			}
+		}
+		else
+		{
+			rb = GetComponent<Rigidbody>();
+			rb.useGravity = false;
+		}
+	}
     private void FixedUpdate()
     {
-        rb.AddForce(Physics.gravity * rb.mass * gravityScale);
+		if (checkAffectChildren != affectChildren)
+		{
+			//Has to initialize again if bool changes
+			Init();
+		}
+		else
+		{
+			if (affectChildren)
+			{
+				for (int i = 0; i < rbChildren.Count; i++)
+				{
+					if (!rbChildren[i].isKinematic && rbChildren[i].gameObject.activeSelf)
+						rbChildren[i].AddForce(Physics.gravity * rbChildren[i].mass * gravityScale);
+				}
+			}
+			else
+			{
+				rb.AddForce(Physics.gravity * rb.mass * gravityScale);
+			}
+		}
     }
 
 	public void SetGravityOverTime(float gravity, float lerpTime)
