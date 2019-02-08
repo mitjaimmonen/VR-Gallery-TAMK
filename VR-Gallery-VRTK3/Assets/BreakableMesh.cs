@@ -103,6 +103,7 @@ public class BreakableMesh : MonoBehaviour {
 		if (mainCollider)
 			mainCollider.enabled = false;
 		
+		Random rand = new Random();
 		for (int i = 0; i < childPieces.Count; i++)
 		{
 			childPieces[i].Key.gameObject.SetActive(true);
@@ -113,6 +114,7 @@ public class BreakableMesh : MonoBehaviour {
 			float strength = Random.Range(BreakForceRange.x, BreakForceRange.y) * colRadius;
 			childPieces[i].Key.AddExplosionForce(strength, transform.position,colRadius*2f, 1f, ForceMode.Impulse);
 			childPieces[i].Key.AddForce(impulse * velocityEffect, ForceMode.Impulse);
+			childPieces[i].Key.angularVelocity = Random.insideUnitSphere * strength*0.5f;
 		}
 
 	}
@@ -163,7 +165,7 @@ public class BreakableMesh : MonoBehaviour {
 			{
 				childPieces[i].Key.gameObject.transform.localPosition = childPieces[i].Value.Key;
 				childPieces[i].Key.gameObject.transform.localRotation = childPieces[i].Value.Value;
-				childPieces[i].Key.isKinematic = true;
+				// childPieces[i].Key.isKinematic = true;
 				childPieces[i].Key.gameObject.SetActive(false);
 			}
 			mainPiece.SetActive(true);
@@ -218,7 +220,7 @@ public class BreakableMesh : MonoBehaviour {
 		//Pieces can inactivate as mainPiece activates.
 		for (int i = 0; i < childPieces.Count; i++)
 		{
-			childPieces[i].Key.isKinematic = true;
+			// childPieces[i].Key.isKinematic = true;
 			childPieces[i].Key.gameObject.SetActive(false);
 		}
 

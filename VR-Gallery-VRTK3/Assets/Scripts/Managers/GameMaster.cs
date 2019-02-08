@@ -64,18 +64,11 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
         if (!Instance)
             _instance = this;
     }
 
-    private void Reset() 
-    {
-
-    }
-
-    public void ActiveSceneChanged(string sceneName)
-    {
-    }
 }

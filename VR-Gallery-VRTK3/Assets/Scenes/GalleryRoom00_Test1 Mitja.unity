@@ -314,7 +314,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4955976797414334, guid: 8445bed43c69fd84b9d8728606d5863f, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8445bed43c69fd84b9d8728606d5863f, type: 2}
@@ -356,7 +356,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4735939924902510, guid: 13a64ce2d45ec994caa2ee13418dd877, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224101484754448204, guid: 13a64ce2d45ec994caa2ee13418dd877,
         type: 2}
@@ -647,8 +647,8 @@ GameObject:
   - component: {fileID: 1404094667}
   - component: {fileID: 1404094669}
   m_Layer: 0
-  m_Name: SceneSetup
-  m_TagString: Untagged
+  m_Name: SceneBehaviour
+  m_TagString: SceneBehaviour
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,6 +669,8 @@ MonoBehaviour:
   cameraColorWithFog: 1
   fogColor: {r: 1, g: 1, b: 1, a: 1}
   fogDensity: 0
+  skyGlobe: {fileID: 1688765785}
+  skyGlobeRestoreTime: 5
 --- !u!4 &1404094668
 Transform:
   m_ObjectHideFlags: 0
@@ -699,6 +701,12 @@ MonoBehaviour:
   headsetPositionCompensation: 1
   targetListPolicy: {fileID: 0}
   navMeshLimitDistance: 0
+--- !u!114 &1688765785 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114728796597800956, guid: 8445bed43c69fd84b9d8728606d5863f,
+    type: 2}
+  m_PrefabInternal: {fileID: 703886639}
+  m_Script: {fileID: 11500000, guid: 1decd09539c535247b85a4504ee876a2, type: 3}
 --- !u!1 &1906547830
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,8 +13,12 @@ public class SceneBehaviour : MonoBehaviour {
 	[Range(0.0f,0.5f)] 
 	public float fogDensity;
 
+	[Header("SkyGlobe")]
+	public BreakableMesh skyGlobe;
+	public float skyGlobeRestoreTime;
 	private float debugDensity;
 	private Color debugColor;
+
 
 	private bool updatingFog;
 	// Use this for initialization
@@ -22,6 +26,11 @@ public class SceneBehaviour : MonoBehaviour {
 		RenderSettings.fogDensity = fogDensity;
 		RenderSettings.fog = fog;
 		RenderSettings.fogColor = fogColor;
+
+		if (skyGlobe)
+		{
+			skyGlobe.SetBroken();
+		}
 	}
 
 	void Update()
@@ -34,6 +43,17 @@ public class SceneBehaviour : MonoBehaviour {
 				debugColor = fogColor;
 				SetFog(fog, fogDensity, fogColor);
 			}
+		}
+	}
+
+	public void RestoreSky(float fadeIntime)
+	{
+		//TODO: Does fadeIntime cause delay????
+
+		//Gets called when scene changin fade has finished.
+		if (skyGlobe)
+		{
+			skyGlobe.Restore(false, skyGlobeRestoreTime);
 		}
 	}
 	

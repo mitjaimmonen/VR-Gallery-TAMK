@@ -17,6 +17,11 @@ public class SceneMaster : MonoBehaviour
         SceneManager.activeSceneChanged += OnSceneChanged;
         masterCanvas = GetComponent<MasterCanvas>();
     }
+    private void Start()
+    {
+        OnFirstSceneActivated();
+
+    }
     private void OnSceneChanged(Scene oldScene, Scene newScene)
     {
         if (oldScene.isLoaded)
@@ -26,14 +31,30 @@ public class SceneMaster : MonoBehaviour
 
         if (masterCanvas)
             masterCanvas.FadeIn();
-
-        GameMaster.Instance.ActiveSceneChanged(newScene.name);
+        if (GameMaster.Instance.SceneBehaviour)
+        {
+			Debug.Log("Restore Called here");
+            GameMaster.Instance.SceneBehaviour.RestoreSky(masterCanvas.FadeOnTime);
+        }
+        
 
         GetSceneContainers();
         ResetSceneContainers();
 
         ResetLoadedScenes();
 
+    }
+
+    private void OnFirstSceneActivated()
+    {
+        //Gets called on awake as it is the first time game starts
+        if (masterCanvas)
+            masterCanvas.FadeIn();
+        if (GameMaster.Instance.SceneBehaviour)
+            GameMaster.Instance.SceneBehaviour.RestoreSky(masterCanvas.FadeOnTime);
+        
+        GetSceneContainers();
+        ResetSceneContainers();
     }
 
     private void GetSceneContainers()
@@ -120,8 +141,4 @@ public class SceneMaster : MonoBehaviour
             }
         }
     }
-
-
-
-
 }
