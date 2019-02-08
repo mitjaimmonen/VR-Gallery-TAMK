@@ -7,12 +7,14 @@ public class BreakableMesh : MonoBehaviour {
 
 	[Header("Debug")]
 	[SerializeField] private bool debugBreak;
+	[SerializeField] private bool debugSetBroken;
 	[SerializeField] private bool debugRestore;
 	[SerializeField] private float debugRestoreTime = 1f;
 
 	[Header("Parameters")]
 
 
+	[SerializeField] private GameObject meshes;
 	[Tooltip("One child should represent the complete piece before being broken.")]
 	[SerializeField] private GameObject mainPiece;
 	[SerializeField] private Collider mainCollider;
@@ -23,12 +25,17 @@ public class BreakableMesh : MonoBehaviour {
 	//Stores the initial position & rotation of children to bring object back together.
 	private List<KeyValuePair<Rigidbody, KeyValuePair<Vector3, Quaternion>>> childPieces = new List<KeyValuePair<Rigidbody, KeyValuePair<Vector3, Quaternion>>>();
 
+
+	private float colRadius = 1f;
 	private bool broken = false;
 	private bool restoring = false;
+
+	private bool wasKinematic = false;
 
 	void Awake()
 	{
 		Init();
+
 	}
 
 	void Update()
@@ -36,26 +43,33 @@ public class BreakableMesh : MonoBehaviour {
 		if (debugBreak)
 		{
 			debugBreak = false;
-			Break();
+			Break(Vector3.zero);
 		}
 		if (debugRestore)
 		{
 			debugRestore = false;
 			Restore(false, debugRestoreTime);
 		}
+		if (debugSetBroken)
+		{
+			debugSetBroken = false;
+			SetBroken();
+		}
 	}
 
 	void Init ()
 	{
 		mainCollider = GetComponent<Collider>();
-		mainRb = GetComponent<Rigidbody>();
+		colRadius = (mainCollider.bounds.extents.x + mainCollider.bounds.extents.y + mainCollider.bounds.extents.z) / 3;
 
+		mainRb = GetComponent<Rigidbody>();
+		wasKinematic = mainRb.isKinematic;
 
 		childPieces.Clear();
 
-		foreach (var trans in GetComponentsInChildren<Transform>(true))
+		foreach (var trans in meshes.GetComponentsInChildren<Transform>(true))
 		{
-			if (trans != mainPiece.transform && trans != transform)
+			if (trans != mainPiece.transform && trans != meshes.transform)
 			{
 
 				Rigidbody rb = trans.gameObject.GetComponent<Rigidbody>();
@@ -69,7 +83,7 @@ public class BreakableMesh : MonoBehaviour {
 					meshCol.convex = true;
 				}
 
-				rb.isKinematic = true;
+				// rb.isKinematic = true;
 				KeyValuePair<Vector3, Quaternion> posRot = new KeyValuePair<Vector3,Quaternion>(trans.localPosition, trans.localRotation);
 				childPieces.Add(new KeyValuePair<Rigidbody, KeyValuePair<Vector3, Quaternion>>(rb, posRot));
 				trans.gameObject.SetActive(false);
@@ -79,10 +93,11 @@ public class BreakableMesh : MonoBehaviour {
 		broken = false;
 	}
 	
-	public void Break()
+	public void Break(Vector3 impulse)
 	{
 		broken = true;
 		mainPiece.SetActive(false);
+		wasKinematic = mainRb.isKinematic;
 		mainRb.isKinematic = true;
 
 		if (mainCollider)
@@ -92,13 +107,39 @@ public class BreakableMesh : MonoBehaviour {
 		{
 			childPieces[i].Key.gameObject.SetActive(true);
 			childPieces[i].Key.gameObject.GetComponent<Collider>().enabled = true;
-			childPieces[i].Key.isKinematic = false;
+			// childPieces[i].Key.isKinematic = false;
 			childPieces[i].Key.velocity = Vector3.zero;
 
-			float strength = Random.Range(BreakForceRange.x, BreakForceRange.y);
-			childPieces[i].Key.AddExplosionForce(strength, transform.position,20f, 1f, ForceMode.Impulse);
+			float strength = Random.Range(BreakForceRange.x, BreakForceRange.y) * colRadius;
+			childPieces[i].Key.AddExplosionForce(strength, transform.position,colRadius*2f, 1f, ForceMode.Impulse);
+			childPieces[i].Key.AddForce(impulse * velocityEffect, ForceMode.Impulse);
 		}
 
+	}
+
+	public void SetBroken()
+	{
+		broken = true;
+		mainPiece.SetActive(false);
+		wasKinematic = mainRb.isKinematic;
+		mainRb.isKinematic = true;
+
+		if (mainCollider)
+			mainCollider.enabled = false;
+		
+		for (int i = 0; i < childPieces.Count; i++)
+		{
+			childPieces[i].Key.gameObject.SetActive(true);
+			childPieces[i].Key.gameObject.GetComponent<Collider>().enabled = true;
+			// childPieces[i].Key.isKinematic = false;
+			childPieces[i].Key.velocity = Vector3.zero;
+			childPieces[i].Key.angularVelocity = Vector3.zero;
+
+			Vector3 direction = transform.TransformPoint(childPieces[i].Value.Key) - transform.position;
+			childPieces[i].Key.transform.position = transform.TransformPoint(childPieces[i].Value.Key) + (direction * Random.Range(2,5f));
+			childPieces[i].Key.transform.rotation = Random.rotation;
+
+		}
 	}
 
 	/// <param name="instant">Does not use forces over time. More lightweight to execute.</param>
@@ -129,7 +170,7 @@ public class BreakableMesh : MonoBehaviour {
 			if (mainCollider)
 				mainCollider.enabled = true;
 
-			mainRb.isKinematic = false;
+			mainRb.isKinematic = wasKinematic;
 			broken = false;
 		}
 		else
@@ -183,7 +224,7 @@ public class BreakableMesh : MonoBehaviour {
 
 		//Set values back to initial.
 		mainPiece.SetActive(true);
-		mainRb.isKinematic = false;
+		mainRb.isKinematic = wasKinematic;
 		if (mainCollider)
 			mainCollider.enabled = true;
 

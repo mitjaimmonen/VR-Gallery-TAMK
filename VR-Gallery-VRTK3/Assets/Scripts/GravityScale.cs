@@ -6,7 +6,9 @@ using UnityEngine;
 public class GravityScale : MonoBehaviour {
 
 
-	[SerializeField]private bool affectChildren;
+	[SerializeField]private bool affectThis = true;
+	[SerializeField]private bool affectChildren = true;
+
     [Range(-2f,2f), Tooltip("Change gravity strength. 1 = Default gravity.")]
     [SerializeField]private float gravityScale = 1f;
     private Rigidbody rb;
@@ -14,6 +16,7 @@ public class GravityScale : MonoBehaviour {
 
 
 	bool checkAffectChildren;
+	bool checkAffectThis;
 	bool gravityScaleUpdating = false;
 	float tempGravity;
 
@@ -25,11 +28,15 @@ public class GravityScale : MonoBehaviour {
 	private void Init()
 	{
 		checkAffectChildren = affectChildren;
+		checkAffectThis = affectThis;
 		
 		if (rbChildren != null && rbChildren.Count > 0)
 		{
 			for(int i = 0; i < rbChildren.Count; i++)
 			{
+				if (!affectThis && rbChildren[i].gameObject == this.gameObject)
+					continue;
+
 				rbChildren[i].useGravity = true;
 			}
 			rbChildren.Clear();
@@ -39,11 +46,14 @@ public class GravityScale : MonoBehaviour {
 		{
 			foreach (var temp in GetComponentsInChildren<Rigidbody>(true))
 			{
+				if (!affectThis && temp.gameObject == this.gameObject)
+					continue;
+
 				rbChildren.Add(temp);
 				temp.useGravity = false;
 			}
 		}
-		else
+		else if (affectThis)
 		{
 			rb = GetComponent<Rigidbody>();
 			rb.useGravity = false;
@@ -51,7 +61,7 @@ public class GravityScale : MonoBehaviour {
 	}
     private void FixedUpdate()
     {
-		if (checkAffectChildren != affectChildren)
+		if (checkAffectChildren != affectChildren || checkAffectThis != affectThis) 
 		{
 			//Has to initialize again if bool changes
 			Init();
@@ -66,7 +76,7 @@ public class GravityScale : MonoBehaviour {
 						rbChildren[i].AddForce(Physics.gravity * rbChildren[i].mass * gravityScale);
 				}
 			}
-			else
+			else if (affectThis)
 			{
 				rb.AddForce(Physics.gravity * rb.mass * gravityScale);
 			}

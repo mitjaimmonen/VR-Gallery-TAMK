@@ -6,6 +6,8 @@ using VRTK;
 public class ControllerSetter : MonoBehaviour {
 
 	VRTK_SDKManager sdkManager;
+
+	[SerializeField]GameObject controllerPrefab;
 	[SerializeField]GameObject leftController;
 	[SerializeField]GameObject rightController;
 
@@ -16,13 +18,22 @@ public class ControllerSetter : MonoBehaviour {
 	{
 		if (sdkManager == null)
 		{
-			var temp = GameObject.FindGameObjectWithTag("SDKManager");
-			sdkManager = temp.GetComponentInChildren<VRTK_SDKManager>();
+			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
 		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
 			{
+				if (leftController == null)
+				{
+					leftController = Instantiate(controllerPrefab, transform.position, transform.rotation);
+					leftController.transform.parent = transform;
+				}
+				if (rightController == null)
+				{
+					rightController = Instantiate(controllerPrefab, transform.position, transform.rotation);
+					rightController.transform.parent = transform;
+				}
 				sdkManager.scriptAliasLeftController = leftController;
 				sdkManager.scriptAliasRightController = rightController;
 			}
@@ -33,13 +44,23 @@ public class ControllerSetter : MonoBehaviour {
 	{
 		if (sdkManager == null)
 		{
-			var temp = GameObject.FindGameObjectWithTag("SDKManager");
-			sdkManager = temp.GetComponentInChildren<VRTK_SDKManager>();
+			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
 		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
 			{
+				if (leftController == null)
+				{
+					leftController = Instantiate(controllerPrefab, transform.position, transform.rotation);
+					leftController.transform.parent = transform;
+				}
+				if (rightController == null)
+				{
+					rightController = Instantiate(controllerPrefab, transform.position, transform.rotation);
+					rightController.transform.parent = transform;
+				}
+
 				sdkManager.scriptAliasLeftController = leftController;
 				sdkManager.scriptAliasRightController = rightController;
 			}
