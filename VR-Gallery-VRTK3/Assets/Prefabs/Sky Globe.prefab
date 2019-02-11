@@ -546,8 +546,8 @@ GameObject:
   - component: {fileID: 4955976797414334}
   - component: {fileID: 54394188046955100}
   - component: {fileID: 136042553987116390}
-  - component: {fileID: 114728796597800956}
   - component: {fileID: 114489409500889916}
+  - component: {fileID: 114223243292146356}
   m_Layer: 2
   m_Name: Sky Globe
   m_TagString: Untagged
@@ -7647,6 +7647,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114223243292146356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275616408475366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9944fb9e3731f0408edcd2f45cfe6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugBreak: 0
+  debugSetBroken: 0
+  debugRestore: 0
+  debugRestoreTime: 1
+  meshes: {fileID: 1174663375562906}
+  mainPiece: {fileID: 1026762919842830}
+  mainCollider: {fileID: 136042553987116390}
+  mainRb: {fileID: 54394188046955100}
+  BreakForceRange: {x: 5, y: 10}
+  velocityEffect: 0
+  skyGlobeMaterial: {fileID: 2100000, guid: fa093d0b7b862af4a8bdd33682d68f4a, type: 2}
+  fadeOffOnRestored: 1
+  defaultFadeTime: 5
 --- !u!114 &114489409500889916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7660,28 +7684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   affectThis: 0
   affectChildren: 1
-  gravityScale: 0.4
---- !u!114 &114728796597800956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1275616408475366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1decd09539c535247b85a4504ee876a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugBreak: 0
-  debugSetBroken: 0
-  debugRestore: 0
-  debugRestoreTime: 1
-  meshes: {fileID: 1174663375562906}
-  mainPiece: {fileID: 1026762919842830}
-  mainCollider: {fileID: 136042553987116390}
-  mainRb: {fileID: 54394188046955100}
-  BreakForceRange: {x: 1, y: 5}
-  velocityEffect: 5
+  gravityScale: 0
 --- !u!136 &136042553987116390
 CapsuleCollider:
   m_ObjectHideFlags: 1

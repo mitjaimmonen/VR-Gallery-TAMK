@@ -31,11 +31,6 @@ public class SceneMaster : MonoBehaviour
 
         if (masterCanvas)
             masterCanvas.FadeIn();
-        if (GameMaster.Instance.SceneBehaviour)
-        {
-			Debug.Log("Restore Called here");
-            GameMaster.Instance.SceneBehaviour.RestoreSky(masterCanvas.FadeOnTime);
-        }
         
 
         GetSceneContainers();
@@ -50,8 +45,6 @@ public class SceneMaster : MonoBehaviour
         //Gets called on awake as it is the first time game starts
         if (masterCanvas)
             masterCanvas.FadeIn();
-        if (GameMaster.Instance.SceneBehaviour)
-            GameMaster.Instance.SceneBehaviour.RestoreSky(masterCanvas.FadeOnTime);
         
         GetSceneContainers();
         ResetSceneContainers();

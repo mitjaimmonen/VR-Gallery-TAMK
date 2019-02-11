@@ -215,6 +215,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 169706200}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &392583060 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114223243292146356, guid: 8445bed43c69fd84b9d8728606d5863f,
+    type: 2}
+  m_PrefabInternal: {fileID: 703886639}
+  m_Script: {fileID: 11500000, guid: d9944fb9e3731f0408edcd2f45cfe6ce, type: 3}
 --- !u!1 &491059944
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +367,10 @@ Prefab:
     - target: {fileID: 224101484754448204, guid: 13a64ce2d45ec994caa2ee13418dd877,
         type: 2}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482386924534378, guid: 13a64ce2d45ec994caa2ee13418dd877, type: 2}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -669,8 +679,10 @@ MonoBehaviour:
   cameraColorWithFog: 1
   fogColor: {r: 1, g: 1, b: 1, a: 1}
   fogDensity: 0
-  skyGlobe: {fileID: 1688765785}
+  skyGlobe: {fileID: 392583060}
   skyGlobeRestoreTime: 5
+  startBroken: 1
+  restoreAtSceneStart: 1
 --- !u!4 &1404094668
 Transform:
   m_ObjectHideFlags: 0
@@ -701,12 +713,6 @@ MonoBehaviour:
   headsetPositionCompensation: 1
   targetListPolicy: {fileID: 0}
   navMeshLimitDistance: 0
---- !u!114 &1688765785 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114728796597800956, guid: 8445bed43c69fd84b9d8728606d5863f,
-    type: 2}
-  m_PrefabInternal: {fileID: 703886639}
-  m_Script: {fileID: 11500000, guid: 1decd09539c535247b85a4504ee876a2, type: 3}
 --- !u!1 &1906547830
 GameObject:
   m_ObjectHideFlags: 0
