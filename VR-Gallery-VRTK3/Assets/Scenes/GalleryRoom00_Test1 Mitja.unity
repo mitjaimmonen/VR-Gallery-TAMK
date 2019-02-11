@@ -766,6 +766,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114223243292146356, guid: 8445bed43c69fd84b9d8728606d5863f,
+        type: 2}
+      propertyPath: skyGlobeColor.a
+      value: 0.447
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8445bed43c69fd84b9d8728606d5863f, type: 2}
   m_IsPrefabParent: 0
@@ -1066,6 +1071,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4999272824003930, guid: ae12a9006dfeba743984374c5a4c6651, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114281214779192608, guid: ae12a9006dfeba743984374c5a4c6651,
+        type: 2}
+      propertyPath: disableSceneSwitching
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
