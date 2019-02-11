@@ -7695,7 +7695,8 @@ MonoBehaviour:
   debugBreak: 0
   debugSetBroken: 0
   debugRestore: 0
-  debugRestoreTime: 1
+  keepMainPieceInactive: 0
+  restoreTime: 1
   meshes: {fileID: 1172947715493400}
   mainPiece: {fileID: 1733763229605462}
   mainCollider: {fileID: 136590524584632820}

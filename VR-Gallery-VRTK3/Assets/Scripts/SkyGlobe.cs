@@ -9,7 +9,6 @@ public class SkyGlobe : BreakableMesh {
 	public bool fadeOffOnRestored = true;
 	public float defaultFadeTime = 1f;
 
-	public float restoreTime = 1f;
 	public bool startBroken = false;
 	public bool restoreAtSceneStart = true;
 
@@ -20,12 +19,12 @@ public class SkyGlobe : BreakableMesh {
 
 	private bool changingColor;
 
-	void Awake()
+	void Start()
 	{
 		if (startBroken)
 			SetBroken();
 		if (restoreAtSceneStart)
-			Restore(restoreTime, true);
+			Restore(restoreTime, keepMainPieceInactive);
 
 		skyGlobeMaterial.color = skyGlobeColor;
 	}

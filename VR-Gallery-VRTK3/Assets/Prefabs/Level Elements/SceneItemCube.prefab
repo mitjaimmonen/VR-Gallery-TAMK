@@ -187,7 +187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableSceneSwitching: 0
-  visuals: {fileID: 1751062658383080}
   destroyPS: {fileID: 198548581414516738}
   sceneName: GalleryRoom00_Test2 Jaakko
   breakForce: 3
@@ -235,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33d23b05e3e9be4fa725b2746bb2223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectThis: 1
+  affectChildren: 1
   gravityScale: 1
 --- !u!114 &114571758517501296
 MonoBehaviour:

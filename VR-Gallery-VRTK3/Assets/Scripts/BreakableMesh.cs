@@ -9,11 +9,11 @@ public class BreakableMesh : MonoBehaviour {
 	[SerializeField] protected bool debugBreak;
 	[SerializeField] protected bool debugSetBroken;
 	[SerializeField] protected bool debugRestore;
-	[SerializeField] protected float debugRestoreTime = 1f;
 
 	[Header("Parameters")]
 
-
+	[SerializeField] protected  bool keepMainPieceInactive = false;
+	[SerializeField] protected float restoreTime = 1f;
 	[SerializeField] protected GameObject meshes;
 	[Tooltip("One child should represent the complete piece before being broken.")]
 	[SerializeField] protected GameObject mainPiece;
@@ -44,7 +44,7 @@ public class BreakableMesh : MonoBehaviour {
 		if (debugRestore)
 		{
 			debugRestore = false;
-			Restore(debugRestoreTime);
+			Restore(restoreTime, keepMainPieceInactive);
 		}
 		if (debugSetBroken)
 		{
@@ -237,6 +237,11 @@ public class BreakableMesh : MonoBehaviour {
 			// childPieces[i].Key.isKinematic = true;
 			if (!keepMainPieceInactive)
 				childPieces[i].Key.gameObject.SetActive(false);
+			else
+			{
+				childPieces[i].Key.velocity = Vector3.zero;
+				childPieces[i].Key.angularVelocity = Vector3.zero;
+			}
 		}
 		if (!keepMainPieceInactive)
 		{

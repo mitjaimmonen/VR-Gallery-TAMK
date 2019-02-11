@@ -2415,9 +2415,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d70a3f7edd8704fab20da1c639c8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeoutTime: 1
-  fadeinTime: 0.5
-  fadeinDelay: 0.5
+  fadeOnTime: 1
+  fadeOffTime: 0.5
+  fadeOffDelay: 0.5
   fadeOnColor: {r: 1, g: 1, b: 1, a: 1}
   fadeOffColor: {r: 0, g: 0, b: 0, a: 0}
   fadePanel: {fileID: 114474729582500264}
