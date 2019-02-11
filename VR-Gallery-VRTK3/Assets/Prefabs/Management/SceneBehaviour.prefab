@@ -71,6 +71,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugFog: 1
   fog: 1
+  defaultFogFadeTime: 5
+  fogDensityAtStart: 0
+  fogDelayAtStart: 4
   cameraColorWithFog: 1
-  fogColor: {r: 1, g: 1, b: 1, a: 1}
-  fogDensity: 0.005
+  fogColor: {r: 0.841317, g: 0.9327139, b: 0.97794116, a: 1}
+  fogDensity: 0.2
