@@ -5,10 +5,11 @@ using UnityEngine;
 public class SkyGlobe : BreakableMesh {
 
 	public Material skyGlobeMaterial;
+	public Color skyGlobeColor;
 	public bool fadeOffOnRestored = true;
 	public float defaultFadeTime = 1f;
 
-	public float restoreTime;
+	public float restoreTime = 1f;
 	public bool startBroken = false;
 	public bool restoreAtSceneStart = true;
 
@@ -24,7 +25,9 @@ public class SkyGlobe : BreakableMesh {
 		if (startBroken)
 			SetBroken();
 		if (restoreAtSceneStart)
-			Restore(false, restoreTime, true);
+			Restore(restoreTime, true);
+
+		skyGlobeMaterial.color = skyGlobeColor;
 	}
 	protected override void Restored()
 	{
@@ -52,6 +55,20 @@ public class SkyGlobe : BreakableMesh {
 
 	}
 
+	public void ResetMaterialColor(float time = 0)
+	{
+		newColor = skyGlobeColor;
+		oldColor = skyGlobeMaterial.color;
+
+		if (!changingColor)
+		{
+			if (time != 0)
+				StartCoroutine(SetMaterialColorOverTime(time));
+			else
+				skyGlobeMaterial.color = skyGlobeColor;
+		}
+
+	}
 	private IEnumerator SetMaterialColorOverTime(float time)
 	{
 		changingColor = true;
@@ -85,6 +102,6 @@ public class SkyGlobe : BreakableMesh {
 
 	private void Faded()
 	{
-		
+
 	}
 }

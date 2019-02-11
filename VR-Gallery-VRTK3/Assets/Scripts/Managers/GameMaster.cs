@@ -27,7 +27,17 @@ public class GameMaster : MonoBehaviour
             return _sceneMaster;
         }
     }
-
+    private ControllerSetter _controllerSetter;
+    public ControllerSetter ControllerSetter
+    {
+        get {
+            if (!_controllerSetter)
+            {
+                _controllerSetter = GetComponent<ControllerSetter>();
+            }
+            return _controllerSetter;
+        }
+    }
     private SceneBehaviour _sceneBehaviour;
     public SceneBehaviour SceneBehaviour
     {
@@ -69,6 +79,11 @@ public class GameMaster : MonoBehaviour
     {
         if (!Instance)
             _instance = this;
+    }
+
+    public void SceneChanged()
+    {
+        ControllerSetter.ResetControllers();
     }
 
 }

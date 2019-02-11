@@ -32,6 +32,7 @@ public class SceneMaster : MonoBehaviour
         if (masterCanvas)
             masterCanvas.FadeIn();
         
+        GameMaster.Instance.SceneChanged();
 
         GetSceneContainers();
         ResetSceneContainers();

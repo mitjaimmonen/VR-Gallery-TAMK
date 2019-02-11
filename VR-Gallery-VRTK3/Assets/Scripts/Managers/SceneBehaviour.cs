@@ -13,7 +13,6 @@ public class SceneBehaviour : MonoBehaviour {
 	[Range(0.0f,0.5f)] 
 	public float fogDensity;
 
-
 	private float debugDensity;
 	private Color debugColor;
 

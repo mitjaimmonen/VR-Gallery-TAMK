@@ -44,7 +44,7 @@ public class BreakableMesh : MonoBehaviour {
 		if (debugRestore)
 		{
 			debugRestore = false;
-			Restore(false, debugRestoreTime);
+			Restore(debugRestoreTime);
 		}
 		if (debugSetBroken)
 		{
@@ -147,7 +147,7 @@ public class BreakableMesh : MonoBehaviour {
 	}
 
 	/// <param name="instant">Does not use forces over time. More lightweight to execute.</param>
-	public void Restore(bool instant = true, float restoreTime = 1f, bool keepMainPieceInactive = false)
+	public void Restore(float restoreTime = 1f, bool keepMainPieceInactive = false)
 	{
 		if (!initialized)
 		{
@@ -167,7 +167,7 @@ public class BreakableMesh : MonoBehaviour {
 			return;
 		}
 
-		if (instant)
+		if (restoreTime == 0)
 		{
 			for (int i = 0; i < childPieces.Count; i++)
 			{
@@ -205,7 +205,7 @@ public class BreakableMesh : MonoBehaviour {
 		if (restoreTime == 0)
 		{
 			//Avoids invalid division and restores instantly.
-			Restore(true);
+			Restore(0);
 			yield break;
 		}
 
@@ -229,15 +229,17 @@ public class BreakableMesh : MonoBehaviour {
 			yield return null;
 		}
 
+		//Double check everything is in place.
+		for (int i = 0; i < childPieces.Count; i++)
+		{
+			childPieces[i].Key.gameObject.transform.localPosition = childPieces[i].Value.Key;
+			childPieces[i].Key.gameObject.transform.localRotation = childPieces[i].Value.Value;
+			// childPieces[i].Key.isKinematic = true;
+			if (!keepMainPieceInactive)
+				childPieces[i].Key.gameObject.SetActive(false);
+		}
 		if (!keepMainPieceInactive)
 		{
-			//Pieces can inactivate as mainPiece activates.
-			for (int i = 0; i < childPieces.Count; i++)
-			{
-				// childPieces[i].Key.isKinematic = true;
-				childPieces[i].Key.gameObject.SetActive(false);
-			}
-
 			//Set values back to initial.
 			mainPiece.SetActive(true);
 			mainRb.isKinematic = wasKinematic;
@@ -247,13 +249,13 @@ public class BreakableMesh : MonoBehaviour {
 			mainCollider.enabled = true;
 
 		broken = false;
+		restoring = false;
 		Restored();
 
 	}
 
 	protected virtual void Restored()
 	{
-		restoring = false;
 
 	}
 }

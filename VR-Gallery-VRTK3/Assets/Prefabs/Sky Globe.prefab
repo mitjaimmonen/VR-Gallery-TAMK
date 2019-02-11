@@ -7669,8 +7669,12 @@ MonoBehaviour:
   BreakForceRange: {x: 5, y: 10}
   velocityEffect: 0
   skyGlobeMaterial: {fileID: 2100000, guid: fa093d0b7b862af4a8bdd33682d68f4a, type: 2}
+  skyGlobeColor: {r: 0.5338992, g: 0.6640765, b: 0.9191176, a: 0.759}
   fadeOffOnRestored: 1
   defaultFadeTime: 5
+  restoreTime: 0
+  startBroken: 1
+  restoreAtSceneStart: 1
 --- !u!114 &114489409500889916
 MonoBehaviour:
   m_ObjectHideFlags: 1
