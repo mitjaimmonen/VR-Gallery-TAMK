@@ -9,10 +9,8 @@ public class SceneContainer : MonoBehaviour
     [SerializeField]private bool disableSceneSwitching = false;
 
     [Header("References")]
-    [SerializeField]private GameObject visuals;
     [SerializeField]private ParticleSystem destroyPS;
 
-    [Header("Parameters")]
     [SerializeField]private string sceneName;
     [SerializeField]private float breakForce;
     [SerializeField]private LayerMask breakingLayers;
@@ -20,7 +18,7 @@ public class SceneContainer : MonoBehaviour
     private Rigidbody rb;
     private SceneMaster sceneMaster;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -29,9 +27,9 @@ public class SceneContainer : MonoBehaviour
     {
         Debug.Log("SceneContainer Reset");
         sceneMaster = GameMaster.Instance.SceneMaster;
-        visuals.SetActive(true);
         rb.isKinematic = false;
-        destroyPS.Stop();
+        if (destroyPS)
+            destroyPS.Stop();
     }
 
     private void OnCollisionEnter(Collision col)
@@ -40,9 +38,14 @@ public class SceneContainer : MonoBehaviour
         {
             if (col.impulse.magnitude > breakForce)
             {
-                visuals.SetActive(false);
                 rb.isKinematic = true;
-                destroyPS.Play();
+                if (destroyPS)
+                    destroyPS.Play();
+                if (GetComponent<BreakableMesh>())
+                {
+                    GetComponent<BreakableMesh>().Break(col.impulse);
+                }
+
                 if (!disableSceneSwitching)
                     sceneMaster.SwitchScene(sceneName);
             }
