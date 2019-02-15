@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5668211410abf5f4d8810f542bf3c1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 2
+  interval: 4
   velocityMultiplier: 2
   maxRadius: 0.2
 --- !u!114 &1788503660
