@@ -70,7 +70,7 @@ public class SceneMaster : MonoBehaviour
     {
         
         Debug.Log("Scene activation: " + newScene.name);
-        if (oldScene.name != managerScene && Loadable(oldScene.name))
+        if (oldScene.name != managerScene && Loadable(oldScene.name) && Loadable(currentScene))
         {
             Debug.Log("Unloading scene:" + oldScene.name);
             SceneManager.UnloadSceneAsync(oldScene);
@@ -179,4 +179,12 @@ public class SceneMaster : MonoBehaviour
         StartCoroutine(LoadAndSwitchScene(sceneName));
     }
 
+    public void NextScene()
+    {
+        //Increment build index by one and start loading the scene.
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        currentIndex++;
+        Scene scene = SceneManager.GetSceneByBuildIndex(currentIndex);
+        StartCoroutine(LoadAndSwitchScene(scene.name));
+    }
 }

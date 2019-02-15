@@ -2378,8 +2378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618d1bd6bd34ea041aa380cc2c64c240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerScene: 99_Manager(Persist)
-  startScene: 00_Test Mitja
+  managerScene: 00_Manager
+  startScene: 01_Splash
   sceneSwitchDelay: 1
   overrideFadeOutTime: 1
 --- !u!114 &114158227293011350

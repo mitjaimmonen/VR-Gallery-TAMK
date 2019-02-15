@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ManagerChecker : MonoBehaviour {
 
-	private const string MANAGER_SCENE = "99_Manager(Persist)";
+	[SerializeField] private string managerScene = "99_Manager";
 
 	// Use this for initialization
 	void Awake () {
@@ -13,7 +13,7 @@ public class ManagerChecker : MonoBehaviour {
 		bool apocalypse = true;
 		for (int i = 0; i < SceneManager.sceneCount; i++)
 		{
-			if (SceneManager.GetSceneAt(i).name == MANAGER_SCENE)
+			if (SceneManager.GetSceneAt(i).name == managerScene)
 			{
 				//Alls goods
 				apocalypse = false;
@@ -22,7 +22,11 @@ public class ManagerChecker : MonoBehaviour {
 
 		if (apocalypse)
 		{
-			SceneManager.LoadSceneAsync(MANAGER_SCENE, LoadSceneMode.Additive);
+			if (Application.CanStreamedLevelBeLoaded(managerScene))
+				SceneManager.LoadSceneAsync(managerScene, LoadSceneMode.Additive);
+			else // Assumes manager to be index 0
+				SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
+
 		}
 	}
 
