@@ -132,6 +132,8 @@ namespace VRTK
             if (cachedCameraRig == null && !destroyed)
             {
                 cachedCameraRig = VRTK_SharedMethods.FindEvenInactiveGameObject<SDK_InputSimulator>();
+                if (!cachedCameraRig && GameMaster.Instance)
+                    cachedCameraRig = GameMaster.Instance.GetInputSimulator();
                 if (!cachedCameraRig)
                 {
                     VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_SCENE, "VRSimulatorCameraRig", "SDK_InputSimulator", ". check that the `VRTK/Prefabs/VRSimulatorCameraRig` prefab been added to the scene."));

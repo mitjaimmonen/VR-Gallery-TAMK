@@ -10,6 +10,25 @@ public enum GameState
 
 public class GameMaster : MonoBehaviour
 {
+    [SerializeField] private VRTK.VRTK_SDKManager vrtkPrefab;
+    [SerializeField] private SceneBehaviour sceneBehaviourPrefab;
+    private VRTK.VRTK_SDKManager _vrtk;
+    public VRTK.VRTK_SDKManager vrtk
+    {
+        get
+        {
+            if (!_vrtk)
+            {
+                _vrtk = GetComponentInChildren<VRTK.VRTK_SDKManager>();
+                if (!_vrtk)
+                {
+                    _vrtk = Instantiate(vrtkPrefab, Vector3.zero, Quaternion.identity);
+                }
+            }
+            return _vrtk;
+        }
+    }
+
     private static GameMaster _instance;
     public static GameMaster Instance
     {
@@ -39,19 +58,21 @@ public class GameMaster : MonoBehaviour
         }
     }
     private SceneBehaviour _sceneBehaviour;
-    public SceneBehaviour SceneBehaviour
+    public SceneBehaviour SceneBehaviour()
     {
-        get{
-            if (!_sceneBehaviour)
+        if (!_sceneBehaviour)
+        {
+            var temp = GameObject.FindGameObjectWithTag("SceneBehaviour");
+            if (temp)
             {
-                var temp = GameObject.FindGameObjectWithTag("SceneBehaviour");
-                if (temp)
-                {
-                    _sceneBehaviour = temp.GetComponent<SceneBehaviour>();
-                }
+                _sceneBehaviour = temp.GetComponent<SceneBehaviour>();
             }
-            return _sceneBehaviour;
+            else
+            {
+                _sceneBehaviour = Instantiate(sceneBehaviourPrefab, Vector3.zero, Quaternion.identity);
+            }
         }
+        return _sceneBehaviour;
     }
 
     public Camera CurrentCamera
@@ -60,30 +81,32 @@ public class GameMaster : MonoBehaviour
         set;
     }
 
+    public GameObject GetInputSimulator()
+    {
+        return GetComponentInChildren<VRTK.SDK_InputSimulator>().gameObject;
+    }
+
+
+
 
     private void Awake()
     {
-        if (GameObject.FindGameObjectsWithTag("GameController").Length == 1)
+        if (SceneMaster.IsInManagerScene(this.gameObject))
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
+
+        ControllerSetter.ResetControllers();
+        SceneMaster.MasterAwake();
     }
 
-
-    private void Update()
+    public void SceneStart()
     {
-        if (!Instance)
-            _instance = this;
-    }
-
-    public void SceneChanged()
-    {
+        SceneBehaviour();
         ControllerSetter.ResetControllers();
     }
-
 }

@@ -5,51 +5,104 @@ using UnityEngine.SceneManagement;
 
 public class SceneMaster : MonoBehaviour
 {
-    [SerializeField]private float sceneSwitchDelay = 2f;
+    [SerializeField] private string managerScene;
+    [SerializeField] private string startScene;
+    [SerializeField] private float sceneSwitchDelay = 2f;
+
     [Tooltip("FadeoutTime will be overriden by sceneSwitchDelay if it takes longer.")]
-    [SerializeField]private bool overrideFadeOutTime = true;
+    [SerializeField] private bool overrideFadeOutTime = true;
+    
+
+    private string currentScene;
     private float sceneSwitchInitTime;
     private List<SceneContainer> sceneContainers = new List<SceneContainer>();
     private MasterCanvas masterCanvas;
 
-    private void Awake() 
+    private bool loading;
+
+    public bool IsManagerSceneActive()
     {
-        SceneManager.activeSceneChanged += OnSceneChanged;
-        masterCanvas = GetComponent<MasterCanvas>();
+        return SceneManager.GetActiveScene().name == managerScene;
     }
-    private void Start()
+
+    public bool IsInManagerScene(GameObject obj)
     {
-        OnFirstSceneActivated();
+        return obj.scene.name == managerScene;
+    }
+
+    public void MasterAwake() 
+    {
+        SceneManager.activeSceneChanged += OnSceneActivated;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        masterCanvas = GetComponent<MasterCanvas>();
+
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (SceneManager.GetSceneAt(i).name != managerScene)
+            {
+                if (SceneManager.GetSceneAt(i).name != SceneManager.GetActiveScene().name)
+                {
+                    Debug.Log("Setting scene: " + SceneManager.GetSceneAt(i).name + " active.");
+                    SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
+                }
+
+                currentScene = SceneManager.GetSceneAt(i).name;
+                Debug.Log("Active scene at awake is: " + currentScene);
+            }
+        }
+
+        //If manager scene is only scene. Load default scene.
+        if ( !Loadable(currentScene) )
+        {
+            Debug.Log("Cannot load: " + currentScene + ". Load start-scene.");
+            SwitchScene(startScene);
+        }
+        else if (!SceneManager.GetSceneByName(currentScene).isLoaded)
+        {
+            Debug.Log("Load currentscene");
+            SwitchScene(currentScene);
+        }
+
 
     }
-    private void OnSceneChanged(Scene oldScene, Scene newScene)
+    private void OnSceneActivated(Scene oldScene, Scene newScene)
     {
-        if (oldScene.isLoaded)
+        
+        Debug.Log("Scene activation: " + newScene.name);
+        if (oldScene.name != managerScene && Loadable(oldScene.name))
         {
+            Debug.Log("Unloading scene:" + oldScene.name);
             SceneManager.UnloadSceneAsync(oldScene);
+        }
+
+        currentScene = newScene.name;
+
+        if (currentScene != managerScene)
+        {
+            GameMaster.Instance.SceneStart();
         }
 
         if (masterCanvas)
             masterCanvas.FadeIn();
         
-        GameMaster.Instance.SceneChanged();
-
         GetSceneContainers();
         ResetSceneContainers();
-
-        ResetLoadedScenes();
-
     }
 
-    private void OnFirstSceneActivated()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
-        //Gets called on awake as it is the first time game starts
-        if (masterCanvas)
-            masterCanvas.FadeIn();
-        
-        GetSceneContainers();
-        ResetSceneContainers();
+        if ( scene.name != managerScene  && SceneManager.GetActiveScene() != scene)
+        {
+            SceneManager.SetActiveScene( scene );
+        }
     }
+
+    private bool Loadable(string sceneName)
+    {
+        return Application.CanStreamedLevelBeLoaded(SceneManager.GetSceneByName(sceneName).buildIndex);
+    }
+
 
     private void GetSceneContainers()
     {
@@ -70,15 +123,16 @@ public class SceneMaster : MonoBehaviour
 
     private IEnumerator LoadAndSwitchScene(string sceneName)
     {
-        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        if (!Application.CanStreamedLevelBeLoaded(sceneName) || loading)
         {
-            Debug.LogWarning("Not a valid scene name!");
+            Debug.LogWarning("Can not load scene");
         }
         else
         {
+            loading = true;
             Debug.Log("NextScene: " + sceneName);
             //Begin to load the Scene you specify
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             //Don't let the Scene activate until you allow it to
             asyncOperation.allowSceneActivation = false;
             sceneSwitchInitTime = Time.time;
@@ -118,21 +172,11 @@ public class SceneMaster : MonoBehaviour
         masterCanvas.SetSliderValue(false,0, 0.85f);
         masterCanvas.SetProgressText(true,"Arrived to destination.", 0);
         masterCanvas.SetProgressText(false,"", 0.85f);
-        Debug.Log("Coroutine finished loading scene");
+        loading = false;
     }
     public void SwitchScene(string sceneName)
     {
         StartCoroutine(LoadAndSwitchScene(sceneName));
     }
 
-    public void ResetLoadedScenes()
-    {
-        for(int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            if (SceneManager.GetActiveScene() != SceneManager.GetSceneAt(i))
-            {
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-            }
-        }
-    }
 }
