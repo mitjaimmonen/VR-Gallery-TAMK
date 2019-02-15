@@ -30,6 +30,11 @@ public class CanvasCameraSetter : MonoBehaviour
         {
             canvas.worldCamera = cam;
             GameMaster.Instance.CurrentCamera = cam;
+
+            if (canvas.worldCamera == null)
+                canvas.enabled = false;
+            else
+                canvas.enabled = true;
         }
         else
         {

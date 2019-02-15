@@ -16,7 +16,6 @@ public class SceneContainer : MonoBehaviour
     [SerializeField]private LayerMask breakingLayers;
 
     private Rigidbody rb;
-    private SceneMaster sceneMaster;
 
     void Awake()
     {
@@ -26,7 +25,6 @@ public class SceneContainer : MonoBehaviour
     public void Reset()
     {
         Debug.Log("SceneContainer Reset");
-        sceneMaster = GameMaster.Instance.SceneMaster;
         rb.isKinematic = false;
         if (destroyPS)
             destroyPS.Stop();
@@ -47,7 +45,7 @@ public class SceneContainer : MonoBehaviour
                 }
 
                 if (!disableSceneSwitching)
-                    sceneMaster.SwitchScene(sceneName);
+                    GameMaster.Instance.SceneMaster.SwitchScene(sceneName);
             }
         }
     }

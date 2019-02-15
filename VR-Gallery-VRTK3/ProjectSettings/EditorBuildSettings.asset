@@ -6,17 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/00_Test1 Mitja.unity
-    guid: 1c6c33b2b0086a7418ca6039e99a0808
+    path: Assets/Scenes/00_Manager.unity
+    guid: 1e484267e617b844c983f92507b6e6b4
   - enabled: 1
-    path: Assets/Scenes/00_Test2 Jaakko.unity
-    guid: 6cd9b4c12d62c1e4496b85cd76783ee3
+    path: Assets/Scenes/01_Splash.unity
+    guid: 12103049cd5b4f6469a63cacce1e8265
   - enabled: 1
-    path: Assets/Scenes/00_Test3 Liya.unity
-    guid: 0db392db4d3f1594b85390a34fa0a028
-  - enabled: 1
-    path: Assets/Scenes/01_Main.unity
+    path: Assets/Scenes/02_Main.unity
     guid: 1cc127b385f94444c817d14daf94a0db
   - enabled: 1
-    path: Assets/Scenes/02_Jakob.unity
+    path: Assets/Scenes/03_Jakob.unity
     guid: fdbe76852d355ba4ea403d7dc6322f9c
+  - enabled: 1
+    path: Assets/Scenes/##_Jaakko.unity
+    guid: 6cd9b4c12d62c1e4496b85cd76783ee3
+  - enabled: 1
+    path: Assets/Scenes/##_Mitja.unity
+    guid: 1c6c33b2b0086a7418ca6039e99a0808
+  - enabled: 1
+    path: Assets/Scenes/##_Liya.unity
+    guid: f873a1abe69c5c3418bfd47bc1a9610e
