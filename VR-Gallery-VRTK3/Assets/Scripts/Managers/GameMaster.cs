@@ -27,7 +27,17 @@ public class GameMaster : MonoBehaviour
             return _sceneMaster;
         }
     }
-
+    private ControllerSetter _controllerSetter;
+    public ControllerSetter ControllerSetter
+    {
+        get {
+            if (!_controllerSetter)
+            {
+                _controllerSetter = GetComponent<ControllerSetter>();
+            }
+            return _controllerSetter;
+        }
+    }
     private SceneBehaviour _sceneBehaviour;
     public SceneBehaviour SceneBehaviour
     {
@@ -44,6 +54,11 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public Camera CurrentCamera
+    {
+        get;
+        set;
+    }
 
 
     private void Awake()
@@ -59,18 +74,16 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
         if (!Instance)
             _instance = this;
     }
 
-    private void Reset() 
+    public void SceneChanged()
     {
-
+        ControllerSetter.ResetControllers();
     }
 
-    public void ActiveSceneChanged(string sceneName)
-    {
-    }
 }

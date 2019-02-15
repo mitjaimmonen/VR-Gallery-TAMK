@@ -9,6 +9,7 @@ TagManager:
   - TeleportIgnore
   - SDKManager
   - SceneBehaviour
+  - projectile
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - Ground
   - PostProcessing
-  - 
+  - Environment
   - 
   - 
   - 

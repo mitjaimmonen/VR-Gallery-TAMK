@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class MasterCanvas : MonoBehaviour {
 
 
-    [SerializeField]private float fadeoutTime = 1f;
-    [SerializeField]private float fadeinTime = 0.5f;
-    [SerializeField]private float fadeinDelay = 0.5f;
+    [SerializeField]private float fadeOnTime = 1f;
+    [SerializeField]private float fadeOffTime = 0.5f;
+    [SerializeField]private float fadeOffDelay = 0.5f;
     [SerializeField]private Color fadeOnColor = Color.white;
     [SerializeField]private Color fadeOffColor = Color.clear;
 	[SerializeField]private Image fadePanel;
@@ -17,7 +17,10 @@ public class MasterCanvas : MonoBehaviour {
 
 	private float progressValue;
 
-
+	public float FadeOnTime
+	{
+		get { return fadeOnTime; }
+	}
 
 	private Color currentColor = Color.clear;
 
@@ -41,7 +44,7 @@ public class MasterCanvas : MonoBehaviour {
 
 	public void ClampFadeout(float maxTime)
 	{
-		fadeoutTime = Mathf.Clamp(fadeoutTime, 0f, maxTime);
+		fadeOnTime = Mathf.Clamp(fadeOnTime, 0f, maxTime);
 	}
 
 	public void SetSliderValue(bool active, float value, float delay)
@@ -91,17 +94,17 @@ public class MasterCanvas : MonoBehaviour {
 		StartCoroutine(Fading(false));
 	}
 
-	private IEnumerator Fading(bool fadein)
+	private IEnumerator Fading(bool fadeOff)
 	{
-		Color startCol = fadein ? fadeOnColor : fadeOffColor;
-		Color endCol = fadein ? fadeOffColor : fadeOnColor;
-		float fadetime = fadein ? fadeinTime : fadeoutTime;
+		Color startCol = fadeOff ? fadeOnColor : fadeOffColor;
+		Color endCol = fadeOff ? fadeOffColor : fadeOnColor;
+		float fadetime = fadeOff ? fadeOffTime : fadeOnTime;
 		fadePanel.enabled = true;
 		fadePanel.color = startCol;
 		
-		if (fadein)
+		if (fadeOff)
 		{
-			yield return new WaitForSeconds(fadeinDelay);
+			yield return new WaitForSeconds(fadeOffDelay);
 		}
 
 		float fadeStartTime = Time.time;
@@ -118,7 +121,7 @@ public class MasterCanvas : MonoBehaviour {
 		
 		fadePanel.color = endCol;
 
-		if (fadein)
+		if (fadeOff)
 		{
 			fadePanel.enabled = false;
 		}
