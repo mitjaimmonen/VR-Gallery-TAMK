@@ -999,6 +999,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114281214779192608, guid: ae12a9006dfeba743984374c5a4c6651,
+        type: 2}
+      propertyPath: sceneName
+      value: '##_Liya'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114988481215919824, guid: ae12a9006dfeba743984374c5a4c6651,
+        type: 2}
+      propertyPath: gravityScale
+      value: 1.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae12a9006dfeba743984374c5a4c6651, type: 2}
   m_IsPrefabParent: 0

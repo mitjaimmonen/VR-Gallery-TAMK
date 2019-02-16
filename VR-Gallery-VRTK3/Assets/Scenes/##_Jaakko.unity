@@ -12872,7 +12872,7 @@ Prefab:
     - target: {fileID: 114281214779192608, guid: ae12a9006dfeba743984374c5a4c6651,
         type: 2}
       propertyPath: sceneName
-      value: GalleryRoom00_Test1 Mitja
+      value: '##_Mitja'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae12a9006dfeba743984374c5a4c6651, type: 2}
