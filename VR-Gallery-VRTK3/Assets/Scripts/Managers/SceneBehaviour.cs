@@ -5,6 +5,7 @@ using VRTK;
 
 public class SceneBehaviour : MonoBehaviour {
 
+
 	[Tooltip("Fog will lerp if changed in inspector")]
 	public bool debugFog;
 	public bool fog;
@@ -17,13 +18,14 @@ public class SceneBehaviour : MonoBehaviour {
 	public float fogDensity;
 
 	private float debugDensity;
-
-
 	private Color debugColor;
 	private bool updatingFog;
 
-	// Use this for initialization
-	void Start () {
+
+
+
+	void Start () 
+	{
 		RenderSettings.fogDensity = fogDensityAtStart;
 		RenderSettings.fog = fog;
 		RenderSettings.fogColor = fogColor;

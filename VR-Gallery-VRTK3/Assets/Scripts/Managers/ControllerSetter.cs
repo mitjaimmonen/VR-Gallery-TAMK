@@ -5,11 +5,11 @@ using VRTK;
 
 public class ControllerSetter : MonoBehaviour {
 
-	VRTK_SDKManager sdkManager;
-
 	[SerializeField]GameObject controllerPrefab;
-	[SerializeField]GameObject leftController;
-	[SerializeField]GameObject rightController;
+
+	VRTK_SDKManager sdkManager;
+	GameObject leftController;
+	GameObject rightController;
 
 
 	

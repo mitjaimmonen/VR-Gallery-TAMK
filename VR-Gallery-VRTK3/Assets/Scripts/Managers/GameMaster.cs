@@ -10,24 +10,8 @@ public enum GameState
 
 public class GameMaster : MonoBehaviour
 {
-    [SerializeField] private VRTK.VRTK_SDKManager vrtkPrefab;
     [SerializeField] private SceneBehaviour sceneBehaviourPrefab;
-    private VRTK.VRTK_SDKManager _vrtk;
-    public VRTK.VRTK_SDKManager vrtk
-    {
-        get
-        {
-            if (!_vrtk)
-            {
-                _vrtk = GetComponentInChildren<VRTK.VRTK_SDKManager>();
-                if (!_vrtk)
-                {
-                    _vrtk = Instantiate(vrtkPrefab, Vector3.zero, Quaternion.identity);
-                }
-            }
-            return _vrtk;
-        }
-    }
+    [SerializeField] private VRTK.VRTK_SDKManager sdkManagerPrefab;
 
     private static GameMaster _instance;
     public static GameMaster Instance
@@ -81,18 +65,34 @@ public class GameMaster : MonoBehaviour
         set;
     }
 
-    public GameObject GetInputSimulator()
-    {
-        return GetComponentInChildren<VRTK.SDK_InputSimulator>().gameObject;
-    }
 
+	private VRTK.VRTK_SDKManager _SDKManager;
+	public VRTK.VRTK_SDKManager SDKManager()
+	{
+		if (!_SDKManager)
+		{
+			var temp = GameObject.FindGameObjectWithTag("SDKManager");
+			if (temp)
+				_SDKManager = temp.GetComponent<VRTK.VRTK_SDKManager>();
+			if (!_SDKManager)
+				_SDKManager = Instantiate(sdkManagerPrefab, Vector3.zero, Quaternion.identity);
+		}
+        else if (!GameMaster.Instance.SceneMaster.IsInCurrentScene(_SDKManager.gameObject))
+        {
+            SceneMaster.MoveToScene(_SDKManager.gameObject);
+        }
+
+		Debug.Log("SDK Manager: " + _SDKManager);
+		return _SDKManager;
+	}
 
 
 
     private void Awake()
     {
-        if (SceneMaster.IsInManagerScene(this.gameObject))
+        if (!_instance && GameObject.FindGameObjectsWithTag("GameController").Length  == 1)
         {
+            DontDestroyOnLoad(this.gameObject);
             _instance = this;
         }
         else
@@ -100,13 +100,18 @@ public class GameMaster : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        SceneBehaviour();
+        SDKManager();
+
         ControllerSetter.ResetControllers();
         SceneMaster.MasterAwake();
     }
 
+    //Scene manager calls on scene activation
     public void SceneStart()
     {
         SceneBehaviour();
+        SDKManager();
         ControllerSetter.ResetControllers();
     }
 }
