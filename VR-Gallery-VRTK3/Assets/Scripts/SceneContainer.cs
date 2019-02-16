@@ -11,11 +11,29 @@ public class SceneContainer : MonoBehaviour
     [Header("References")]
     [SerializeField]private ParticleSystem destroyPS;
 
-    [SerializeField]private string sceneName;
+    // [SerializeField]private string sceneName;
+    public SceneReference sceneToLoad;
+
     [SerializeField]private float breakForce;
     [SerializeField]private LayerMask breakingLayers;
 
     private Rigidbody rb;
+
+
+    private void OnGUI()
+    {
+        DisplayLevel(sceneToLoad);
+    }
+
+    public void DisplayLevel(SceneReference scene)
+    {
+        GUILayout.Label(new GUIContent("Scene name Path: " + scene));
+        if (GUILayout.Button("Load " + scene))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+        }
+    }
+
 
     void Awake()
     {
@@ -44,8 +62,9 @@ public class SceneContainer : MonoBehaviour
                     GetComponent<BreakableMesh>().Break(col.impulse);
                 }
 
-                if (!disableSceneSwitching)
-                    GameMaster.Instance.SceneMaster.SwitchScene(sceneName);
+                var sm = GameMaster.Instance.SceneMaster;
+                if (!disableSceneSwitching && sceneToLoad != null)
+                    sm.SwitchScene(sm.GetNameFromPath(sceneToLoad.ScenePath));
             }
         }
     }

@@ -7,7 +7,17 @@ public class ControllerSetter : MonoBehaviour {
 
 	[SerializeField]GameObject controllerPrefab;
 
-	VRTK_SDKManager sdkManager;
+	VRTK_SDKManager _sdkManager;
+	VRTK_SDKManager sdkManager
+	{
+		get
+		{
+			if (!_sdkManager)
+				_sdkManager = GameMaster.Instance.SDKManager();
+			
+			return _sdkManager;
+		}
+	}
 	GameObject leftController;
 	GameObject rightController;
 
@@ -16,10 +26,6 @@ public class ControllerSetter : MonoBehaviour {
 	// Update is called once per frame
 	void Awake () 
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
@@ -42,10 +48,6 @@ public class ControllerSetter : MonoBehaviour {
 
 	void Update()
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
@@ -57,10 +59,6 @@ public class ControllerSetter : MonoBehaviour {
 
 	public void ResetControllers()
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (leftController)

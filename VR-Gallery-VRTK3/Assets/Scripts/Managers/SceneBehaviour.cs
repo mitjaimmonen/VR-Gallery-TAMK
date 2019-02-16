@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using VRTK;
 
 public class SceneBehaviour : MonoBehaviour {
 
+	public PostProcessProfile pppOverride;
 
 	[Tooltip("Fog will lerp if changed in inspector")]
 	public bool debugFog;
+
+	[Header("Fog general parameters")]
+	public bool cameraColorWithFog;
 	public bool fog;
 	public float defaultFogFadeTime;
+
+	[Header("Fog start parameters")]
+	public Color fogColorAtStart;
 	public float fogDensityAtStart;
 	public float fogDelayAtStart;
-	public bool cameraColorWithFog;
+
+	[Header("Fog default parameters")]
 	public Color fogColor;
 	[Range(0.0f,0.5f)] 
 	public float fogDensity;
@@ -21,19 +30,18 @@ public class SceneBehaviour : MonoBehaviour {
 	private Color debugColor;
 	private bool updatingFog;
 
-
-
-
 	void Start () 
 	{
 		RenderSettings.fogDensity = fogDensityAtStart;
 		RenderSettings.fog = fog;
-		RenderSettings.fogColor = fogColor;
+		RenderSettings.fogColor = fogColorAtStart;
 		if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
 		{
 			GameMaster.Instance.CurrentCamera.backgroundColor = fogColor;
 		}
 		SetFog(fog, fogDensity, fogColor, defaultFogFadeTime, fogDelayAtStart);
+		if (pppOverride)
+			GameMaster.Instance.PostProcessingManager.SetProfile(pppOverride);
 	}
 
 	void Update()

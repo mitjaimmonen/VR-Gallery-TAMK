@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 114263506761663042}
   - component: {fileID: 114749237396849254}
   - component: {fileID: 114995200378563736}
+  - component: {fileID: 114592148905977668}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: GameController
@@ -423,6 +424,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114592148905977668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823963889701006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e62b007244d0c54ca1c7bef7f7ed91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultProfile: {fileID: 11400000, guid: 21326531d78ab65498425252ae3a1c5d, type: 2}
 --- !u!114 &114603632170448980
 MonoBehaviour:
   m_ObjectHideFlags: 1

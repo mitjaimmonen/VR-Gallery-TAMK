@@ -22,6 +22,13 @@ public class SceneMaster : MonoBehaviour
         return obj.scene == SceneManager.GetActiveScene();
     }
 
+    public string GetNameFromPath(string path)
+    {
+        string[] asd = path.Split("/Scenes/"[0]);
+        asd = asd[2].Split(".Unity"[0]);
+        return asd[0];
+    }
+
 
     public void MoveToScene(GameObject objToMove, string sceneName = null)
     {
@@ -48,13 +55,14 @@ public class SceneMaster : MonoBehaviour
     {
         Debug.Log("Scene activation: " + newScene.name);
 
+        GameMaster.Instance.SceneStart();
+        
         if (Loadable(oldScene.name) && oldScene.isLoaded)
         {
             Debug.Log("Unloading scene:" + oldScene.name);
             SceneManager.UnloadSceneAsync(oldScene);
         }
 
-        GameMaster.Instance.SceneStart();
 
         if (masterCanvas)
             masterCanvas.FadeIn();
@@ -67,6 +75,7 @@ public class SceneMaster : MonoBehaviour
     {
         if ( SceneManager.GetActiveScene() != scene )
         {
+            GameMaster.Instance.SceneLoaded();
             SceneManager.SetActiveScene( scene );
         }
     }
