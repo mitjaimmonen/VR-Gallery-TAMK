@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1808377134}
   - component: {fileID: 1808377138}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: SplashCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,4 +417,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugSceneSwitch: 1
-  scene: 02_Main
+  scene: 01_Main

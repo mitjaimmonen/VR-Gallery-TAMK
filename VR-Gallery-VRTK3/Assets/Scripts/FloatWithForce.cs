@@ -31,7 +31,7 @@ public class FloatWithForce : MonoBehaviour {
 		{
 			targetPos = originalPos + (Random.insideUnitSphere*maxRadius);
 			intervalTime = Time.time;
-			maxVelocity = maxRadius;
+			maxVelocity = maxRadius/2f;
 		}
 
 		Vector3 dir =targetPos - transform.position;

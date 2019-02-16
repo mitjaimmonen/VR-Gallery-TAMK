@@ -5,17 +5,28 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class RotateWithForce : MonoBehaviour {
 
-	public Vector3 angularForce;
-	public float maxAngularVelocity;
+	public Vector3 angularVelocity;
+	public GameObject overrideObject;
+	// public float maxAngularVelocity;
 	Rigidbody rb;
+	Vector3 vel = Vector3.zero;
 
 	void Awake () {
-		rb = GetComponent<Rigidbody>();
+		if (!overrideObject)
+			rb = GetComponent<Rigidbody>();
+		else
+			rb = overrideObject.GetComponent<Rigidbody>();
+		if (rb)
+			rb.maxAngularVelocity = 200f;
 	}
 	
 	void FixedUpdate () {
-		rb.AddTorque(angularForce);
-		if (rb.angularVelocity.magnitude > maxAngularVelocity)
-			rb.angularVelocity = Vector3.ClampMagnitude(rb.angularVelocity, Mathf.Abs(maxAngularVelocity));
+		if (rb && !rb.isKinematic)
+			rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, angularVelocity, Time.deltaTime);
+		else
+		{
+			vel = Vector3.Lerp(vel, angularVelocity, Time.deltaTime);
+			transform.Rotate(vel);
+		}
 	}
 }
