@@ -13,11 +13,17 @@ ModelImporter:
     400006: Lamp
     2000000: Camera
     2100000: No Name
+    2100002: grass
     2300000: Cone
     3300000: Cone
     4300000: Cone
     10800000: Lamp
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass
+    second: {fileID: 2100000, guid: 718508f6ad0fb51458c4cefebba634e3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -52,10 +58,10 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
