@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,16 +70,11 @@ public class GameMaster : MonoBehaviour
         return _sceneBehaviour;
     }
 
-    public Camera CurrentCamera
+    public Camera[] AllCameras
     {
-        get{ 
-            if (SDKManager() && VRTK.VRTK_DeviceFinder.HeadsetCamera())
-                return VRTK.VRTK_DeviceFinder.HeadsetCamera().GetComponent<Camera>();
-            else
-            {
-                Debug.Log("No CurrentCamera found.");
-                return null;
-            }
+        get
+        { 
+            return SDKManager().GetComponentsInChildren<Camera>(true);
         }
     }
 
@@ -101,6 +96,8 @@ public class GameMaster : MonoBehaviour
         {
             SceneMaster.MoveToScene(_SDKManager.gameObject);
         }
+        else if (_SDKManager.transform.parent == transform)
+            transform.parent = null;
 
 		return _SDKManager;
 	}

@@ -376,6 +376,7 @@ MonoBehaviour:
     type: 2}
   sdkManagerPrefab: {fileID: 114770258688263764, guid: 5fc1d16abe8deef4cb0d09c282390deb,
     type: 2}
+  _SDKManager: {fileID: 0}
 --- !u!114 &114554398860959858
 MonoBehaviour:
   m_ObjectHideFlags: 1

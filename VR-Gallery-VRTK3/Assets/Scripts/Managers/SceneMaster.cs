@@ -36,7 +36,7 @@ public class SceneMaster : MonoBehaviour
         {
             SceneManager.MoveGameObjectToScene(objToMove, SceneManager.GetSceneByName(sceneName));
         }
-        else
+        else if (objToMove != null)
         {
             SceneManager.MoveGameObjectToScene(objToMove, SceneManager.GetActiveScene());
         }

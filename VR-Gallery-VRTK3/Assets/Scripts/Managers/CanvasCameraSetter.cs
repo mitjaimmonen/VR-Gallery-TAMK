@@ -21,7 +21,7 @@ public class CanvasCameraSetter : MonoBehaviour
         }
         if (canvas.worldCamera == null)
         {
-            canvas.worldCamera = GameMaster.Instance.CurrentCamera;
+            canvas.worldCamera = Camera.main;
 
             if (canvas.worldCamera == null)
                 canvas.enabled = false;
@@ -44,7 +44,7 @@ public class CanvasCameraSetter : MonoBehaviour
         }
         if (canvas.worldCamera == null)
         {
-            canvas.worldCamera = GameMaster.Instance.CurrentCamera;
+            canvas.worldCamera = Camera.main;
         }
     }
 }
