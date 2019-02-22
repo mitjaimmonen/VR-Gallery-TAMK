@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,9 @@ public enum GameState
 
 public class GameMaster : MonoBehaviour
 {
+    [SerializeField] private SceneBehaviour sceneBehaviourPrefab;
+    [SerializeField] private VRTK.VRTK_SDKManager sdkManagerPrefab;
+
     private static GameMaster _instance;
     public static GameMaster Instance
     {
@@ -38,52 +41,107 @@ public class GameMaster : MonoBehaviour
             return _controllerSetter;
         }
     }
-    private SceneBehaviour _sceneBehaviour;
-    public SceneBehaviour SceneBehaviour
+    private PostProcessingManager _ppManager;
+    public PostProcessingManager PostProcessingManager
     {
-        get{
-            if (!_sceneBehaviour)
+        get {
+            if (!_ppManager)
             {
-                var temp = GameObject.FindGameObjectWithTag("SceneBehaviour");
-                if (temp)
-                {
-                    _sceneBehaviour = temp.GetComponent<SceneBehaviour>();
-                }
+                _ppManager = GetComponent<PostProcessingManager>();
             }
-            return _sceneBehaviour;
+            return _ppManager;
+        }
+    }
+    private SceneBehaviour _sceneBehaviour;
+    public SceneBehaviour SceneBehaviour()
+    {
+        if (!_sceneBehaviour)
+        {
+            var temp = GameObject.FindGameObjectWithTag("SceneBehaviour");
+            if (temp)
+            {
+                _sceneBehaviour = temp.GetComponent<SceneBehaviour>();
+            }
+            else
+            {
+                _sceneBehaviour = Instantiate(sceneBehaviourPrefab, Vector3.zero, Quaternion.identity);
+            }
+        }
+        return _sceneBehaviour;
+    }
+
+    public Camera[] AllCameras
+    {
+        get
+        { 
+            return SDKManager().GetComponentsInChildren<Camera>(true);
         }
     }
 
-    public Camera CurrentCamera
-    {
-        get;
-        set;
-    }
+    //If sdk manager is missing, new instance is created.
+    //If it is in old scene (as new has loaded), move it to new scene
+    //Otherwise return current reference.
+	private VRTK.VRTK_SDKManager _SDKManager;
+	public VRTK.VRTK_SDKManager SDKManager()
+	{
+		if (!_SDKManager)
+		{
+			var temp = GameObject.FindGameObjectWithTag("SDKManager");
+			if (temp)
+				_SDKManager = temp.GetComponent<VRTK.VRTK_SDKManager>();
+			if (!_SDKManager)
+				_SDKManager = Instantiate(sdkManagerPrefab, Vector3.zero, Quaternion.identity);
+		}
+        else if (!GameMaster.Instance.SceneMaster.IsInCurrentScene(_SDKManager.gameObject))
+        {
+            SceneMaster.MoveToScene(_SDKManager.gameObject);
+        }
+        else if (_SDKManager.transform.parent == transform)
+            transform.parent = null;
+
+		return _SDKManager;
+	}
+
 
 
     private void Awake()
     {
-        if (GameObject.FindGameObjectsWithTag("GameController").Length == 1)
+        if (!_instance && GameObject.FindGameObjectsWithTag("GameController").Length  == 1)
         {
-            _instance = this;
+            //This gameObject becomes persistent if there are no other gameMasters.
             DontDestroyOnLoad(this.gameObject);
+            _instance = this;
         }
         else
         {
             Destroy(this.gameObject);
         }
+
+        //Creates an instance of these if not found.
+        SceneBehaviour();
+        SDKManager();
+
+        //Controller references in sdk are usually fucked, this ensures they are right.
+        ControllerSetter.ResetControllers();
+
+        //Call awake in scenemaster.
+        SceneMaster.MasterAwake();
     }
 
-
-    private void Update()
+    //CAlled before activating new scene.
+    public void SceneLoaded()
     {
-        if (!Instance)
-            _instance = this;
+        //Reset has to be called before new scene calls awake methods,
+        //as sceneBehaviour might override profile.
+        PostProcessingManager.ResetProfile();
     }
 
-    public void SceneChanged()
+    //Scene manager calls on scene activation
+    //Called before unloading previous scene.
+    public void SceneStart()
     {
+        SceneBehaviour();
+        SDKManager();
         ControllerSetter.ResetControllers();
     }
-
 }

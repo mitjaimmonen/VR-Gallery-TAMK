@@ -5,21 +5,27 @@ using VRTK;
 
 public class ControllerSetter : MonoBehaviour {
 
-	VRTK_SDKManager sdkManager;
-
 	[SerializeField]GameObject controllerPrefab;
-	[SerializeField]GameObject leftController;
-	[SerializeField]GameObject rightController;
+
+	VRTK_SDKManager _sdkManager;
+	VRTK_SDKManager sdkManager
+	{
+		get
+		{
+			if (!_sdkManager)
+				_sdkManager = GameMaster.Instance.SDKManager();
+			
+			return _sdkManager;
+		}
+	}
+	GameObject leftController;
+	GameObject rightController;
 
 
 	
 	// Update is called once per frame
 	void Awake () 
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
@@ -42,10 +48,6 @@ public class ControllerSetter : MonoBehaviour {
 
 	void Update()
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (sdkManager.scriptAliasLeftController == null || sdkManager.scriptAliasRightController == null)
@@ -57,10 +59,6 @@ public class ControllerSetter : MonoBehaviour {
 
 	public void ResetControllers()
 	{
-		if (sdkManager == null)
-		{
-			sdkManager = GetComponentInChildren<VRTK_SDKManager>();
-		}
 		if (sdkManager)
 		{
 			if (leftController)
@@ -83,12 +81,15 @@ public class ControllerSetter : MonoBehaviour {
 			
 			if (sdkManager.loadedSetup)
 			{
-				leftController.transform.parent = sdkManager.loadedSetup.actualLeftController.transform;
-				rightController.transform.parent = sdkManager.loadedSetup.actualRightController.transform;
-				leftController.transform.localPosition = Vector3.zero;
-				leftController.transform.localEulerAngles = Vector3.zero;
-				rightController.transform.localPosition = Vector3.zero;
-				rightController.transform.localEulerAngles = Vector3.zero;
+				if (sdkManager.loadedSetup.actualLeftController && sdkManager.loadedSetup.actualRightController)
+				{
+					leftController.transform.parent = sdkManager.loadedSetup.actualLeftController.transform;
+					rightController.transform.parent = sdkManager.loadedSetup.actualRightController.transform;
+					leftController.transform.localPosition = Vector3.zero;
+					leftController.transform.localEulerAngles = Vector3.zero;
+					rightController.transform.localPosition = Vector3.zero;
+					rightController.transform.localEulerAngles = Vector3.zero;
+				}
 			}
 		}
 	}

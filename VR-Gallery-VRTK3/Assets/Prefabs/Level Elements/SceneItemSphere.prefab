@@ -7714,9 +7714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9574b4d5b598540920324617e217d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableSceneSwitching: 1
+  disableSceneSwitching: 0
   destroyPS: {fileID: 198034110306639520}
-  sceneName: GalleryRoom00_Test3 Liya
+  sceneName: 00_Test Liya
   breakForce: 3
   breakingLayers:
     serializedVersion: 2
