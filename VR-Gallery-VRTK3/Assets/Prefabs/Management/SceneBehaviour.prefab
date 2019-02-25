@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4352320847961554}
   - component: {fileID: 23437457039599390}
   - component: {fileID: 33257699287530526}
+  - component: {fileID: 114324206905844696}
   - component: {fileID: 114437998808634208}
   - component: {fileID: 114000853923829768}
   - component: {fileID: 114337767884440898}
-  - component: {fileID: 114324206905844696}
   m_Layer: 0
   m_Name: SceneBehaviour
   m_TagString: SceneBehaviour
@@ -119,10 +119,10 @@ MonoBehaviour:
   cameraColorWithFog: 1
   fog: 1
   defaultFogFadeTime: 5
-  fogColorAtStart: {r: 0, g: 0, b: 0, a: 0}
+  fogColorAtStart: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   fogDensityAtStart: 0
   fogDelayAtStart: 4
-  fogColor: {r: 0.841317, g: 0.9327139, b: 0.97794116, a: 1}
+  fogColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   fogDensity: 0.2
 --- !u!114 &114337767884440898
 MonoBehaviour:
@@ -151,7 +151,7 @@ MonoBehaviour:
   borderThickness: 0.1
   wireframeHeight: 1.5
   drawWireframeWhenSelectedOnly: 1
-  drawInGame: 0
+  drawInGame: 1
   size: 2
   color: {r: 0, g: 1, b: 1, a: 0.559}
   vertices:

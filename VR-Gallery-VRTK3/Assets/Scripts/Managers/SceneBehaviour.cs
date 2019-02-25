@@ -30,18 +30,33 @@ public class SceneBehaviour : MonoBehaviour {
 	private Color debugColor;
 	private bool updatingFog;
 
+
 	void Start () 
 	{
 		RenderSettings.fogDensity = fogDensityAtStart;
 		RenderSettings.fog = fog;
 		RenderSettings.fogColor = fogColorAtStart;
-		if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
-		{
-			GameMaster.Instance.CurrentCamera.backgroundColor = fogColor;
-		}
+		if (cameraColorWithFog)
+			SetCameraColor(fogColorAtStart);
+
 		SetFog(fog, fogDensity, fogColor, defaultFogFadeTime, fogDelayAtStart);
 		if (pppOverride)
 			GameMaster.Instance.PostProcessingManager.SetProfile(pppOverride);
+	}
+
+	void SetCameraColor(Color col)
+	{
+		if (Camera.main)
+		{
+			Camera.main.backgroundColor = col;
+		}
+		else
+		{
+			foreach (var cam in GameMaster.Instance.AllCameras)
+			{
+				cam.backgroundColor = col;
+			}
+		}
 	}
 
 	void Update()
@@ -68,24 +83,25 @@ public class SceneBehaviour : MonoBehaviour {
 
 	private IEnumerator UpdateFogOverTime(float lerpTime, float delay, Curve curve)
 	{
-		updatingFog = true;
-		if (delay > 0)
-			yield return new WaitForSeconds(delay);
-		
 		float t = 0;
 		float startDensity = RenderSettings.fogDensity;
 		float endDensity = fogDensity;
+		Color startFogColor = RenderSettings.fogColor;
+		Color startCamColor = RenderSettings.fogColor;
+		Color endColor = fogColor;
+		updatingFog = true;
+
+		if (delay > 0)
+			yield return new WaitForSeconds(delay);
+			
 		if (!RenderSettings.fog)
 		{
 			RenderSettings.fogColor = fogColor;
 			RenderSettings.fogDensity = 0;
 			RenderSettings.fog = fog;
 		}
-		Color startFogColor = RenderSettings.fogColor;
-		Color startCamColor = Color.white;
-		if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
-			startCamColor = GameMaster.Instance.CurrentCamera.backgroundColor;
-		Color endColor = fogColor;
+		if (cameraColorWithFog)
+			SetCameraColor(startCamColor);
 
 		while(lerpTime != 0 && t < lerpTime)
 		{
@@ -93,8 +109,8 @@ public class SceneBehaviour : MonoBehaviour {
 			RenderSettings.fogColor = Color.Lerp(startFogColor, endColor, Easing.Ease(t/lerpTime, curve));
 			t += Time.deltaTime;
 
-			if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
-				GameMaster.Instance.CurrentCamera.backgroundColor = Color.Lerp(startCamColor, endColor, Easing.Ease(t/lerpTime, curve));
+			if (cameraColorWithFog && Camera.main)
+				SetCameraColor( Color.Lerp(startCamColor, endColor, Easing.Ease(t/lerpTime, curve)) );
 
 			if (fogDensity != endDensity || fogColor != endColor)
 			{
@@ -104,8 +120,8 @@ public class SceneBehaviour : MonoBehaviour {
 				startDensity = RenderSettings.fogDensity;
 				endColor = fogColor;
 				endDensity = fogDensity;
-				if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
-					startCamColor = GameMaster.Instance.CurrentCamera.backgroundColor;
+				if (cameraColorWithFog && Camera.main)
+					startCamColor = Camera.main.backgroundColor;
 			}
 
 			yield return null;
@@ -115,8 +131,8 @@ public class SceneBehaviour : MonoBehaviour {
 		RenderSettings.fogDensity = fogDensity;
 		RenderSettings.fogColor = fogColor;
 		
-		if (cameraColorWithFog && GameMaster.Instance.CurrentCamera)
-			GameMaster.Instance.CurrentCamera.backgroundColor = fogColor;
+		if (cameraColorWithFog && Camera.main)
+			Camera.main.backgroundColor = fogColor;
 
 		updatingFog = false;
 

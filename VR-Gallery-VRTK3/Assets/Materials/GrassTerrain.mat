@@ -106,7 +106,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shininess: 0.05
+    - _Shininess: 0.047
     - _Smoothness0: 1
     - _Smoothness1: 1
     - _Smoothness2: 1

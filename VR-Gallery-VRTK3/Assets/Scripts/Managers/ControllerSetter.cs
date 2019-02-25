@@ -81,12 +81,15 @@ public class ControllerSetter : MonoBehaviour {
 			
 			if (sdkManager.loadedSetup)
 			{
-				leftController.transform.parent = sdkManager.loadedSetup.actualLeftController.transform;
-				rightController.transform.parent = sdkManager.loadedSetup.actualRightController.transform;
-				leftController.transform.localPosition = Vector3.zero;
-				leftController.transform.localEulerAngles = Vector3.zero;
-				rightController.transform.localPosition = Vector3.zero;
-				rightController.transform.localEulerAngles = Vector3.zero;
+				if (sdkManager.loadedSetup.actualLeftController && sdkManager.loadedSetup.actualRightController)
+				{
+					leftController.transform.parent = sdkManager.loadedSetup.actualLeftController.transform;
+					rightController.transform.parent = sdkManager.loadedSetup.actualRightController.transform;
+					leftController.transform.localPosition = Vector3.zero;
+					leftController.transform.localEulerAngles = Vector3.zero;
+					rightController.transform.localPosition = Vector3.zero;
+					rightController.transform.localEulerAngles = Vector3.zero;
+				}
 			}
 		}
 	}

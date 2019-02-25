@@ -22,32 +22,15 @@ public class PostProcessingManager : MonoBehaviour {
 			return _sdkManager;
 		}
 	}
-
-	Transform _sdkCamera;
-	Transform SdkCamera
-	{
-		get
-		{
-			if (!_sdkCamera)
-			{
-				_sdkCamera = VRTK.VRTK_DeviceFinder.HeadsetCamera();
-				Debug.Log(_sdkCamera);
-			}
-
-			return _sdkCamera;
-		}
-	}
-
 	// In camera.
 	PostProcessLayer ppLayer 
 	{
 		get
 		{ 
-			if (SdkCamera)
-				return SdkCamera.GetComponent<PostProcessLayer>();
+			if (Camera.main)
+				return Camera.main.GetComponent<PostProcessLayer>();
 			else
 				return null;
-				
 		}
 	}
 
@@ -56,11 +39,10 @@ public class PostProcessingManager : MonoBehaviour {
 	{
 		get
 		{ 
-			if (SdkCamera)
-				return SdkCamera.GetComponentInChildren<PostProcessVolume>();
+			if (Camera.main)
+				return Camera.main.GetComponentInChildren<PostProcessVolume>();
 			else
 				return null;
-				
 		}
 	}
 
