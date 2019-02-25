@@ -18,6 +18,7 @@ public class SceneBehaviour : MonoBehaviour {
 
 	[Header("Fog start parameters")]
 	public Color fogColorAtStart;
+	[Range(0.0f,0.5f)] 
 	public float fogDensityAtStart;
 	public float fogDelayAtStart;
 
