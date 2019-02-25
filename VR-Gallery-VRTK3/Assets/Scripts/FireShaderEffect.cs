@@ -2,7 +2,7 @@
 using System.Collections;
 
 [ExecuteInEditMode]
-public class Fire : MonoBehaviour
+public class FireShaderEffect : MonoBehaviour
 {
 	public float m_Brightness = 8.0f;
 	public float m_Speed = 1.0f;
