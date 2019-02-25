@@ -132,6 +132,53 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: a4b8f6c8ff8db6d4491a6b5eb7ebab8e, type: 3}
+--- !u!1001 &34802782
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.575
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.7585236
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.306
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 23862342812547128, guid: 349bf34943aa78b488145cf90bf7c68a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f77f92bab234e34b94952ea06036084, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &89632261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,48 +1376,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1299558781}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1316288112
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.575
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.7585236
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.306
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710029049408372, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 349bf34943aa78b488145cf90bf7c68a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1455388334
 Prefab:
   m_ObjectHideFlags: 0
