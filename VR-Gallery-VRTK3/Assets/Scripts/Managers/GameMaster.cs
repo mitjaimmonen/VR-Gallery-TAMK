@@ -74,7 +74,10 @@ public class GameMaster : MonoBehaviour
     {
         get
         { 
-            return SDKManager().GetComponentsInChildren<Camera>(true);
+            if (SDKManager())
+                return SDKManager().GetComponentsInChildren<Camera>(true);
+            else
+                return null;
         }
     }
 

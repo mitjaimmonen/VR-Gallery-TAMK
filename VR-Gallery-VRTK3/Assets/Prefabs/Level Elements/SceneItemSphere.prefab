@@ -7716,7 +7716,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableSceneSwitching: 0
   destroyPS: {fileID: 198034110306639520}
-  sceneName: 00_Test Liya
+  sceneToLoad:
+    sceneAsset: {fileID: 0}
+    scenePath: 
   breakForce: 3
   breakingLayers:
     serializedVersion: 2
