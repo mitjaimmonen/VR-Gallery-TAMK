@@ -34,12 +34,12 @@ public class ExplodingCow : MonoBehaviour {
 
 	void Update()
 	{
-		if (debugBlowUp)
+		if (debugBlowUp || Input.GetKeyDown(KeyCode.J))
 		{
 			debugBlowUp = false;
 			BlowUp();
 		}
-		if (debugRestore)
+		if (debugRestore || Input.GetKeyDown(KeyCode.H))
 		{
 			debugRestore = false;
 			Restore();
@@ -101,10 +101,12 @@ public class ExplodingCow : MonoBehaviour {
 	public void BlowUp()
 	{
 		meshObject.SetActive(false);
+		float force = explosionForce;
 		foreach (var rb in vegetables)
 		{
+			force = Random.Range(explosionForce*0.25f, explosionForce);
 			rb.gameObject.SetActive(true);
-			rb.AddExplosionForce(explosionForce, explosionOrigin.position, 20f, explosionForce*0.1f, ForceMode.Impulse);
+			rb.AddExplosionForce(force, explosionOrigin.position, 20f, explosionForce*0.1f, ForceMode.Impulse);
 		}
 
 	}
@@ -115,6 +117,8 @@ public class ExplodingCow : MonoBehaviour {
 		for (int i = 0; i < vegetables.Count; i++)
 		{
 			vegetables[i].gameObject.SetActive(false);
+			vegetables[i].velocity = Vector3.zero;
+			vegetables[i].angularVelocity = Vector3.zero;
 			vegetables[i].transform.position = veggieOriginalPos[i];
 		}
 	}

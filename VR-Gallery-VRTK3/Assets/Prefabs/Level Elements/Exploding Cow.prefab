@@ -65,6 +65,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4197443707651688}
   - component: {fileID: 114500277929529716}
+  - component: {fileID: 65965010158816138}
+  - component: {fileID: 114011179177877906}
   m_Layer: 0
   m_Name: Exploding Cow
   m_TagString: Untagged
@@ -431,6 +433,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813502084899162}
   m_Mesh: {fileID: 4300000, guid: 4fa93c37d2490584c994513a5f86670d, type: 3}
+--- !u!65 &65965010158816138
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109856242415290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.530518, z: 2.3327553}
+  m_Center: {x: 0.0000000010184991, y: -0.26525903, z: -0.28408384}
+--- !u!114 &114011179177877906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109856242415290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e104da36bd3b04b90c6ae969ac66dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customColliderContainer: {fileID: 0}
 --- !u!114 &114500277929529716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugBlowUp: 0
   debugRestore: 0
-  vegetableAmount: 100
+  vegetableAmount: 200
   SpawnPointsParent: {fileID: 4011361468488718}
   explosionOrigin: {fileID: 4435265733000850}
   meshObject: {fileID: 1813502084899162}
