@@ -10,6 +10,7 @@ TagManager:
   - SDKManager
   - SceneBehaviour
   - projectile
+  - pedestal
   layers:
   - Default
   - TransparentFX

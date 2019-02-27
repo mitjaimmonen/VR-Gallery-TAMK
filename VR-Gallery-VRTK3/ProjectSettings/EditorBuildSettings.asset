@@ -10,19 +10,25 @@ EditorBuildSettings:
     guid: 12103049cd5b4f6469a63cacce1e8265
   - enabled: 1
     path: Assets/Scenes/01Main.unity
-    guid: 881cd6365ec083e449e608f1f6ae2c62
+    guid: f873a1abe69c5c3418bfd47bc1a9610e
   - enabled: 1
-    path: Assets/Scenes/02Jakob.unity
+    path: Assets/Scenes/02JakobCow.unity
     guid: fdbe76852d355ba4ea403d7dc6322f9c
   - enabled: 1
-    path: Assets/Scenes/03Tatu.unity
+    path: Assets/Scenes/03TatuBlackWhite.unity
     guid: bee20f2b347ccfc44bef290a090799e1
+  - enabled: 1
+    path: Assets/Scenes/04InaFire.unity
+    guid: eebf417ece60f70459fd5c183fd9325a
+  - enabled: 1
+    path: Assets/Scenes/05JuliaCherry.unity
+    guid: 49d703ed2828e8d43a880aa0c5ef8135
+  - enabled: 1
+    path: Assets/Scenes/06Sofi.unity
+    guid: 9b3879959a36dbb47bf097742ff58539
   - enabled: 1
     path: Assets/Scenes/##Jaakko.unity
     guid: 6cd9b4c12d62c1e4496b85cd76783ee3
   - enabled: 1
     path: Assets/Scenes/##Mitja.unity
     guid: 1c6c33b2b0086a7418ca6039e99a0808
-  - enabled: 1
-    path: Assets/Scenes/##Liya.unity
-    guid: f873a1abe69c5c3418bfd47bc1a9610e
