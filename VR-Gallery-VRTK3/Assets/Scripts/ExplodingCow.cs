@@ -9,6 +9,7 @@ public class ExplodingCow : MonoBehaviour {
 
 	public int vegetableAmount = 10;
 	public Transform SpawnPointsParent;
+	public Transform ExplosionPSParent;
 	public Transform explosionOrigin;
 	public GameObject meshObject;
 	
@@ -17,9 +18,11 @@ public class ExplodingCow : MonoBehaviour {
 	public float spawnRadius = 1f;
 
 	public float explosionForce = 5f;
+	public float explosionForcePSMultiplier = 2f;
 
 	
 	private List<Transform> spawnPoints = new List<Transform>();
+	private List<ParticleSystem> explosionParticleSystems = new List<ParticleSystem>();
 	private List<Rigidbody> vegetables = new List<Rigidbody>();
 	private Vector3[] veggieOriginalPos;
 
@@ -30,6 +33,7 @@ public class ExplodingCow : MonoBehaviour {
 		GetSpawnPoints();
 		SpawnVegetables();
 		ArrayFromVeggiePositions();
+		GetExplodeParticleSystems();
 	}
 
 	void Update()
@@ -46,7 +50,35 @@ public class ExplodingCow : MonoBehaviour {
 		}
 	}
 
+	void GetExplodeParticleSystems()
+	{
+		explosionParticleSystems = new List<ParticleSystem>();
+		foreach(var ps in ExplosionPSParent.GetComponentsInChildren<ParticleSystem>())
+		{
+			explosionParticleSystems.Add(ps);
+		}
+	}
 
+	void PlayExplosionParticles()
+	{
+		foreach(var ps in explosionParticleSystems)
+		{
+			var minmax = new ParticleSystem.MinMaxCurve();
+			minmax.constantMin = explosionForce * 0.1f * explosionForcePSMultiplier;
+			minmax.constantMax = explosionForce * explosionForcePSMultiplier;
+			minmax.mode = ParticleSystemCurveMode.TwoConstants;
+			var main = ps.main;
+			main.startSpeed = minmax;
+			ps.Play();
+		}
+	}
+
+	private void OnTriggerEnter(Collider other) {
+		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
+		{
+			BlowUp();
+		}
+	}
 
 	void GetSpawnPoints()
 	{
@@ -102,6 +134,7 @@ public class ExplodingCow : MonoBehaviour {
 	{
 		meshObject.SetActive(false);
 		float force = explosionForce;
+		PlayExplosionParticles();
 		foreach (var rb in vegetables)
 		{
 			force = Random.Range(explosionForce*0.25f, explosionForce);

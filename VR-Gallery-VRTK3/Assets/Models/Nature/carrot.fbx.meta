@@ -1,21 +1,30 @@
 fileFormatVersion: 2
-guid: 4fa93c37d2490584c994513a5f86670d
+guid: a63261aba40943b4583515ce902506f6
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Camera
+    100004: carrot
+    100006: Lamp
     400000: //RootNode
-    2100000: lambert1
+    400002: Camera
+    400004: carrot
+    400006: Lamp
+    2000000: Camera
+    2100000: Crrot Mat
     2300000: //RootNode
+    2300002: carrot
     3300000: //RootNode
-    4300000: cow_lp
-    6400000: //RootNode
+    3300002: carrot
+    4300000: carrot
+    10800000: Lamp
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: a263d92ad9a58d841aa272622953032a, type: 2}
+      name: Crrot Mat
+    second: {fileID: 2100000, guid: f8614f31d03d27145af2a92d7a4598cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -47,13 +56,13 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

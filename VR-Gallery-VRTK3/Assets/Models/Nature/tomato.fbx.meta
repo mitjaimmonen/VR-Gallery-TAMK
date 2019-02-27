@@ -1,21 +1,21 @@
 fileFormatVersion: 2
-guid: 4fa93c37d2490584c994513a5f86670d
+guid: e4ec99eb8cb00324ea5a5a1dd21db56e
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: Tomato Mat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: cow_lp
-    6400000: //RootNode
+    4300000: Cube
+    4300002: tomato
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: a263d92ad9a58d841aa272622953032a, type: 2}
+      name: Tomato Mat
+    second: {fileID: 2100000, guid: 7ef13a7aba5df1e4b952e5b763411734, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -47,7 +47,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 0

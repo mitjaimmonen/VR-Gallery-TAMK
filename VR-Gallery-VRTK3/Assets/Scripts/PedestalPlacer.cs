@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 [ExecuteInEditMode]
 public class PedestalPlacer : MonoBehaviour {
@@ -13,6 +14,7 @@ public class PedestalPlacer : MonoBehaviour {
 	[SerializeField] float radius;
 	[SerializeField] float angleOffset;
 	[SerializeField] Transform floor;
+	[SerializeField] bool usePlayArea = false;
 
 	void Awake () {
 		GetGoData();
@@ -34,6 +36,10 @@ public class PedestalPlacer : MonoBehaviour {
 		float angle = 2*Mathf.PI/positionsArray.Length;
 		Vector3 centre = transform.position;
 		centre.y = floorHeight;
+		if (usePlayArea)
+		{
+			//aaaaaaa
+		}
 		for (int i = 0; i < positionsArray.Length; i++)
 		{
 			float a = angle * i + angleOffset;
