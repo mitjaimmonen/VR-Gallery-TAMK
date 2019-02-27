@@ -15,7 +15,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tomato Mat
-    second: {fileID: 2100000, guid: 7ef13a7aba5df1e4b952e5b763411734, type: 2}
+    second: {fileID: 2100000, guid: f8614f31d03d27145af2a92d7a4598cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

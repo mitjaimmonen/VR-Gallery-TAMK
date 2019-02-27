@@ -599,7 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugBlowUp: 0
   debugRestore: 0
-  vegetableAmount: 50
+  vegetableAmount: 40
   SpawnPointsParent: {fileID: 4011361468488718}
   ExplosionPSParent: {fileID: 4289565971698476}
   explosionOrigin: {fileID: 4435265733000850}
@@ -608,8 +608,10 @@ MonoBehaviour:
   - {fileID: 1781931294148982, guid: 5c1205cf7bbbd274281cd1490783885d, type: 2}
   - {fileID: 1685942270870278, guid: 00d0e6d4a81a587429746860aaad1589, type: 2}
   - {fileID: 1604495332313898, guid: f048ed229b7a256489b3983d33ab2664, type: 2}
-  spawnRadius: 1
+  - {fileID: 1231562334739628, guid: 8ab63bc26e87a25488b56101d72448f5, type: 2}
+  spawnRadius: 0.5
   explosionForce: 3
+  explosionForcePSMultiplier: 2
 --- !u!136 &136568978974827758
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -696,15 +698,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1878509692
+  randomSeed: 282970680
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 5
-      minScalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1092,7 +1094,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -4108,9 +4110,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 5
-      minScalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4498,7 +4500,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -7514,9 +7516,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 5
-      minScalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7904,7 +7906,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -10920,9 +10922,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 5
-      minScalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -11310,7 +11312,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     size3D: 0
     rotation3D: 0
     gravityModifier:

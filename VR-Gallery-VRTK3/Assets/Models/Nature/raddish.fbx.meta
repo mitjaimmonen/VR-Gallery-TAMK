@@ -17,7 +17,12 @@ ModelImporter:
     3300000: raddish
     4300000: raddish
     10800000: Lamp
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Raddish Mat
+    second: {fileID: 2100000, guid: f8614f31d03d27145af2a92d7a4598cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -52,10 +57,10 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

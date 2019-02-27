@@ -25,11 +25,15 @@ public class ExplodingCow : MonoBehaviour {
 	private List<ParticleSystem> explosionParticleSystems = new List<ParticleSystem>();
 	private List<Rigidbody> vegetables = new List<Rigidbody>();
 	private Vector3[] veggieOriginalPos;
+	private Vector3 meshOrigScale;
 
 
+	private bool isBlownUp;
 
 	// Use this for initialization
 	void Start () {
+		meshOrigScale = meshObject.transform.localScale;
+
 		GetSpawnPoints();
 		SpawnVegetables();
 		ArrayFromVeggiePositions();
@@ -59,39 +63,6 @@ public class ExplodingCow : MonoBehaviour {
 		}
 	}
 
-	void PlayExplosionParticles()
-	{
-		foreach(var ps in explosionParticleSystems)
-		{
-			var minmax = new ParticleSystem.MinMaxCurve();
-			minmax.constantMin = explosionForce * 0.1f * explosionForcePSMultiplier;
-			minmax.constantMax = explosionForce * explosionForcePSMultiplier;
-			minmax.mode = ParticleSystemCurveMode.TwoConstants;
-			var main = ps.main;
-			main.startSpeed = minmax;
-			ps.Play();
-		}
-	}
-
-	private void OnTriggerEnter(Collider other) {
-		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
-		{
-			BlowUp();
-		}
-	}
-
-	void GetSpawnPoints()
-	{
-		spawnPoints = new List<Transform>();
-		foreach (var trans in SpawnPointsParent.GetComponentsInChildren<Transform>(true))
-		{
-			if (trans != SpawnPointsParent)
-			{
-				spawnPoints.Add(trans);
-			}
-		}
-	}
-	
 	void SpawnVegetables()
 	{
 		Vector3 spawnPos = Vector3.zero;
@@ -103,9 +74,6 @@ public class ExplodingCow : MonoBehaviour {
 			//Divide amount with spawnpoints
 			for (int amountIndex = 0; amountIndex < vegetableAmount/spawnPoints.Count; amountIndex++)
 			{
-				//Instantiate same amount of every veggie
-				// veggie = amountIndex < vegetableObjects.Count ? amountIndex : amountIndex % vegetableObjects.Count;
-				//Get random spawnpos from current spawnpoint
 				Debug.Log(veggie);
 				spawnPos = spawnPoints[spawnIndex].position + Random.insideUnitSphere*spawnRadius;
 
@@ -118,6 +86,7 @@ public class ExplodingCow : MonoBehaviour {
 				veggie %= vegetableObjects.Count;
 				
 			}
+
 		}
 	}
 
@@ -130,23 +99,89 @@ public class ExplodingCow : MonoBehaviour {
 		}
 	}
 
+
+	void GetSpawnPoints()
+	{
+		spawnPoints = new List<Transform>();
+		foreach (var trans in SpawnPointsParent.GetComponentsInChildren<Transform>(true))
+		{
+			if (trans != SpawnPointsParent)
+			{
+				spawnPoints.Add(trans);
+			}
+		}
+	}
+	private void OnTriggerEnter(Collider other) 
+	{
+		if (!isBlownUp && other.GetComponentInParent<VRTK.VRTK_TrackedController>())
+		{
+			BlowUp();
+		}
+	}
+	IEnumerator PlayExplosionParticles()
+	{
+		var minmax = new ParticleSystem.MinMaxCurve();
+		minmax.constantMin = explosionForce * 0.1f * explosionForcePSMultiplier;
+		minmax.constantMax = explosionForce * explosionForcePSMultiplier;
+		minmax.mode = ParticleSystemCurveMode.TwoConstants;
+
+		foreach(var ps in explosionParticleSystems)
+		{
+			var main = ps.main;
+			main.startSpeed = minmax;
+			ps.Play();
+
+			//Allows more time to execute all
+			yield return new WaitForSeconds(0.2f / explosionParticleSystems.Count);
+		}
+	}
+	
+
 	public void BlowUp()
 	{
-		meshObject.SetActive(false);
+		StartCoroutine(PlayExplosionParticles());
+		StartCoroutine(VeggieRbBlowUp());
+		StartCoroutine(MeshBlowUp());
+		isBlownUp = true;
+	}
+
+	IEnumerator VeggieRbBlowUp()
+	{
 		float force = explosionForce;
-		PlayExplosionParticles();
 		foreach (var rb in vegetables)
 		{
 			force = Random.Range(explosionForce*0.25f, explosionForce);
 			rb.gameObject.SetActive(true);
 			rb.AddExplosionForce(force, explosionOrigin.position, 20f, explosionForce*0.1f, ForceMode.Impulse);
-		}
 
+			//Blow up takes 0,2 seconds.
+			yield return new WaitForSeconds(0.2f / vegetables.Count);
+		}
+	}
+
+	IEnumerator MeshBlowUp()
+	{
+		float t = 0;
+		float lerpTime = 0.1f;
+		while (t < lerpTime)
+		{
+			meshObject.transform.localScale = Vector3.Lerp(meshOrigScale, Vector3.zero, t / lerpTime);
+			t += Time.deltaTime;
+			yield return null;
+		}
+		meshObject.SetActive(false);
+	}
+
+	void RestoreMesh()
+	{
+		meshObject.transform.localScale = meshOrigScale;
+		meshObject.SetActive(true);
 	}
 
 	public void Restore()
 	{
-		meshObject.SetActive(true);
+		isBlownUp = false;
+		RestoreMesh();
 		for (int i = 0; i < vegetables.Count; i++)
 		{
 			vegetables[i].gameObject.SetActive(false);
