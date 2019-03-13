@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/06Sofi.unity
     guid: 9b3879959a36dbb47bf097742ff58539
   - enabled: 1
+    path: Assets/Scenes/07MoeSpacebeams.unity
+    guid: 7aeac56b0a8495e488fbc4d6eb9c71fb
+  - enabled: 1
+    path: Assets/Scenes/08TerezaCobweb.unity
+    guid: 5b16500b36cc0ab44b2ea8c8fe9d991e
+  - enabled: 1
     path: Assets/Scenes/##Jaakko.unity
     guid: 6cd9b4c12d62c1e4496b85cd76783ee3
   - enabled: 1
