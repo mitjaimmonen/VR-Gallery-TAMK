@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: trees_atp_alder_branch_sm2_dead
   m_Shader: {fileID: 14000, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: EFFECT_BUMP GEOM_TYPE_LEAF
+  m_ShaderKeywords: EFFECT_BUMP EFFECT_HUE_VARIATION GEOM_TYPE_LEAF
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,6 +36,6 @@ Material:
     - _Shininess: 0.1
     - _WindQuality: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.999}
-    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - _Color: {r: 0.61764705, g: 1, b: 0.68356997, a: 0.999}
+    - _HueVariation: {r: 0.36551726, g: 1, b: 0, a: 0.1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
