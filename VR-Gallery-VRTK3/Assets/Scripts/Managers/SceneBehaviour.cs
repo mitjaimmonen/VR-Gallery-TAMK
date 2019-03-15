@@ -12,6 +12,7 @@ public class SceneBehaviour : MonoBehaviour {
 	public bool debugFog;
 
 	[Header("Fog general parameters")]
+	public CameraClearFlags clearFlagMode = CameraClearFlags.Color;
 	public bool cameraColorWithFog;
 	public bool fog;
 	public float defaultFogFadeTime;
@@ -37,6 +38,8 @@ public class SceneBehaviour : MonoBehaviour {
 		RenderSettings.fogDensity = fogDensityAtStart;
 		RenderSettings.fog = fog;
 		RenderSettings.fogColor = fogColorAtStart;
+
+		SetCameraClearFlag();
 		if (cameraColorWithFog)
 			SetCameraColor(fogColorAtStart);
 
@@ -56,6 +59,21 @@ public class SceneBehaviour : MonoBehaviour {
 			foreach (var cam in GameMaster.Instance.AllCameras)
 			{
 				cam.backgroundColor = col;
+			}
+		}
+	}
+
+	void SetCameraClearFlag()
+	{
+		if (Camera.main)
+		{
+			Camera.main.clearFlags = clearFlagMode;
+		}
+		else
+		{
+			foreach (var cam in GameMaster.Instance.AllCameras)
+			{
+				cam.clearFlags = clearFlagMode;
 			}
 		}
 	}
