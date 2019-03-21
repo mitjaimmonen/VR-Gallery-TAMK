@@ -54,7 +54,7 @@
 			half4 g;
 			half z = 5;
 			localPos = localPos + 0.5;
-			half split = (sin(10*localPos.x)+cos(10*localPos.z))/20 + 0.5;
+			half split = (sin(10*localPos.x + _Time.y)+cos(10*localPos.z + _Time.y))/20 + 0.5;
 			half lerpvalue = localPos.y * 1.8;
 			lerpvalue = lerpvalue + normal.g * _Refract;
 			if (localPos.y > split) {

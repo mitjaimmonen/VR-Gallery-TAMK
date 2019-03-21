@@ -9,9 +9,11 @@ public class ShapeSpawner : MonoBehaviour {
 	[SerializeField] private float radius;
 	[SerializeField] private float minScale = 0.1f;
 	[SerializeField] private float maxScale = 0.5f;
+	[SerializeField] private float gravity = 1.0f;
 
 	// Use this for initialization
 	void Start () {
+		Physics.gravity = new Vector3 (0, -gravity, 0);
 		for (int i = 0; i < shapesAmount; i++) {
 			Transform s = Instantiate (prefabs [Random.Range (0, prefabs.Length)]);
 			s.localScale = Vector3.one * Random.Range (minScale, maxScale);
