@@ -22,7 +22,7 @@ public class Laser : MonoBehaviour {
 	}
 
 	private void Kill(Collider collider){
-		if (collider.tag == "shape")
+		if (collider.tag == "spaceshape")
 		{
 			//collider.gameObject.Kill();
 		}
