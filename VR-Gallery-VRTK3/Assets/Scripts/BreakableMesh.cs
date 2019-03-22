@@ -89,8 +89,9 @@ public class BreakableMesh : MonoBehaviour {
 		broken = false;
 		initialized = true;
 	}
+
 	
-	public void Break(Vector3 impulse)
+	public void Break(Vector3 directionImpulseMultiplier)
 	{
 		if (!initialized)
 			Init();
@@ -112,7 +113,7 @@ public class BreakableMesh : MonoBehaviour {
 
 			float strength = Random.Range(BreakForceRange.x, BreakForceRange.y) * colRadius;
 			childPieces[i].Key.AddExplosionForce(strength, transform.position,colRadius*2f, 1f, ForceMode.Impulse);
-			childPieces[i].Key.AddForce(impulse * velocityEffect, ForceMode.Impulse);
+			childPieces[i].Key.AddForce(directionImpulseMultiplier * velocityEffect, ForceMode.Impulse);
 			childPieces[i].Key.angularVelocity = Random.insideUnitSphere * strength*0.5f;
 		}
 
