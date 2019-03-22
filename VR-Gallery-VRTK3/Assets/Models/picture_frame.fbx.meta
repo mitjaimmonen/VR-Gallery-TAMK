@@ -10,7 +10,17 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: picture frame
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: picture frame mat
+    second: {fileID: 2100000, guid: a7fb69d48afe612479532b81ce50d3c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: picture inside the frame mat
+    second: {fileID: 2100000, guid: 3a59978eb388ce74e95df7b5676257b1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
