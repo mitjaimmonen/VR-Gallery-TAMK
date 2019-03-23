@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/02JakobCow.unity
     guid: fdbe76852d355ba4ea403d7dc6322f9c
   - enabled: 1
-    path: Assets/Scenes/03TatuBlackWhite.unity
+    path: Assets/Scenes/03ElinaLoneliness.unity
     guid: bee20f2b347ccfc44bef290a090799e1
   - enabled: 1
     path: Assets/Scenes/04InaFire.unity
@@ -24,10 +24,10 @@ EditorBuildSettings:
     path: Assets/Scenes/05JuliaCherry.unity
     guid: 49d703ed2828e8d43a880aa0c5ef8135
   - enabled: 1
-    path: Assets/Scenes/06Sofi.unity
+    path: Assets/Scenes/06SofiPuzzle.unity
     guid: 9b3879959a36dbb47bf097742ff58539
   - enabled: 1
-    path: Assets/Scenes/07MoeSpacebeams.unity
+    path: Assets/Scenes/07MoeSpacebeing.unity
     guid: 7aeac56b0a8495e488fbc4d6eb9c71fb
   - enabled: 1
     path: Assets/Scenes/08TerezaCobweb.unity
