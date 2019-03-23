@@ -1,9 +1,12 @@
 ﻿Shader "Custom/SpaceMaterial" {
 	Properties {
-		_ColorTT ("Color", Color) = (1,1,1,1)
-		_ColorTB ("Color", Color) = (1,1,1,1)
-		_ColorBT ("Color", Color) = (1,1,1,1)
-		_ColorBB ("Color", Color) = (1,1,1,1)
+		_ColorTT ("Top Gradient From", Color) = (1,1,1,1)
+		_ColorTB ("Top Gradient To", Color) = (1,1,1,1)
+		_ColorBT ("Bottom Gradient From", Color) = (1,1,1,1)
+		_ColorBB ("Bottom Gradient To", Color) = (1,1,1,1)
+		_LerpThreshold ("Interpolate gradient switch", Range(0,1)) = 0.1
+		_ColorShine ("Shine Color", Color) = (1,0,0,1)
+		_Shine ("Shine Intensity", Range(0,1)) = 0.1
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Refract ("Refract", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
@@ -23,22 +26,25 @@
 
 		struct Input {
 			float2 uv_Normal;
-			float3 localPos;
 			float3 worldPos;
+			float3 normal;
 		};
 
 		void vert (inout appdata_full v, out Input o) {
 			UNITY_INITIALIZE_OUTPUT(Input, o);
-			o.localPos = v.vertex.xyz;
+			o.normal = v.normal.xyz;
 		}
 
 		half _Glossiness;
 		half _Metallic;
 		half _Refract;
+		half _Shine;
+		half _LerpThreshold;
 		fixed4 _ColorTT;
 		fixed4 _ColorTB;
 		fixed4 _ColorBT;
 		fixed4 _ColorBB;
+		fixed4 _ColorShine;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -48,24 +54,42 @@
 		UNITY_INSTANCING_BUFFER_END(Props)
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			float3 localPos = IN.worldPos - mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
-			float3 normal = tex2D (_Normal, IN.uv_Normal).xyz;
-			//float3 localPos = IN.localPos;
 			half4 g;
-			half z = 5;
+			//Get local position from world position
+			float3 localPos = IN.worldPos - mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
 			localPos = localPos + 0.5;
+
+			//Get view nomals
+			float3 viewNormals = (UnityObjectToViewPos(IN.normal));
+
+			//Get world normals
+			float3 worldNormals = mul(unity_ObjectToWorld, float4(IN.normal,0)).xyz;
+
+			//Get Normal Map
+			float3 normalMap = tex2D (_Normal, IN.uv_Normal).xyz;
+
+			//Calculate gradient split
+			half z = 5;
 			half split = (sin(10*localPos.x + _Time.y)+cos(10*localPos.z + _Time.y))/20 + 0.5;
-			half lerpvalue = localPos.y * 1.8;
-			lerpvalue = lerpvalue + normal.g * _Refract;
-			if (localPos.y > split) {
-				lerpvalue = lerpvalue - 0.8;
+			split = split + (normalMap.g - 0.5) * _Refract;
+
+			//Interpolate gradients
+			half lerpvalue = abs(localPos.y);
+			if (worldNormals.y > _LerpThreshold) {
 				g = lerp(_ColorTB, _ColorTT, lerpvalue);
-			} else {
+			} else if (worldNormals.y <= -_LerpThreshold){
 				g = lerp(_ColorBB, _ColorBT, lerpvalue);
+			} else {
+				g = lerp(lerp(_ColorBB, _ColorBT, lerpvalue), lerp(_ColorTB, _ColorTT, lerpvalue), (worldNormals.y/_LerpThreshold)/2+0.5);
 			}
 
+			//Add colour shine
+			//float3 absNormal = normalize(abs(UnityObjectToViewPos(IN.normal)));
+			//g.rgb = lerp(g.rgb, _ColorShine, pow(dot(absNormal, float3(0,0,1)), 4)*_Shine);
+
+			//Assign albedo
 			o.Albedo = g.rgb;
-			//o.Normal = normal.rgb;
+			//o.Normal = normalMap.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;

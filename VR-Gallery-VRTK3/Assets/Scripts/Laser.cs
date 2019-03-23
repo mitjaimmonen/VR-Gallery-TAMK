@@ -8,55 +8,71 @@ public class Laser : MonoBehaviour {
 	private float speed;
 	private Rigidbody rb;
 	private BoxCollider col;
+	private Vector3 spawnpoint;
+	private bool hasCollided = false;
+	private int life;
 
-	void Awake () {
-		rb = gameObject.GetComponent<Rigidbody> ();
-		col = gameObject.GetComponent<BoxCollider> ();
-		gameObject.transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
+	public void Awake () {
+		rb = GetComponent<Rigidbody> ();
+		col = GetComponent<BoxCollider> ();
+		transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
 	}
 
-	public void Fire(float scaleTo, float speed){
+	public void Fire(float scaleTo, float speed, int life){
 		this.scaleTo = scaleTo;
 		this.speed = speed;
+		this.life = life;
+		//Debug.Log (scaleTo);
+		//Debug.Log (speed);
 		StartCoroutine (ScaleUp ());
 	}
 
-	private void Kill(Collider collider){
-		if (collider.tag == "spaceshape")
-		{
-			//collider.gameObject.Kill();
-		}
+	private void Kill(){
 		gameObject.SetActive(false);
 		Destroy(gameObject);
 	}
 
+	//*
 	private void OnTriggerEnter(Collider collider){
-		StartCoroutine(ScaleDown(collider));
+		if(collider.tag != "lasergun" && collider.tag != "spaceshape")
+		{
+			hasCollided = true;
+			StartCoroutine (ScaleDown (collider));
+		}
+		else if (collider.GetComponent<SpaceShape>())
+		{
+			collider.GetComponent<SpaceShape>().Kill();
+		}
 	}
+	//*/
 
 	private IEnumerator ScaleUp(){
-		//Debug.Log ("starting scaling");
-		while (gameObject.transform.localScale.z < scaleTo) {
-			gameObject.transform.localScale += Vector3.forward * Time.deltaTime * speed;
-			Debug.Log (gameObject.transform.localScale);
-			yield return null;
+		Debug.Log ("starting scaling");
+		while (transform.localScale.z < scaleTo) {
+			transform.localScale += Vector3.forward * Time.deltaTime * speed;
+			if (!hasCollided) {
+				yield return null;
+			}
 		}
 		rb.velocity = transform.forward * speed;
-		//Debug.Log ("speeding");
+		Debug.Log ("speeding");
 	}
 
 	private IEnumerator ScaleDown(Collider collider){
-		while (gameObject.transform.localScale.z > 0){
-			float factor = Time.deltaTime * speed;
-			if (gameObject.transform.localScale.z - factor >= 0)
-			{
-				gameObject.transform.localScale -= Vector3.forward * factor;
-			} else {
-				gameObject.transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
-				rb.velocity = Vector3.zero;
-			}
+		Debug.Log ("scaling down");
+		//rb.velocity = Vector3.zero;
+		while (transform.localScale.z > 0f){
+			transform.localScale -= Vector3.forward * Time.deltaTime * speed;
+			//Debug.Log (transform.localScale);
 			yield return null;
 		}
-		Kill(collider);
+		rb.velocity = Vector3.zero;
+		Kill();
+	}
+
+	public void FixedUpdate(){
+		if (--life == 0) {
+			Kill ();
+		}
 	}
 }

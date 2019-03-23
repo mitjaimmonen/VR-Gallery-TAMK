@@ -1,20 +1,15 @@
 fileFormatVersion: 2
-guid: f54caf479185ee24ba1df9dbde32ca2a
+guid: 5c368f412c3b9104fa39f099c4a8a93d
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: Cuboctahedron mat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Sun
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: c8e10acc1b362b94daf9b41cb0884adb, type: 2}
+    4300000: Coboctahedron
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -49,10 +44,10 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
