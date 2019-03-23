@@ -121,6 +121,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1239092567602384
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4496999540186784}
+  m_Layer: 0
+  m_Name: CowDeadTrans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1297646297959116
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +153,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1328065810902794
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -230,6 +245,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1803728243574372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4225980248385604}
+  m_Layer: 0
+  m_Name: Transforms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1813502084899162
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +307,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1889824677749708
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4791050706066748}
+  m_Layer: 0
+  m_Name: CowAliveTrans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1917209320374350
 GameObject:
   m_ObjectHideFlags: 1
@@ -314,7 +359,7 @@ Transform:
   - {fileID: 4705403350480588}
   - {fileID: 4310656163684662}
   m_Father: {fileID: 4197443707651688}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4152575586904322
 Transform:
@@ -361,15 +406,31 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109856242415290}
-  m_LocalRotation: {x: -0, y: 0.725054, z: -0, w: 0.6886921}
-  m_LocalPosition: {x: -2.51, y: 0.791, z: -5.57}
+  m_LocalRotation: {x: -0, y: 0.8321355, z: -0, w: 0.5545723}
+  m_LocalPosition: {x: -2.593412, y: 0.791, z: -1.8875139}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4225980248385604}
   - {fileID: 4436801034974952}
   - {fileID: 4011361468488718}
-  - {fileID: 4435265733000850}
   - {fileID: 4289565971698476}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 112.63701, z: 0}
+--- !u!4 &4225980248385604
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803728243574372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4435265733000850}
+  - {fileID: 4791050706066748}
+  - {fileID: 4496999540186784}
+  m_Father: {fileID: 4197443707651688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4263429596861628
@@ -434,12 +495,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328065810902794}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18, z: -0.22}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.18, z: -0.21999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4197443707651688}
-  m_RootOrder: 2
+  m_Father: {fileID: 4225980248385604}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4436801034974952
 Transform:
@@ -452,7 +513,7 @@ Transform:
   m_LocalScale: {x: 0.7558578, y: 0.7558577, z: 0.7558577}
   m_Children: []
   m_Father: {fileID: 4197443707651688}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4481531979450420
 Transform:
@@ -467,6 +528,19 @@ Transform:
   m_Father: {fileID: 4011361468488718}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4496999540186784
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239092567602384}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.333, y: -0.339, z: -0}
+  m_LocalScale: {x: 0.7558578, y: 0.7558577, z: 0.7558577}
+  m_Children: []
+  m_Father: {fileID: 4225980248385604}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
 --- !u!4 &4516729183177756
 Transform:
   m_ObjectHideFlags: 1
@@ -505,6 +579,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4011361468488718}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4791050706066748
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889824677749708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7558578, y: 0.7558577, z: 0.7558577}
+  m_Children: []
+  m_Father: {fileID: 4225980248385604}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4794145254127232
 Transform:
@@ -599,10 +686,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoRestore: 1
   autoRestoreDelay: 5
-  vegetableAmount: 40
+  meshAliveTrans: {fileID: 4791050706066748}
+  meshDeadTrans: {fileID: 4496999540186784}
+  explosionOrigin: {fileID: 4435265733000850}
+  vegetableAmount: 0
   SpawnPointsParent: {fileID: 4011361468488718}
   ExplosionPSParent: {fileID: 4289565971698476}
-  explosionOrigin: {fileID: 4435265733000850}
   meshObject: {fileID: 1813502084899162}
   vegetableObjects:
   - {fileID: 1781931294148982, guid: 5c1205cf7bbbd274281cd1490783885d, type: 2}
@@ -610,6 +699,7 @@ MonoBehaviour:
   - {fileID: 1604495332313898, guid: f048ed229b7a256489b3983d33ab2664, type: 2}
   - {fileID: 1231562334739628, guid: 8ab63bc26e87a25488b56101d72448f5, type: 2}
   spawnRadius: 0.5
+  cowCollapseDuration: 1
   explosionForce: 3
   explosionDuration: 0.35
   explosionForcePSMultiplier: 2
@@ -701,15 +791,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -179660628
+  randomSeed: -504745946
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 4
+      scalar: 10
+      minScalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4107,15 +4197,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2078901381
+  randomSeed: -840889939
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 4
+      scalar: 10
+      minScalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7513,15 +7603,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -707469638
+  randomSeed: 399951251
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 4
+      scalar: 10
+      minScalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10919,15 +11009,15 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1363589708
+  randomSeed: -694403284
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 4
+      scalar: 10
+      minScalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:

@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class ExplodingCow : MonoBehaviour {
 
-	public bool autoRestore = true;
-	public float autoRestoreDelay = 5f;
+	[SerializeField] private bool autoRestore = true;
+	[SerializeField] private float autoRestoreDelay = 5f;
 
-	public int vegetableAmount = 10;
-	public Transform SpawnPointsParent;
-	public Transform ExplosionPSParent;
-	public Transform explosionOrigin;
-	public GameObject meshObject;
-	
-	public List<GameObject> vegetableObjects = new List<GameObject>();
+	[SerializeField] private Transform meshAliveTrans;
+	[SerializeField] private Transform meshDeadTrans;
+	[SerializeField] private Transform explosionOrigin;
+	[SerializeField] private int vegetableAmount = 10;
+	[SerializeField] private Transform SpawnPointsParent;
+	[SerializeField] private Transform ExplosionPSParent;
+	[SerializeField] private GameObject meshObject;
+	[SerializeField] private List<GameObject> vegetableObjects = new List<GameObject>();
+
 	[Range(0,5f), Tooltip("Max offset from a spawnpoint to spawn a vegetable")]
-	public float spawnRadius = 1f;
+	[SerializeField] private float spawnRadius = 1f;
 
-	public float explosionForce = 5f;
-	public float explosionDuration = 0.35f;
-	public float explosionForcePSMultiplier = 2f;
-	public float restoreDuration = 1f;
-	public int particleCount = 100;
+	[SerializeField] private float cowCollapseDuration = 1f;
+	[SerializeField] private float explosionForce = 5f;
+	[SerializeField] private float explosionDuration = 0.35f;
+	[SerializeField] private float explosionForcePSMultiplier = 2f;
+	[SerializeField] private float restoreDuration = 1f;
+	[SerializeField] private int particleCount = 100;
 
 
 	
@@ -29,19 +32,15 @@ public class ExplodingCow : MonoBehaviour {
 	private List<ParticleSystem> explosionParticleSystems = new List<ParticleSystem>();
 	private List<Rigidbody> vegetables = new List<Rigidbody>();
 	private Vector3[] veggieOriginalPos;
-	private Vector3 meshOrigScale;
-	private Vector3 meshOrigPos;
+	private int xPosRelativeToCow = 0;
 
-	private bool isBlownUp;
+	private bool isDead;
 	private bool isRestoring;
 	private bool isTouching;
 	private float lastTimeTouched;
 
 	// Use this for initialization
 	void Start () {
-		meshOrigScale = meshObject.transform.localScale;
-		meshOrigPos = meshObject.transform.position;
-
 		GetSpawnPoints();
 		SpawnVegetables();
 		ArrayFromVeggiePositions();
@@ -51,7 +50,7 @@ public class ExplodingCow : MonoBehaviour {
 
 	void Update()
 	{
-		if ( isBlownUp && autoRestore && !isRestoring && lastTimeTouched + autoRestoreDelay < Time.time)
+		if ( isDead && autoRestore && !isRestoring && lastTimeTouched + autoRestoreDelay < Time.time)
 		{
 			StartCoroutine(Restore());
 		}
@@ -83,6 +82,7 @@ public class ExplodingCow : MonoBehaviour {
 		{
 			var main = ps.main;
 			main.startSpeed = minmax;
+			main.maxParticles = particleCount*2;
 			
 			var emission = ps.emission;
 			emission.burstCount = 1;
@@ -105,8 +105,8 @@ public class ExplodingCow : MonoBehaviour {
 
 				var temp = Instantiate(vegetableObjects[veggie], spawnPos, Random.rotation);
 				temp.transform.parent = spawnPoints[spawnIndex].transform;
-				temp.gameObject.SetActive(false);
 				vegetables.Add(temp.GetComponent<Rigidbody>());
+				temp.gameObject.SetActive(false);
 				
 				veggie++;
 				veggie %= vegetableObjects.Count;
@@ -144,9 +144,12 @@ public class ExplodingCow : MonoBehaviour {
 		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
 		{
 			isTouching = true;
-			if (!isBlownUp)
+			if (!isDead)
 			{
-				BlowUp();
+				//Which side of cow did touch happen
+				//THis is not right tho
+				xPosRelativeToCow = other.transform.position.x - meshAliveTrans.position.x >= 0 ? 1 : -1;
+				Kill();
 			}
 		}
 	}
@@ -180,12 +183,35 @@ public class ExplodingCow : MonoBehaviour {
 	}
 	
 
-	public void BlowUp()
+	public void Kill()
 	{
+		isDead = true;
+		StartCoroutine(KillCowWithExplosion());
+	}
+
+	IEnumerator KillCowWithExplosion()
+	{
+		float t = 0;
+		float lerpT = 0;
+		Vector3 deadPos = meshDeadTrans.localPosition;
+		deadPos.x *= xPosRelativeToCow;
+		Vector3 deadRot = meshDeadTrans.localEulerAngles;
+		deadRot.z *= xPosRelativeToCow;
+
+		while (t <= cowCollapseDuration)
+		{	
+			lerpT = Easing.Ease((t/cowCollapseDuration), Curve.exponential);
+			meshObject.transform.localPosition = Vector3.Lerp(meshAliveTrans.localPosition, deadPos, lerpT);
+			meshObject.transform.localRotation = Quaternion.Slerp(meshAliveTrans.localRotation, Quaternion.Euler(deadRot), lerpT);
+			t += Time.deltaTime;
+			yield return null;
+		}
+
+		yield return new WaitForSeconds(0.25f);
+
 		StartCoroutine(PlayExplosionParticles());
 		StartCoroutine(VeggieRbBlowUp());
 		StartCoroutine(MeshBlowUp());
-		isBlownUp = true;
 	}
 
 	IEnumerator VeggieRbBlowUp()
@@ -208,7 +234,7 @@ public class ExplodingCow : MonoBehaviour {
 		float lerpTime = explosionDuration;
 		while (t < lerpTime)
 		{
-			meshObject.transform.localScale = Vector3.Lerp(meshOrigScale, Vector3.zero, t / lerpTime);
+			meshObject.transform.localScale = Vector3.Lerp(meshAliveTrans.localScale, Vector3.zero, t / lerpTime);
 			t += Time.deltaTime;
 			yield return null;
 		}
@@ -217,8 +243,9 @@ public class ExplodingCow : MonoBehaviour {
 
 	void RestoreMesh()
 	{
-		meshObject.transform.localScale = meshOrigScale;
-		meshObject.transform.position = meshOrigPos;
+		meshObject.transform.localScale = meshAliveTrans.localScale;
+		meshObject.transform.position = meshAliveTrans.position;
+		meshObject.transform.rotation = meshAliveTrans.rotation;
 		meshObject.SetActive(true);
 	}
 
@@ -251,21 +278,21 @@ public class ExplodingCow : MonoBehaviour {
 		t = 0;
 		float lerpT = 0;
 
-		meshObject.transform.position = meshOrigPos + Vector3.down*2f;
+		meshObject.transform.position = meshAliveTrans.position + Vector3.down*2f;
 		meshObject.transform.localScale = Vector3.zero;
 		meshObject.SetActive(true);
 
 		while (t < restoreDuration/2f)
 		{
 			lerpT = Easing.Ease(t / (restoreDuration/2f), Curve.SmoothStep);
-			meshObject.transform.position = Vector3.Lerp(meshOrigPos + Vector3.down*2f, meshOrigPos,lerpT);
-			meshObject.transform.localScale = Vector3.Lerp(Vector3.zero, meshOrigScale, lerpT);
+			meshObject.transform.position = Vector3.Lerp(meshAliveTrans.position + Vector3.down*2f, meshAliveTrans.position, lerpT);
+			meshObject.transform.localScale = Vector3.Lerp(Vector3.zero, meshAliveTrans.localScale, lerpT);
 			t += Time.deltaTime;
 			yield return null;
 		}
 
 		RestoreMesh();
 		isRestoring = false;
-		isBlownUp = false;
+		isDead = false;
 	}
 }
