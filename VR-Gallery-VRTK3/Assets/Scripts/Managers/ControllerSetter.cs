@@ -21,6 +21,9 @@ public class ControllerSetter : MonoBehaviour {
 	GameObject leftController;
 	GameObject rightController;
 
+	public GameObject GetController(){
+		return controllerPrefab;
+	}
 
 	
 	// Update is called once per frame
