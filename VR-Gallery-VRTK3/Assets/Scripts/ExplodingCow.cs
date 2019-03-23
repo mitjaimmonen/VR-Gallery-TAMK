@@ -4,53 +4,55 @@ using UnityEngine;
 
 public class ExplodingCow : MonoBehaviour {
 
-	public bool debugBlowUp;
-	public bool debugRestore;
+	[SerializeField] private bool autoRestore = true;
+	[SerializeField] private float autoRestoreDelay = 5f;
 
-	public int vegetableAmount = 10;
-	public Transform SpawnPointsParent;
-	public Transform ExplosionPSParent;
-	public Transform explosionOrigin;
-	public GameObject meshObject;
-	
-	public List<GameObject> vegetableObjects = new List<GameObject>();
+	[SerializeField] private Transform meshAliveTrans;
+	[SerializeField] private Transform meshDeadTrans;
+	[SerializeField] private Transform explosionOrigin;
+	[SerializeField] private int vegetableAmount = 10;
+	[SerializeField] private Transform SpawnPointsParent;
+	[SerializeField] private Transform ExplosionPSParent;
+	[SerializeField] private GameObject meshObject;
+	[SerializeField] private List<GameObject> vegetableObjects = new List<GameObject>();
+
 	[Range(0,5f), Tooltip("Max offset from a spawnpoint to spawn a vegetable")]
-	public float spawnRadius = 1f;
+	[SerializeField] private float spawnRadius = 1f;
 
-	public float explosionForce = 5f;
-	public float explosionForcePSMultiplier = 2f;
+	[SerializeField] private float cowCollapseDuration = 1f;
+	[SerializeField] private float explosionForce = 5f;
+	[SerializeField] private float explosionDuration = 0.35f;
+	[SerializeField] private float explosionForcePSMultiplier = 2f;
+	[SerializeField] private float restoreDuration = 1f;
+	[SerializeField] private int particleCount = 100;
+
 
 	
 	private List<Transform> spawnPoints = new List<Transform>();
 	private List<ParticleSystem> explosionParticleSystems = new List<ParticleSystem>();
 	private List<Rigidbody> vegetables = new List<Rigidbody>();
 	private Vector3[] veggieOriginalPos;
-	private Vector3 meshOrigScale;
+	private int xPosRelativeToCow = 0;
 
-
-	private bool isBlownUp;
+	private bool isDead;
+	private bool isRestoring;
+	private bool isTouching;
+	private float lastTimeTouched;
 
 	// Use this for initialization
 	void Start () {
-		meshOrigScale = meshObject.transform.localScale;
-
 		GetSpawnPoints();
 		SpawnVegetables();
 		ArrayFromVeggiePositions();
 		GetExplodeParticleSystems();
+		SetExplodeParticleSystemParams();
 	}
 
 	void Update()
 	{
-		if (debugBlowUp || Input.GetKeyDown(KeyCode.J))
+		if ( isDead && autoRestore && !isRestoring && lastTimeTouched + autoRestoreDelay < Time.time)
 		{
-			debugBlowUp = false;
-			BlowUp();
-		}
-		if (debugRestore || Input.GetKeyDown(KeyCode.H))
-		{
-			debugRestore = false;
-			Restore();
+			StartCoroutine(Restore());
 		}
 	}
 
@@ -60,9 +62,33 @@ public class ExplodingCow : MonoBehaviour {
 		foreach(var ps in ExplosionPSParent.GetComponentsInChildren<ParticleSystem>())
 		{
 			explosionParticleSystems.Add(ps);
+			ps.Emit(1);
+			ps.Clear();
 		}
 	}
+	void SetExplodeParticleSystemParams()
+	{
+		var minmax = new ParticleSystem.MinMaxCurve();
+		minmax.constantMin = explosionForce * 0.1f * explosionForcePSMultiplier;
+		minmax.constantMax = explosionForce * explosionForcePSMultiplier;
+		minmax.mode = ParticleSystemCurveMode.TwoConstants;
 
+		ParticleSystem.Burst burst = new ParticleSystem.Burst();
+		burst.cycleCount = Mathf.Clamp((int)(explosionDuration*10f), 1, 50);
+		burst.repeatInterval = explosionDuration / burst.cycleCount;
+		burst.count = particleCount / burst.cycleCount;
+
+		foreach(var ps in explosionParticleSystems)
+		{
+			var main = ps.main;
+			main.startSpeed = minmax;
+			main.maxParticles = particleCount*2;
+			
+			var emission = ps.emission;
+			emission.burstCount = 1;
+			emission.SetBurst(0,burst);
+		}
+	}
 	void SpawnVegetables()
 	{
 		Vector3 spawnPos = Vector3.zero;
@@ -79,8 +105,8 @@ public class ExplodingCow : MonoBehaviour {
 
 				var temp = Instantiate(vegetableObjects[veggie], spawnPos, Random.rotation);
 				temp.transform.parent = spawnPoints[spawnIndex].transform;
-				temp.gameObject.SetActive(false);
 				vegetables.Add(temp.GetComponent<Rigidbody>());
+				temp.gameObject.SetActive(false);
 				
 				veggie++;
 				veggie %= vegetableObjects.Count;
@@ -111,38 +137,81 @@ public class ExplodingCow : MonoBehaviour {
 			}
 		}
 	}
+
+
 	private void OnTriggerEnter(Collider other) 
 	{
-		if (!isBlownUp && other.GetComponentInParent<VRTK.VRTK_TrackedController>())
+		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
 		{
-			BlowUp();
+			isTouching = true;
+			if (!isDead)
+			{
+				//Which side of cow did touch happen
+				//THis is not right tho
+				xPosRelativeToCow = other.transform.position.x - meshAliveTrans.position.x >= 0 ? 1 : -1;
+				Kill();
+			}
 		}
 	}
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
+		{
+			isTouching = true;
+			lastTimeTouched = Time.time;
+		}
+	}
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.GetComponentInParent<VRTK.VRTK_TrackedController>())
+		{
+			lastTimeTouched = Time.time;
+			isTouching = false;
+		}
+	}
+
+
 	IEnumerator PlayExplosionParticles()
 	{
-		var minmax = new ParticleSystem.MinMaxCurve();
-		minmax.constantMin = explosionForce * 0.1f * explosionForcePSMultiplier;
-		minmax.constantMax = explosionForce * explosionForcePSMultiplier;
-		minmax.mode = ParticleSystemCurveMode.TwoConstants;
-
 		foreach(var ps in explosionParticleSystems)
 		{
-			var main = ps.main;
-			main.startSpeed = minmax;
 			ps.Play();
 
-			//Allows more time to execute all
-			yield return new WaitForSeconds(0.2f / explosionParticleSystems.Count);
+			//One system starts per frame
+			yield return null;
 		}
 	}
 	
 
-	public void BlowUp()
+	public void Kill()
 	{
+		isDead = true;
+		StartCoroutine(KillCowWithExplosion());
+	}
+
+	IEnumerator KillCowWithExplosion()
+	{
+		float t = 0;
+		float lerpT = 0;
+		Vector3 deadPos = meshDeadTrans.localPosition;
+		deadPos.x *= xPosRelativeToCow;
+		Vector3 deadRot = meshDeadTrans.localEulerAngles;
+		deadRot.z *= xPosRelativeToCow;
+
+		while (t <= cowCollapseDuration)
+		{	
+			lerpT = Easing.Ease((t/cowCollapseDuration), Curve.exponential);
+			meshObject.transform.localPosition = Vector3.Lerp(meshAliveTrans.localPosition, deadPos, lerpT);
+			meshObject.transform.localRotation = Quaternion.Slerp(meshAliveTrans.localRotation, Quaternion.Euler(deadRot), lerpT);
+			t += Time.deltaTime;
+			yield return null;
+		}
+
+		yield return new WaitForSeconds(0.25f);
+
 		StartCoroutine(PlayExplosionParticles());
 		StartCoroutine(VeggieRbBlowUp());
 		StartCoroutine(MeshBlowUp());
-		isBlownUp = true;
 	}
 
 	IEnumerator VeggieRbBlowUp()
@@ -155,17 +224,17 @@ public class ExplodingCow : MonoBehaviour {
 			rb.AddExplosionForce(force, explosionOrigin.position, 20f, explosionForce*0.1f, ForceMode.Impulse);
 
 			//Blow up takes 0,2 seconds.
-			yield return new WaitForSeconds(0.2f / vegetables.Count);
+			yield return new WaitForSeconds(explosionDuration / vegetables.Count);
 		}
 	}
 
 	IEnumerator MeshBlowUp()
 	{
 		float t = 0;
-		float lerpTime = 0.1f;
+		float lerpTime = explosionDuration;
 		while (t < lerpTime)
 		{
-			meshObject.transform.localScale = Vector3.Lerp(meshOrigScale, Vector3.zero, t / lerpTime);
+			meshObject.transform.localScale = Vector3.Lerp(meshAliveTrans.localScale, Vector3.zero, t / lerpTime);
 			t += Time.deltaTime;
 			yield return null;
 		}
@@ -174,20 +243,56 @@ public class ExplodingCow : MonoBehaviour {
 
 	void RestoreMesh()
 	{
-		meshObject.transform.localScale = meshOrigScale;
+		meshObject.transform.localScale = meshAliveTrans.localScale;
+		meshObject.transform.position = meshAliveTrans.position;
+		meshObject.transform.rotation = meshAliveTrans.rotation;
 		meshObject.SetActive(true);
 	}
 
-	public void Restore()
+	IEnumerator Restore()
 	{
-		isBlownUp = false;
-		RestoreMesh();
+		isRestoring = true;
+		float t = 0;
+
+		//Make veggies disappear
+		while (t < restoreDuration/2f)
+		{	
+			for (int i = 0; i < vegetables.Count; i++)
+			{
+				vegetables[i].transform.localScale -= Vector3.one * Time.deltaTime;
+			}
+			t += Time.deltaTime;
+			yield return null;
+		}
+
 		for (int i = 0; i < vegetables.Count; i++)
 		{
 			vegetables[i].gameObject.SetActive(false);
 			vegetables[i].velocity = Vector3.zero;
 			vegetables[i].angularVelocity = Vector3.zero;
 			vegetables[i].transform.position = veggieOriginalPos[i];
+			vegetables[i].transform.localScale = Vector3.one;
 		}
+
+		//Make cow appear
+		t = 0;
+		float lerpT = 0;
+
+		meshObject.transform.position = meshAliveTrans.position + Vector3.down*2f;
+		meshObject.transform.localScale = Vector3.zero;
+		meshObject.SetActive(true);
+
+		while (t < restoreDuration/2f)
+		{
+			lerpT = Easing.Ease(t / (restoreDuration/2f), Curve.SmoothStep);
+			meshObject.transform.position = Vector3.Lerp(meshAliveTrans.position + Vector3.down*2f, meshAliveTrans.position, lerpT);
+			meshObject.transform.localScale = Vector3.Lerp(Vector3.zero, meshAliveTrans.localScale, lerpT);
+			t += Time.deltaTime;
+			yield return null;
+		}
+
+		RestoreMesh();
+		isRestoring = false;
+		isDead = false;
 	}
 }
