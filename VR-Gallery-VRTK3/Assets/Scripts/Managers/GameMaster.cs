@@ -137,6 +137,7 @@ public class GameMaster : MonoBehaviour
         //Reset has to be called before new scene calls awake methods,
         //as sceneBehaviour might override profile.
         PostProcessingManager.ResetProfile();
+        VRTK.VRTK_DeviceFinder.PlayAreaTransform().SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     //Scene manager calls on scene activation

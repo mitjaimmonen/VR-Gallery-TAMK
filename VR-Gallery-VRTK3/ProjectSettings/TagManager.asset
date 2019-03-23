@@ -11,6 +11,9 @@ TagManager:
   - SceneBehaviour
   - projectile
   - pedestal
+  - FxTemporaire
+  - spaceshape
+  - lasergun
   layers:
   - Default
   - TransparentFX
