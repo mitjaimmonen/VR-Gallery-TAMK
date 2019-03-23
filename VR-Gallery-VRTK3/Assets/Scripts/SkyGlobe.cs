@@ -6,7 +6,6 @@ public class SkyGlobe : BreakableMesh {
 
 	public Material skyGlobeMaterial;
 	public Color skyGlobeColor;
-	public bool fadeOffOnRestored = true;
 	public float defaultFadeTime = 1f;
 
 	public bool startBroken = false;
@@ -27,16 +26,6 @@ public class SkyGlobe : BreakableMesh {
 			Restore(restoreTime, keepMainPieceInactive);
 
 		skyGlobeMaterial.color = skyGlobeColor;
-	}
-	protected override void Restored()
-	{
-		base.Restored();
-		if (fadeOffOnRestored)
-		{
-			Color tempCol = skyGlobeMaterial.color;
-			tempCol.a = 0;
-			SetMaterialColor(tempCol, defaultFadeTime);
-		}
 	}
 
 	public void SetMaterialColor(Color col, float time = 0)

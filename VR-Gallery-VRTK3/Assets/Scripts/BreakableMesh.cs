@@ -108,12 +108,12 @@ public class BreakableMesh : MonoBehaviour {
 		{
 			childPieces[i].Key.gameObject.SetActive(true);
 			childPieces[i].Key.gameObject.GetComponent<Collider>().enabled = true;
-			// childPieces[i].Key.isKinematic = false;
+			childPieces[i].Key.isKinematic = false;
 			childPieces[i].Key.velocity = Vector3.zero;
 
 			float strength = Random.Range(BreakForceRange.x, BreakForceRange.y) * colRadius;
 			childPieces[i].Key.AddExplosionForce(strength, transform.position,colRadius*2f, 1f, ForceMode.Impulse);
-			childPieces[i].Key.AddForce(directionImpulseMultiplier * velocityEffect, ForceMode.Impulse);
+			childPieces[i].Key.AddForce(-directionImpulseMultiplier * velocityEffect, ForceMode.Impulse);
 			childPieces[i].Key.angularVelocity = Random.insideUnitSphere * strength*0.5f;
 		}
 
@@ -136,7 +136,7 @@ public class BreakableMesh : MonoBehaviour {
 		{
 			childPieces[i].Key.gameObject.SetActive(true);
 			childPieces[i].Key.gameObject.GetComponent<Collider>().enabled = true;
-			// childPieces[i].Key.isKinematic = false;
+			childPieces[i].Key.isKinematic = false;
 			childPieces[i].Key.velocity = Vector3.zero;
 			childPieces[i].Key.angularVelocity = Vector3.zero;
 
@@ -176,7 +176,9 @@ public class BreakableMesh : MonoBehaviour {
 				childPieces[i].Key.gameObject.transform.localRotation = childPieces[i].Value.Value;
 				// childPieces[i].Key.isKinematic = true;
 				if (!keepMainPieceInactive)
-					childPieces[i].Key.gameObject.SetActive(false);
+					childPieces [i].Key.gameObject.SetActive (false);
+				else
+					childPieces [i].Key.isKinematic = true;
 			}
 			if (!keepMainPieceInactive)
 			{
@@ -235,13 +237,13 @@ public class BreakableMesh : MonoBehaviour {
 		{
 			childPieces[i].Key.gameObject.transform.localPosition = childPieces[i].Value.Key;
 			childPieces[i].Key.gameObject.transform.localRotation = childPieces[i].Value.Value;
-			// childPieces[i].Key.isKinematic = true;
 			if (!keepMainPieceInactive)
 				childPieces[i].Key.gameObject.SetActive(false);
 			else
 			{
 				childPieces[i].Key.velocity = Vector3.zero;
 				childPieces[i].Key.angularVelocity = Vector3.zero;
+				childPieces[i].Key.isKinematic = true;
 			}
 		}
 		if (!keepMainPieceInactive)
