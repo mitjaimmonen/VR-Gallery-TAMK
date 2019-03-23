@@ -64,7 +64,10 @@ public class SceneContainer : MonoBehaviour
 
                 var sm = GameMaster.Instance.SceneMaster;
                 if (!disableSceneSwitching && sceneToLoad != null)
+                {
+                    Debug.Log("Switch scene called: " + sceneToLoad.ScenePath);
                     sm.SwitchScene(sm.GetNameFromPath(sceneToLoad.ScenePath));
+                }
             }
         }
     }
