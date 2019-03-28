@@ -5,10 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class SceneContainer : MonoBehaviour
 {
-    [Header("Debug")]
-    [SerializeField]private bool disableSceneSwitching = false;
 
-    [Header("References")]
+
+    [SerializeField] private float sceneCallDelay = 0.5f;
     [SerializeField]private ParticleSystem destroyPS;
 
     // [SerializeField]private string sceneName;
@@ -62,13 +61,18 @@ public class SceneContainer : MonoBehaviour
                     GetComponent<BreakableMesh>().Break(col.impulse);
                 }
 
-                var sm = GameMaster.Instance.SceneMaster;
-                if (!disableSceneSwitching && sceneToLoad != null)
-                {
-                    Debug.Log("Switch scene called: " + sceneToLoad.ScenePath);
-                    sm.SwitchScene(sm.GetNameFromPath(sceneToLoad.ScenePath));
-                }
+                Invoke("SwitchScene", sceneCallDelay);
             }
+        }
+    }
+
+    private void SwitchScene()
+    {
+        var sm = GameMaster.Instance.SceneMaster;
+        if (sceneToLoad != null)
+        {
+            Debug.Log("Switch scene called: " + sceneToLoad.ScenePath);
+            sm.SwitchScene(sm.GetNameFromPath(sceneToLoad.ScenePath));
         }
     }
 }

@@ -5,8 +5,7 @@
 		_ColorBT ("Bottom Gradient From", Color) = (1,1,1,1)
 		_ColorBB ("Bottom Gradient To", Color) = (1,1,1,1)
 		_LerpThreshold ("Interpolate gradient switch", Range(0,1)) = 0.1
-		_ColorShine ("Shine Color", Color) = (1,0,0,1)
-		_Shine ("Shine Intensity", Range(0,1)) = 0.1
+		_Emission ("Emission", Range(0,1)) = 0.1
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Refract ("Refract", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
@@ -40,6 +39,7 @@
 		half _Refract;
 		half _Shine;
 		half _LerpThreshold;
+		half _Emission;
 		fixed4 _ColorTT;
 		fixed4 _ColorTB;
 		fixed4 _ColorBT;
@@ -60,7 +60,10 @@
 			localPos = localPos + 0.5;
 
 			//Get view nomals
-			float3 viewNormals = (UnityObjectToViewPos(IN.normal));
+			float3 viewSpacePos = -mul(UNITY_MATRIX_V, float4(IN.worldPos, 1.0)).xyz;
+
+			//Get depth
+			float3 depth = 1 - clamp(length(viewSpacePos.z)/10,0.01,1);
 
 			//Get world normals
 			float3 worldNormals = mul(unity_ObjectToWorld, float4(IN.normal,0)).xyz;
@@ -83,12 +86,15 @@
 				g = lerp(lerp(_ColorBB, _ColorBT, lerpvalue), lerp(_ColorTB, _ColorTT, lerpvalue), (worldNormals.y/_LerpThreshold)/2+0.5);
 			}
 
+			//g = g * viewSpacePos.z/;
+
 			//Add colour shine
 			//float3 absNormal = normalize(abs(UnityObjectToViewPos(IN.normal)));
 			//g.rgb = lerp(g.rgb, _ColorShine, pow(dot(absNormal, float3(0,0,1)), 4)*_Shine);
 
 			//Assign albedo
-			o.Albedo = g.rgb;
+			o.Albedo = g.rgb;;
+			o.Emission = g.rgb * depth * _Emission; //g.rgb * _Emission;
 			//o.Normal = normalMap.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
