@@ -27,7 +27,9 @@ public class ShapeSpawner : MonoBehaviour {
 			} else {
 				pos = Random.insideUnitSphere * radius;
 			}
-			pos.y = Mathf.Abs (pos.y);
+            float placeholder = pos.y;
+			pos.y = Mathf.Abs (pos.z);
+            pos.z = placeholder;
 			s.position = pos;
 
 			if (useMeshes) {
@@ -35,7 +37,7 @@ public class ShapeSpawner : MonoBehaviour {
 				s.GetComponent<MeshCollider> ().sharedMesh = mesh;
 				s.GetComponent<MeshFilter> ().sharedMesh = mesh;
 			}
-			if (tag != null) {
+			if (tag != null && tag != "") {
 				s.gameObject.tag = tag;
 			}
 		}
