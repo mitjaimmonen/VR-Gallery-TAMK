@@ -1,9 +1,7 @@
 ﻿Shader "Custom/PlatformMaterial" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+		_Edge ("Edge Thickness", Range(0,1)) = 0.03
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -29,8 +27,7 @@
 			o.pos = v.vertex.xyz;
 		}
 
-		half _Glossiness;
-		half _Metallic;
+		half _Edge;
 		fixed4 _Color;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -43,27 +40,54 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			float lenx = mul(unity_ObjectToWorld, float4(1, 0, 0, 1)) - mul(unity_ObjectToWorld, float4(-1, 0, 0, 1));
-			float leny = mul(unity_ObjectToWorld, float4(0, 1, 0, 1)) - mul(unity_ObjectToWorld, float4(0, -1, 0, 1));
-			float lenz = mul(unity_ObjectToWorld, float4(0, 0, 1, 1)) - mul(unity_ObjectToWorld, float4(0, 0, -1, 1));
+			float3 pos = IN.pos + float3(0.5, 0.5, 0.5);
+			float lenx = abs(length(mul(unity_ObjectToWorld, float4(1, 0, 0, 1)).xyz - mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz));
+			float leny = abs(length(mul(unity_ObjectToWorld, float4(0, 1, 0, 1)).xyz - mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz));
+			float lenz = abs(length(mul(unity_ObjectToWorld, float4(0, 0, 1, 1)).xyz - mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz));
 
-			if (lenx/2 - abs(IN.pos.x * lenx) < 0.1) {
-				//o.Emission = _Color;
-			}
-			else if (abs(IN.pos.y * leny) < 0) {
+			if (pos.x * lenx < _Edge && pos.y * leny < _Edge) {
 				o.Emission = _Color;
 			}
-			if (abs(IN.pos.z * lenz) < 0.001) {
+			else if (pos.x * lenx < _Edge && leny - pos.y * leny < _Edge) {
 				o.Emission = _Color;
 			}
-			else {
-				o.Emission = float3(0, 0, 0);
+			else if (lenx - pos.x * lenx < _Edge && pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (lenx - pos.x * lenx < _Edge && leny - pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+
+			else if (pos.z * lenz < _Edge && pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (pos.z * lenz < _Edge && leny - pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (lenz - pos.z * lenz < _Edge && pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (lenz - pos.z * lenz < _Edge && leny - pos.y * leny < _Edge) {
+				o.Emission = _Color;
+			}
+
+			else if (pos.x * lenx < _Edge && pos.z * lenz < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (pos.x * lenx < _Edge && lenz - pos.z * lenz < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (lenx - pos.x * lenx < _Edge && pos.z * lenz < _Edge) {
+				o.Emission = _Color;
+			}
+			else if (lenx - pos.x * lenx < _Edge && lenz - pos.z * lenz < _Edge) {
+				o.Emission = _Color;
+			} else {
+				clip(-1);
 			}
 			o.Albedo = float3(0, 0, 0);
-			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
+			o.Metallic = 0;
+			o.Smoothness = 0;
 		}
 		ENDCG
 	}
