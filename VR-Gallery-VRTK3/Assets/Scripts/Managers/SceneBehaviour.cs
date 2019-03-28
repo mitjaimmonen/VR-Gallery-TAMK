@@ -32,9 +32,13 @@ public class SceneBehaviour : MonoBehaviour {
 	private Color debugColor;
 	private bool updatingFog;
 
+	[Header("Gravity")]
+	public float gravity = 9.81f;
+
 
 	void Start () 
 	{
+		Physics.gravity = new Vector3 (0, -gravity, 0);
 		RenderSettings.fogDensity = fogDensityAtStart;
 		RenderSettings.fog = fog;
 		RenderSettings.fogColor = fogColorAtStart;

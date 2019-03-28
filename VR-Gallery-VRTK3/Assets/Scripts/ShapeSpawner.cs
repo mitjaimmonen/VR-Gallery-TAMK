@@ -14,7 +14,6 @@ public class ShapeSpawner : MonoBehaviour {
 	[SerializeField] private float gravity = 1.0f;
 
 	void Awake () {
-		Physics.gravity = new Vector3 (0, -gravity, 0);
 		for (int i = 0; i < shapesAmount; i++) {
 			Transform s = Instantiate (prefab);
 			Mesh mesh = meshes [Random.Range (0, meshes.Length)];

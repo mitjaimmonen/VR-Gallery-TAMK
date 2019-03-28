@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4af3459424586104a942ae3a91c05912
+guid: 843fa3b8f134f4942895c6add4886432
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -17,17 +17,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: floating painting back
-    second: {fileID: 2100000, guid: 2256d6e523686dc43bc11dab02804cbd, type: 2}
+    second: {fileID: 2100000, guid: af6d7b86a5ad72f48894b9541e17e456, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: floating painting front
-    second: {fileID: 2100000, guid: c1fa7fcd828d40148923d6c493ec899c, type: 2}
+    second: {fileID: 2100000, guid: 9d32f1e1fbc9a3c489a32afe42df68f8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: floating painting sides
-    second: {fileID: 2100000, guid: a8fd92d449e755943a048970c86c7fae, type: 2}
+    second: {fileID: 2100000, guid: 9838eba338469d64993415d7ca08acb8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
