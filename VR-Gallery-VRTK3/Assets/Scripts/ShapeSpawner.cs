@@ -15,7 +15,7 @@ public class ShapeSpawner : MonoBehaviour {
 	[SerializeField] private float scaleMultiplier = 1.0f;
 	[SerializeField] private string tag;
 
-	void Awake () {
+	void Start () {
 		for (int i = 0; i < shapesAmount; i++) {
 			Transform s = Instantiate (prefab);
 
