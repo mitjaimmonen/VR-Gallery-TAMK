@@ -132,14 +132,13 @@ public class InteractablePainting : VRTK_InteractableObject {
 			{
 				Vector3 currentTorque = Vector3.Lerp(Vector3.zero, torque, Time.time - lastGrabTime);
 				rb.AddTorque(currentTorque);
-				Vector3.ClampMagnitude(rb.angularVelocity, Mathf.Lerp(rb.angularVelocity.magnitude, currentTorque.y, Time.deltaTime*2f));
-
+				Vector3.ClampMagnitude(rb.angularVelocity, Mathf.Lerp(rb.angularVelocity.magnitude, Mathf.Max(currentTorque.y, Mathf.Abs(torque.y)), Time.deltaTime*2f));
 				if (restoreUpwardsRotationSpeed > 0)
 				{
-					Quaternion targetRot = transform.rotation;
+					Vector3 targetRot = transform.eulerAngles;
 					targetRot.x = 0;
 					targetRot.z = 0;
-					rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, Time.deltaTime * restoreUpwardsRotationSpeed));
+					rb.MoveRotation(Quaternion.Slerp(rb.rotation, Quaternion.Euler(targetRot), Time.deltaTime * restoreUpwardsRotationSpeed));
 				}
 			}
 			else
