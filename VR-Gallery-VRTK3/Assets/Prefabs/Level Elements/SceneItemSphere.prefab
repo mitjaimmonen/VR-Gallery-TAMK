@@ -3323,7 +3323,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275295309721612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.007, y: 1.227, z: 1.146}
+  m_LocalPosition: {x: -1.0791439, y: 0.00999999, z: -0.60807055}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4561086947802536}
@@ -7683,15 +7683,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9574b4d5b598540920324617e217d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableSceneSwitching: 0
+  sceneCallDelay: 0.5
   destroyPS: {fileID: 0}
   sceneToLoad:
-    sceneAsset: {fileID: 102900000, guid: bee20f2b347ccfc44bef290a090799e1, type: 3}
-    scenePath: Assets/Scenes/03ElinaLoneliness.unity
-  breakForce: 3
+    sceneAsset: {fileID: 102900000, guid: fdbe76852d355ba4ea403d7dc6322f9c, type: 3}
+    scenePath: Assets/Scenes/02JakobCow.unity
+  breakForce: 5
   breakingLayers:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1281
 --- !u!114 &114414861749567766
 MonoBehaviour:
   m_ObjectHideFlags: 1
