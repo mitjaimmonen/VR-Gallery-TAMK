@@ -10,6 +10,7 @@ public class InteractablePainting : VRTK_InteractableObject {
 	[SerializeField] GameObject axleObject;
 	[SerializeField] bool allowFullRotation = true;
 	[SerializeField] float restoreUpwardsRotationSpeed = 1f;
+	[SerializeField] float touchImpactMultiplier = 5f;
 
 	[Header("Free Floating")]
 
@@ -58,6 +59,43 @@ public class InteractablePainting : VRTK_InteractableObject {
 		if (enableRotating)
 		{
 			HandleRotating();
+		}
+
+		if (touchingController)
+		{
+			HandleTouches();
+		}
+	}
+
+	GameObject touchingController;
+	Vector3 controllerPos = Vector3.zero;
+	Vector3 controllerVel = Vector3.zero;
+
+	public override void OnInteractableObjectTouched(InteractableObjectEventArgs e)
+	{
+		base.OnInteractableObjectTouched(e);
+
+		touchingController = e.interactingObject;
+		controllerPos = touchingController.transform.position;
+	}
+	public override void OnInteractableObjectUntouched(InteractableObjectEventArgs e)
+	{
+		base.OnInteractableObjectUntouched(e);
+
+		touchingController = null;
+	}
+
+	void HandleTouches()
+	{
+		if (!IsGrabbed())
+		{
+			controllerVel = touchingController.transform.position - controllerPos;
+			controllerPos = touchingController.transform.position;
+
+			if (rb)
+			{
+				rb.AddForceAtPosition(controllerVel*touchImpactMultiplier, controllerPos, ForceMode.VelocityChange);
+			}
 		}
 	}
 

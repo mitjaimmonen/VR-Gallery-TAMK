@@ -279,6 +279,7 @@ MonoBehaviour:
   axleObject: {fileID: 1079456312110036}
   allowFullRotation: 1
   restoreUpwardsRotationSpeed: 1
+  touchImpactMultiplier: 2
   enableFloating: 1
   transformToFloat: {fileID: 4567053756648172}
   freeFloatInterval: 6
