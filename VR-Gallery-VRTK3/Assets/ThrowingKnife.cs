@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ThrowingKnife : MonoBehaviour {
+public class ThrowingKnife : VRTK_InteractableObject
+{
 
 	[SerializeField] float minImpulseToStick;
 	[SerializeField] LayerMask layerMask;
@@ -17,14 +19,25 @@ public class ThrowingKnife : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		origPos = transform.position;
 	}
-
-	void FixedUpdate()
+	public override void OnInteractableObjectUngrabbed(InteractableObjectEventArgs e)
 	{
-		if (!rb.isKinematic && rb.velocity.magnitude > 1f && lastCollisionTime + 0.25f < Time.time)
-			rb.MoveRotation(Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(rb.velocity, Vector3.up), Time.fixedUnscaledDeltaTime*rb.velocity.magnitude));
+		base.OnInteractableObjectUngrabbed(e);
 
-		if (transform.position.magnitude > 50f)
-			transform.position = origPos;
+        rb.isKinematic = false;
+
+	}
+	protected override void FixedUpdate()
+	{
+        base.FixedUpdate();
+
+        if (!IsGrabbed())
+        {
+		    if (!rb.isKinematic && rb.velocity.magnitude > 1f && lastCollisionTime + 0.25f < Time.time)
+			    rb.MoveRotation(Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(rb.velocity, Vector3.up), Time.fixedUnscaledDeltaTime*rb.velocity.magnitude));
+
+		    if (transform.position.magnitude > 50f)
+			    transform.position = origPos;
+        }
 	}
 
 	void OnCollisionStay(Collision col)
