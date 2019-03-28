@@ -9,10 +9,13 @@ public class ThrowingKnife : VRTK_InteractableObject
 
 	[SerializeField] float minImpulseToStick;
 	[SerializeField] LayerMask layerMask;
+	[SerializeField] Transform bladeHandleDivision;
 
 	float lastCollisionTime;
 	Vector3 origPos;
 	Rigidbody rb;
+	bool stuck = false;
+	bool grabbed = false;
 
 	void Start()
 	{
@@ -24,6 +27,16 @@ public class ThrowingKnife : VRTK_InteractableObject
 		base.OnInteractableObjectUngrabbed(e);
 
         rb.isKinematic = false;
+
+	}
+	public override void OnInteractableObjectGrabbed(InteractableObjectEventArgs e)
+	{
+		base.OnInteractableObjectGrabbed(e);
+
+		if (stuck) {
+			rb.isKinematic = false;
+			stuck = false;
+		}
 
 	}
 	protected override void FixedUpdate()
@@ -50,10 +63,11 @@ public class ThrowingKnife : VRTK_InteractableObject
 		lastCollisionTime = Time.time;
 
 		if (col.impulse.magnitude >= minImpulseToStick && 
-		   (layerMask == (layerMask | (1 << col.gameObject.layer))))
+			(layerMask == (layerMask | (1 << col.gameObject.layer))) && !stuck && !IsGrabbed() && transform.InverseTransformPoint(col.contacts[0].point).z > bladeHandleDivision.localPosition.z)
 		{
 			rb.isKinematic = true;
 			transform.position += (-col.contacts[0].normal * Mathf.Clamp(0.01f*col.impulse.magnitude,0.01f,1f));
+			stuck = true;
 		}
 	}
 }
