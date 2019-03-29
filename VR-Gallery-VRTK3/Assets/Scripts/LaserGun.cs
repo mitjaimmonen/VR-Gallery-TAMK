@@ -19,9 +19,9 @@ public class LaserGun : VRTK_InteractableObject {
 	private float minTriggerRotation = -10f;
 	private float maxTriggerRotation = 45f;
 
-	protected override void Awake()
+	protected void Start()
 	{
-		base.Awake();
+		//base.Start();
 		if (!spawnPoint) {
 			spawnPoint = transform;
 		}
