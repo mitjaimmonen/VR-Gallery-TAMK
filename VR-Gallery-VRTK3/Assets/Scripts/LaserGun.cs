@@ -13,7 +13,7 @@ public class LaserGun : VRTK_InteractableObject {
 	[SerializeField] private Transform spawnPoint;
 	private Vector3 spawnPointV;
 	private VRTK_BasicTeleport teleport;
-	private VRTK_ControllerEvents controllerEvents;
+	//private VRTK_ControllerEvents controllerEvents;
 	private GameObject grabbingObject;
 
 	private float minTriggerRotation = -10f;
@@ -34,7 +34,7 @@ public class LaserGun : VRTK_InteractableObject {
 	public override void Grabbed(VRTK_InteractGrab currentGrabbingObject)
 	{
 		base.Grabbed(currentGrabbingObject);
-		controllerEvents = currentGrabbingObject.GetComponent<VRTK_ControllerEvents>();
+		//controllerEvents = currentGrabbingObject.GetComponent<VRTK_ControllerEvents>();
 		grabbingObject = GetGrabbingObject ();
 		grabbingObject.GetComponent<VRTK_Pointer> ().enabled = false;
 		teleport.enabled = false;

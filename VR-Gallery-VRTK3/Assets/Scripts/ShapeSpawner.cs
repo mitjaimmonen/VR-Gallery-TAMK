@@ -27,14 +27,15 @@ public class ShapeSpawner : MonoBehaviour {
 
 			s.localScale = Vector3.one * Random.Range (minScale, maxScale) * scaleMultiplier;
 
-			Vector3 pos;
+			Vector3 pos = transform.position;
 			if (spawnOnCircle) {
-				pos = Random.insideUnitCircle * radius;
-				float y2z = pos.y;
-				pos.y = Mathf.Abs (pos.z);
-				pos.z = y2z;
+				Vector3 circle = Random.insideUnitCircle * radius;
+				float y2z = circle.y;
+				circle.y = Mathf.Abs (circle.z);
+				circle.z = y2z;
+				pos += circle;
 			} else {
-				pos = Random.insideUnitSphere * radius;
+				pos += Random.insideUnitSphere * radius;
 			}
 			s.position = pos;
 
@@ -43,7 +44,7 @@ public class ShapeSpawner : MonoBehaviour {
 				s.GetComponent<MeshCollider> ().sharedMesh = mesh;
 				s.GetComponent<MeshFilter> ().sharedMesh = mesh;
 			} else {
-				Sprite sprite = sprites [Random.Range (0, sprites.Length)];
+				Sprite sprite = sprites [i];
 				s.GetComponent<SpriteRenderer> ().sprite = sprite;
 			}
 			if (tag != null && tag != "") {
