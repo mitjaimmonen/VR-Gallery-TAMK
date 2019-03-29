@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114864166652219576}
   - component: {fileID: 114201886388422846}
   m_Layer: 0
-  m_Name: RotatableFloatyPainting
+  m_Name: RotatableFloatyPainting (old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
