@@ -33,7 +33,11 @@ public class ExplodingCow : MonoBehaviour {
 	[SerializeField] private int particleCount = 100;
 
 
-	
+	[Header("Audio")]
+	[SerializeField] private AudioSource oneShotAudioSource;
+	[SerializeField] private AudioClip boomOneShot;
+
+
 	private List<Transform> spawnPoints = new List<Transform>();
 	private List<ParticleSystem> explosionParticleSystems = new List<ParticleSystem>();
 	private List<Rigidbody> vegetables = new List<Rigidbody>();
@@ -230,6 +234,16 @@ public class ExplodingCow : MonoBehaviour {
 		StartCoroutine(PlayExplosionParticles());
 		StartCoroutine(VeggieRbBlowUp());
 		StartCoroutine(MeshBlowUp());
+		PlayOneShot(boomOneShot);
+	}
+
+	///<summary>Plays a sound once and instantly forgets it.</summary>
+	void PlayOneShot(AudioClip oneShot)
+	{
+		if (oneShotAudioSource)
+			oneShotAudioSource.PlayOneShot(oneShot);
+		else
+			Debug.LogWarning("No audiosource set for oneShot in Exploding Cow");
 	}
 
 	IEnumerator VeggieRbBlowUp()
