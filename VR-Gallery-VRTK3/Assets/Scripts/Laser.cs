@@ -11,14 +11,18 @@ public class Laser : MonoBehaviour {
 	private Vector3 spawnpoint;
 	private bool hasCollided = false;
 	private int life;
+	private GameObject reflection;
 
-	public void Awake () {
+	public void Awake ()
+	{
+		reflection = GetComponent<ReflectionObj>().reflection;
 		rb = GetComponent<Rigidbody> ();
 		col = GetComponent<BoxCollider> ();
 		transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
 	}
 
-	public void Fire(float scaleTo, float speed, int life){
+	public void Fire(float scaleTo, float speed, int life)
+	{
 		this.scaleTo = scaleTo;
 		this.speed = speed;
 		this.life = life;
@@ -27,9 +31,12 @@ public class Laser : MonoBehaviour {
 		StartCoroutine (ScaleUp ());
 	}
 
-	private void Kill(){
+	private void Kill()
+	{
 		gameObject.SetActive(false);
 		Destroy(gameObject);
+		reflection.SetActive(false);
+		Destroy(reflection);
 	}
 
 	//*

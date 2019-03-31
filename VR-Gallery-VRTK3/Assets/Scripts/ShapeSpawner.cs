@@ -45,7 +45,6 @@ public class ShapeSpawner : MonoBehaviour {
 				s.GetComponent<MeshCollider> ().sharedMesh = mesh;
 				s.GetComponent<MeshFilter> ().sharedMesh = mesh;
 				s.rotation = Random.rotation;
-				s.GetComponent<SpaceShape>().SpawnReflection();
 
 			} else {
 				Sprite sprite = sprites [i];

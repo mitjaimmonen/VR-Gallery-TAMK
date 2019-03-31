@@ -15,6 +15,7 @@ public class LaserGun : VRTK_InteractableObject {
 	private VRTK_BasicTeleport teleport;
 	//private VRTK_ControllerEvents controllerEvents;
 	private GameObject grabbingObject;
+	private GameObject reflection;
 
 	private float minTriggerRotation = -10f;
 	private float maxTriggerRotation = 45f;
