@@ -36,6 +36,7 @@ public class ShapeSpawner : MonoBehaviour {
 				pos += circle;
 			} else {
 				pos += Random.insideUnitSphere * radius;
+				pos.y = Mathf.Abs(pos.y);
 			}
 			s.position = pos;
 
@@ -43,6 +44,9 @@ public class ShapeSpawner : MonoBehaviour {
 				Mesh mesh = meshes [Random.Range (0, meshes.Length)];
 				s.GetComponent<MeshCollider> ().sharedMesh = mesh;
 				s.GetComponent<MeshFilter> ().sharedMesh = mesh;
+				s.rotation = Random.rotation;
+				s.GetComponent<SpaceShape>().SpawnReflection();
+
 			} else {
 				Sprite sprite = sprites [i];
 				s.GetComponent<SpriteRenderer> ().sprite = sprite;
