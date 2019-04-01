@@ -216,7 +216,7 @@ MonoBehaviour:
   useOverrideButton: 3
   allowedUseControllers: 0
   usingState: 0
-  debug: 1
+  debug: 0
 --- !u!198 &198647534899723078
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -728,7 +728,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: -90, y: 0, z: 0}
-    m_Scale: {x: 0.5, y: 0.05, z: 0.05}
+    m_Scale: {x: 1, y: 0.05, z: 0.05}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0

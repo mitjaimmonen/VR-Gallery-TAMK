@@ -11,6 +11,7 @@ public class Card : VRTK_InteractableObject {
 	private Rigidbody rb;
 	private Texture2D texture;
 	private Vector2 origin;
+	private ParticleSystem ps;
 
 	//*
 	void Start(){
@@ -28,14 +29,18 @@ public class Card : VRTK_InteractableObject {
 			}
 		}
 		texture.Apply();
+		rb = GetComponent<Rigidbody>();
+		rb.AddTorque (transform.up * 40f);
 
 		if (debug)
 		{
 			pst = transform.GetChild(0);
 			sr = GetComponent<SpriteRenderer>();
 			rb = GetComponent<Rigidbody>();
+			ps = pst.GetComponent<ParticleSystem> ();
 			pst.localPosition = Vector3.up * sr.sprite.bounds.extents.y;
-			Debug.Log(GetComponent<SpriteRenderer>().sprite.bounds.extents);
+			var sh = ps.shape.scale;
+			sh.x = sr.sprite.bounds.extents.x * 2;
 			StartCoroutine (Kill(5f));
 		}
 	}
@@ -45,10 +50,15 @@ public class Card : VRTK_InteractableObject {
 		base.StartUsing(currentUsingObject);
 		pst = transform.GetChild(0);
 		sr = GetComponent<SpriteRenderer>();
-		rb = GetComponent<Rigidbody>();
+		ps = pst.GetComponent<ParticleSystem> ();
 		pst.localPosition = Vector3.up * sr.sprite.bounds.extents.y;
-		Debug.Log(GetComponent<SpriteRenderer>().sprite.bounds.extents);
+		var sh = ps.shape.scale;
+		sh.x = sr.sprite.bounds.extents.x * 2;
 		StartCoroutine (Kill(5f));
+	}
+
+	void Update(){
+		//rb.AddForce (Vector3.up * Mathf.Cos (Time.time));
 	}
 
 	IEnumerator Kill(float duration){
@@ -56,14 +66,14 @@ public class Card : VRTK_InteractableObject {
 		float particleSpeed = 2 * pst.transform.localPosition.y / duration;
 		float clipSpeed = 1.1f/duration;
 		float clip = 1f;
-		pst.GetComponent<ParticleSystem>().Play();
+		ps.Play();
 		pst.GetComponentInChildren<ParticleSystem>().Play();
 		sr.material.SetTexture("_Noise", texture);
 		while (pst.transform.localPosition.y > destPosition){
 			clip -= Time.deltaTime * clipSpeed;
 			sr.material.SetFloat("_ClipRange", clip);
 			pst.transform.localPosition += Vector3.down * Time.deltaTime * particleSpeed;
-			//rb.AddTorque(transform.up * 200f * Time.deltaTime);
+			rb.AddTorque(transform.up * 200f * Time.deltaTime);
 			yield return null;
 		}
 		yield return new WaitForSeconds(2f);
