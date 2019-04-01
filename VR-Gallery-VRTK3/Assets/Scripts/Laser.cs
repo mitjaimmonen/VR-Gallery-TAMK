@@ -13,9 +13,8 @@ public class Laser : MonoBehaviour {
 	private int life;
 	private GameObject reflection;
 
-	public void Awake ()
+	public void Start ()
 	{
-		reflection = GetComponent<ReflectionObj>().reflection;
 		rb = GetComponent<Rigidbody> ();
 		col = GetComponent<BoxCollider> ();
 		transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
@@ -33,6 +32,7 @@ public class Laser : MonoBehaviour {
 
 	private void Kill()
 	{
+		reflection = GetComponent<ReflectionObj>().reflection;
 		gameObject.SetActive(false);
 		Destroy(gameObject);
 		reflection.SetActive(false);
@@ -44,7 +44,7 @@ public class Laser : MonoBehaviour {
 		if(collider.tag != "lasergun" && collider.tag != "spaceshape")
 		{
 			hasCollided = true;
-			StartCoroutine (ScaleDown (collider));
+			StartCoroutine (ScaleDown ());
 		}
 		else if (collider.GetComponent<SpaceShape>())
 		{
@@ -65,12 +65,10 @@ public class Laser : MonoBehaviour {
 		Debug.Log ("speeding");
 	}
 
-	private IEnumerator ScaleDown(Collider collider){
+	private IEnumerator ScaleDown(){
 		Debug.Log ("scaling down");
-		//rb.velocity = Vector3.zero;
 		while (transform.localScale.z > 0f){
 			transform.localScale -= Vector3.forward * Time.deltaTime * speed;
-			//Debug.Log (transform.localScale);
 			yield return null;
 		}
 		rb.velocity = Vector3.zero;

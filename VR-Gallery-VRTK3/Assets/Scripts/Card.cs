@@ -12,6 +12,8 @@ public class Card : VRTK_InteractableObject {
 	private Texture2D texture;
 	private Vector2 origin;
 	private ParticleSystem ps;
+	private Vector3 startPos;
+	private bool touched = false;
 
 	//*
 	void Start(){
@@ -31,6 +33,7 @@ public class Card : VRTK_InteractableObject {
 		texture.Apply();
 		rb = GetComponent<Rigidbody>();
 		rb.AddTorque (transform.up * 40f);
+		startPos = transform.position;
 
 		if (debug)
 		{
@@ -48,6 +51,7 @@ public class Card : VRTK_InteractableObject {
 	public override void StartUsing(VRTK_InteractUse currentUsingObject)
 	{
 		base.StartUsing(currentUsingObject);
+		touched = true;
 		pst = transform.GetChild(0);
 		sr = GetComponent<SpriteRenderer>();
 		ps = pst.GetComponent<ParticleSystem> ();
@@ -58,7 +62,9 @@ public class Card : VRTK_InteractableObject {
 	}
 
 	void Update(){
-		//rb.AddForce (Vector3.up * Mathf.Cos (Time.time));
+		if (!touched) {
+			rb.velocity = Vector3.up * Mathf.Sin(Time.time)/3;
+		}
 	}
 
 	IEnumerator Kill(float duration){
@@ -74,6 +80,9 @@ public class Card : VRTK_InteractableObject {
 			sr.material.SetFloat("_ClipRange", clip);
 			pst.transform.localPosition += Vector3.down * Time.deltaTime * particleSpeed;
 			rb.AddTorque(transform.up * 200f * Time.deltaTime);
+			if (rb.velocity.y < 10f) {
+				rb.AddForce(transform.up * 20f * Time.deltaTime);
+			}
 			yield return null;
 		}
 		yield return new WaitForSeconds(2f);
