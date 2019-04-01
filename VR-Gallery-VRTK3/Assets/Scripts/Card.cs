@@ -7,11 +7,13 @@ public class Card : VRTK_InteractableObject {
 
 	private Transform pst;
 	private SpriteRenderer sr;
+	private Rigidbody rb;
 
 	//*
 	void Start(){
 		pst = transform.GetChild(0);
 		sr = GetComponent<SpriteRenderer>();
+		rb = GetComponent<Rigidbody>();
 		pst.localPosition = Vector3.up * sr.sprite.bounds.extents.y;
 		Debug.Log(GetComponent<SpriteRenderer>().sprite.bounds.extents);
 		StartCoroutine (Kill(5f));
@@ -34,12 +36,11 @@ public class Card : VRTK_InteractableObject {
 		float clip = 1f;
 		pst.GetComponent<ParticleSystem>().Play();
 		pst.GetComponentInChildren<ParticleSystem>().Play();
-		//GetComponent<Rigidbody>().AddTorque(transform.up * 5f);
 		while (pst.transform.localPosition.y > destPosition){
 			clip -= Time.deltaTime * clipSpeed;
 			sr.material.SetFloat("_ClipRange", clip);
 			pst.transform.localPosition += Vector3.down * Time.deltaTime * particleSpeed;
-
+			//rb.AddTorque(transform.up * 200f * Time.deltaTime);
 			yield return null;
 		}
 		yield return new WaitForSeconds(2f);
