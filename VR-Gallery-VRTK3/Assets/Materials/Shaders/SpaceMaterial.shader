@@ -67,6 +67,7 @@
 
 			//Get world normals
 			float3 worldNormals = mul(unity_ObjectToWorld, float4(IN.normal,0)).xyz;
+			worldNormals.y = worldNormals.y * IN.worldPos.y / abs(IN.worldPos.y);
 
 			//Get Normal Map
 			float3 normalMap = tex2D (_Normal, IN.uv_Normal).xyz;
@@ -93,7 +94,7 @@
 			//g.rgb = lerp(g.rgb, _ColorShine, pow(dot(absNormal, float3(0,0,1)), 4)*_Shine);
 
 			//Assign albedo
-			o.Albedo = g.rgb;;
+			o.Albedo = g.rgb;
 			o.Emission = g.rgb * depth * _Emission; //g.rgb * _Emission;
 			//o.Normal = normalMap.rgb;
 			// Metallic and smoothness come from slider variables
