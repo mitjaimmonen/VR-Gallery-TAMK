@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 114500277929529716}
   - component: {fileID: 136641047327756258}
   - component: {fileID: 136568978974827758}
+  - component: {fileID: 82338776628182500}
   m_Layer: 0
   m_Name: Exploding Cow
   m_TagString: Untagged
@@ -459,7 +460,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109856242415290}
   m_LocalRotation: {x: -0, y: 0.8321355, z: -0, w: 0.5545723}
-  m_LocalPosition: {x: -2.593412, y: 0.791, z: -1.8875139}
+  m_LocalPosition: {x: -1.04, y: 0.791, z: -1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4225980248385604}
@@ -726,6 +727,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813502084899162}
   m_Mesh: {fileID: 4300000, guid: 4fa93c37d2490584c994513a5f86670d, type: 3}
+--- !u!82 &82338776628182500
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109856242415290}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 834aa7b256da84b449e19db53be4ad54, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114247248711460468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -802,6 +883,8 @@ MonoBehaviour:
   explosionForcePSMultiplier: 2.5
   restoreDuration: 2
   particleCount: 100
+  oneShotAudioSource: {fileID: 82338776628182500}
+  boomOneShot: {fileID: 8300000, guid: 834aa7b256da84b449e19db53be4ad54, type: 3}
 --- !u!114 &114790793176288756
 MonoBehaviour:
   m_ObjectHideFlags: 1

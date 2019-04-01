@@ -5,8 +5,13 @@ using UnityEngine;
 public class SpaceShape : MonoBehaviour {
 
 	[SerializeField] private ParticleSystem ps;
+	GameObject reflection;
 
 	public void Kill(){
+		if ( GetComponent<ReflectionObj>() != null)
+		{
+			GetComponent<ReflectionObj>().reflection.GetComponent<SpaceShape>().Kill();
+		}
 		ps = Instantiate (ps, transform.position, Random.rotation);
 		StartCoroutine (Destroy());
 		gameObject.SetActive (false);
@@ -17,4 +22,5 @@ public class SpaceShape : MonoBehaviour {
 		Destroy (ps.gameObject);
 		Destroy (gameObject);
 	}
+	
 }
