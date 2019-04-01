@@ -2,7 +2,8 @@
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_ClipRange ("Clip Threshold", Range(0.0, 1.0)) = 0
+		_Noise ("Noise Tex (procedural)", 2D) = "white" {}
+		_ClipRange ("Clip Threshold", Range(-0.1,1)) = 1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -17,9 +18,11 @@
 		#pragma target 3.0
 
 		sampler2D _MainTex;
+		sampler2D _Noise;
 
 		struct Input {
 			float2 uv_MainTex;
+			float2 uv_Noise;
 		};
 
 		half _ClipRange;
@@ -36,14 +39,15 @@
 			// Albedo comes from a texture tinted by color
 			o.Albedo = tex2D(_MainTex, IN.uv_MainTex);
 			o.Alpha = 1;
-			
-            clip(_ClipRange - IN.uv_MainTex.y);
-			float w = clamp((_ClipRange - IN.uv_MainTex.y) * 10, 0, 1);	
+			float4 noise = tex2D(_Noise, IN.uv_Noise);
+			float cutoff = _ClipRange + (noise.r - 0.5)/5;
+			float w = clamp((cutoff - IN.uv_MainTex.y) * 10, 0, 1);	
 			if (_ClipRange == 1) {
+				cutoff = 1;
 				w = 1;
-			}
-			o.Emission = lerp(_Color * 3, half4(0,0,0,0), w);
-			// Metallic and smoothness come from slider variables
+			}			
+            clip(cutoff - IN.uv_MainTex.y);
+			o.Emission = lerp(_Color * 3, half4(0,0,0,0), w).rgb;
 		}
 		ENDCG
 	}

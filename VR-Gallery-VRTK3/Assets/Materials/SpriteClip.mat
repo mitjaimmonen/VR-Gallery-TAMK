@@ -18,12 +18,21 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _ClipRange:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ClipRange: 1
     m_Colors:
+    - _ClipRange: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 0.823, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 0.759, b: 0, a: 1}
