@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114437998808634208}
   - component: {fileID: 114000853923829768}
   - component: {fileID: 114337767884440898}
+  - component: {fileID: 114723349782905994}
   m_Layer: 0
   m_Name: SceneBehaviour
   m_TagString: SceneBehaviour
@@ -101,7 +102,7 @@ MonoBehaviour:
   blinkTransitionSpeed: 0.6
   distanceBlinkDelay: 0
   headsetPositionCompensation: 1
-  targetListPolicy: {fileID: 0}
+  targetListPolicy: {fileID: 114723349782905994}
   navMeshLimitDistance: 0
 --- !u!114 &114324206905844696
 MonoBehaviour:
@@ -116,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pppOverride: {fileID: 0}
   debugFog: 1
+  clearFlagMode: 2
   cameraColorWithFog: 1
   fog: 1
   defaultFogFadeTime: 5
@@ -124,6 +126,7 @@ MonoBehaviour:
   fogDelayAtStart: 4
   fogColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   fogDensity: 0.2
+  gravity: 9.81
 --- !u!114 &114337767884440898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,3 +166,18 @@ MonoBehaviour:
   - {x: -1.6, y: 0.01, z: -1.225}
   - {x: -1.6, y: 0.01, z: 1.225}
   - {x: 1.6, y: 0.01, z: 1.225}
+--- !u!114 &114723349782905994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815734484045746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed2aa1a29b92ca4f84a26a5f6e9218b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  operation: 1
+  checkType: 2
+  identifiers:
+  - VRTK_DestinationPoint
