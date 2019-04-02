@@ -8,7 +8,7 @@ public class SpaceShape : MonoBehaviour {
 	GameObject reflection;
 
 	public void Kill(){
-		if ( GetComponent<ReflectionObj>() != null)
+		if ( GetComponent<ReflectionObj>() != null && transform.parent != GameObject.Find("Reflection Objects").transform)
 		{
 			GetComponent<ReflectionObj>().reflection.GetComponent<SpaceShape>().Kill();
 		}
