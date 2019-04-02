@@ -17,6 +17,8 @@ public class ExitSign : VRTK_InteractableObject {
 	private bool isActivated = false;
 	private SkyGlobe globe;
 
+	private AudioSource a;
+
 
     private void OnGUI()
     {
@@ -34,6 +36,7 @@ public class ExitSign : VRTK_InteractableObject {
 
 	private void Start()
 	{
+		a = GetComponent<AudioSource> ();
 		if (!globe)
 			globe = GameObject.FindObjectOfType<SkyGlobe>();
 	}
@@ -62,6 +65,7 @@ public class ExitSign : VRTK_InteractableObject {
 		if (activationInProgress && !isActivated && activationStartTime < Time.time - activationDelay)
 		{
 			isActivated = true;
+			a.Play();
 			StartCoroutine(ExitSceneWithStyle());
 		}
 	}
