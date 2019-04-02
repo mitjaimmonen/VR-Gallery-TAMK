@@ -5,25 +5,43 @@ using VRTK;
 
 public class ControllerLabels : MonoBehaviour {
 
-	public GameObject controller;
+	[SerializeField] private GameObject touchpadLabel;
+	[SerializeField] private GameObject triggerLabel;
+	private GameObject leftController;
+	private GameObject rightController;
+	private VRTK_ControllerEvents leftControllerEvents;
+	private VRTK_ControllerEvents rightControllerEvents;
+	private Transform leftModel;
+	private Transform rightModel;
 
-	// Use this for initialization
-	void Start () {
-		//transform.position = VRTK_DeviceFinder.GetControllerRightHand (true).transform.Find ("touchpad").transform.GetChild (0).position;
-		StartCoroutine(lookForControllers());
-
+	void Start(){
+		StartCoroutine(FindControllers());
 	}
 
-	IEnumerator lookForControllers (){
-		while (controller == null) {
-			controller = VRTK_DeviceFinder.GetControllerRightHand ();
+	IEnumerator FindControllers(){
+		while (leftController == null && rightController == null)
+		{
+			leftController = VRTK_DeviceFinder.GetControllerLeftHand();
+			rightController = VRTK_DeviceFinder.GetControllerRightHand();
 			yield return null;
 		}
-		SetPivot();
+		Init();
 	}
 
-	void SetPivot(){
-		transform.position = controller.transform.parent.Find ("Model").position;
-		//.Find ("trackpad").GetChild (0)
+	private void Init(){
+		leftControllerEvents = leftController.GetComponent<VRTK_ControllerEvents>();
+		rightControllerEvents = rightController.GetComponent<VRTK_ControllerEvents>();
+		leftControllerEvents.ButtonTwoPressed += EnableMenu;
+		rightControllerEvents.ButtonTwoPressed += EnableMenu;
+		leftModel = leftController.transform.parent.Find("Model");
+		rightModel = rightController.transform.parent.Find("Model");
 	}
+	
+	private void EnableMenu(object sender, ControllerInteractionEventArgs e)
+	{
+		
+	}
+
+
+
 }

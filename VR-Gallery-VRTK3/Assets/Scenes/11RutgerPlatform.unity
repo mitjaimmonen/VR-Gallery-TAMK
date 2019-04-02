@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414735, b: 0.1210785, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 170646222}
-  - component: {fileID: 170646221}
+  - component: {fileID: 170646223}
   m_Layer: 0
   m_Name: CardSpawner
   m_TagString: Untagged
@@ -164,33 +164,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &170646221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 170646220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fd01694dc71624da9fd87800656566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 4971846107787630, guid: d57bfceead05f6e439c289228392cf29, type: 2}
-  useMeshes: 0
-  meshes: []
-  sprites:
-  - {fileID: 21300000, guid: 57084ef1a2d34504c97b10ea79fdeea4, type: 3}
-  - {fileID: 21300000, guid: ba844ec2c7f799744a6a5efe30c88c99, type: 3}
-  - {fileID: 21300000, guid: 88c4d88f00a2cc0458c6ae94965e3f0b, type: 3}
-  - {fileID: 21300000, guid: 28dd3980c1af19f4e8b37126f506e182, type: 3}
-  customAmount: 0
-  shapesAmount: 5
-  radius: 20
-  spawnOnCircle: 1
-  minScale: 1
-  maxScale: 1
-  scaleMultiplier: 1
-  tag: 
 --- !u!4 &170646222
 Transform:
   m_ObjectHideFlags: 0
@@ -204,6 +177,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170646223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170646220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40985c73863043b4dac7765b974f3be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4971846107787630, guid: d57bfceead05f6e439c289228392cf29, type: 2}
+  amount: 0
+  useParentPosition: 1
+  spawnOnCircle: 1
+  absoluteYValues: 0
+  minRadius: 3
+  maxRadius: 7
+  minScale: 1
+  maxScale: 1
+  scaleMultiplier: 1
+  objects: []
+  sprites:
+  - {fileID: 21300000, guid: 57084ef1a2d34504c97b10ea79fdeea4, type: 3}
+  - {fileID: 21300000, guid: ba844ec2c7f799744a6a5efe30c88c99, type: 3}
+  - {fileID: 21300000, guid: 88c4d88f00a2cc0458c6ae94965e3f0b, type: 3}
+  - {fileID: 21300000, guid: 28dd3980c1af19f4e8b37126f506e182, type: 3}
 --- !u!1 &287007436
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
   useOverrideButton: 10
   allowedUseControllers: 0
   usingState: 0
-  speed: 1
+  speed: 2
 --- !u!54 &692255967
 Rigidbody:
   m_ObjectHideFlags: 0

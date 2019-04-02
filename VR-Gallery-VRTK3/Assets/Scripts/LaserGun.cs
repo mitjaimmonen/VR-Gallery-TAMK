@@ -68,22 +68,6 @@ public class LaserGun : VRTK_InteractableObject {
 		Debug.Log ("ungrabbed");
 	}
 
-	/*
-	protected override void Update()
-	{
-		base.Update();
-		if (controllerEvents)
-		{
-			var pressure = (maxTriggerRotation * controllerEvents.GetTriggerAxis()) - minTriggerRotation;
-			trigger.transform.localEulerAngles = new Vector3(0f, pressure, 0f);
-		}
-		else
-		{
-			trigger.transform.localEulerAngles = new Vector3(0f, minTriggerRotation, 0f);
-		}
-	}
-	//*/
-
 	public override void StartUsing(VRTK_InteractUse currentUsingObject)
 	{
 		sources["shoot"].Play();

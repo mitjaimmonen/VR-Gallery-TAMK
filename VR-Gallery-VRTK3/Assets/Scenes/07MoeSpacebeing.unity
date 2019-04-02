@@ -645,12 +645,12 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1489390857}
+      objectReference: {fileID: 1433756359}
     - target: {fileID: 23437457039599390, guid: d33d2902bb613e042bb7a8bacf15b0d4,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 969543786}
+      objectReference: {fileID: 1833762488}
     - target: {fileID: 114324206905844696, guid: d33d2902bb613e042bb7a8bacf15b0d4,
         type: 2}
       propertyPath: fogColor.r
@@ -1399,11 +1399,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 923519335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fd01694dc71624da9fd87800656566, type: 3}
+  m_Script: {fileID: 11500000, guid: fbf38f17969441840ae79b7c12bc5e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4095966045677194, guid: edf8bcd1747d7444f92dacd24078cb5a, type: 2}
-  useMeshes: 1
+  amount: 20
+  useParentPosition: 1
+  spawnOnCircle: 0
+  absoluteYValues: 1
+  minRadius: 1
+  maxRadius: 10
+  minScale: 0.3
+  maxScale: 2
+  scaleMultiplier: 1
+  objects: []
   meshes:
   - {fileID: 4300000, guid: 46988a21aa6071b4c810a836645e676f, type: 3}
   - {fileID: 4300000, guid: dd744ddd6bde0fd43afe06b72e32ea87, type: 3}
@@ -1412,48 +1421,9 @@ MonoBehaviour:
   - {fileID: 4300000, guid: 5fd34212514f1d04c844905f1810d231, type: 3}
   - {fileID: 4300000, guid: 06aec4cafdb84d34fbd65e10e9bad034, type: 3}
   - {fileID: 4300000, guid: bee757a433bfa8642887c10c425fa309, type: 3}
-  sprites: []
-  customAmount: 1
-  shapesAmount: 20
-  radius: 10
-  spawnOnCircle: 0
-  minScale: 0.2
-  maxScale: 2
-  scaleMultiplier: 1
+  material: {fileID: 2100000, guid: c8e10acc1b362b94daf9b41cb0884adb, type: 2}
+  randomForce: 5
   tag: spaceshape
---- !u!21 &969543786
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1080213419
 Prefab:
   m_ObjectHideFlags: 0
@@ -1788,7 +1758,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1299558781}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!43 &1489390857
+--- !u!43 &1433756359
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2530,6 +2500,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1815706503}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!21 &1833762488
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1960204760 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100010, guid: 90c58c65f76dbe741b5dede2c0ac644d, type: 3}

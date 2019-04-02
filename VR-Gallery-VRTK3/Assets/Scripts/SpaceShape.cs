@@ -12,7 +12,7 @@ public class SpaceShape : MonoBehaviour {
 	private GameObject reflection;
 
 	void Start(){
-		AudioSource[] ass = gameObject.GetComponentsInChildren<AudioSource> ();
+		AudioSource[] ass = GetComponentsInChildren<AudioSource> ();
 		for (int i = 0; i < ass.Length; i++) {
 			switch (ass[i].name) {
 			case "Explosion":
