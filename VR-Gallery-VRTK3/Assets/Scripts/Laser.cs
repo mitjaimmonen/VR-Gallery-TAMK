@@ -13,9 +13,8 @@ public class Laser : MonoBehaviour {
 	private int life;
 	private GameObject reflection;
 
-	public void Awake ()
+	public void Start ()
 	{
-		reflection = GetComponent<ReflectionObj>().reflection;
 		rb = GetComponent<Rigidbody> ();
 		col = GetComponent<BoxCollider> ();
 		transform.localScale = new Vector3 (0.1f, 0.1f, 0f);
@@ -33,48 +32,50 @@ public class Laser : MonoBehaviour {
 
 	private void Kill()
 	{
+		Debug.Log ("killing");
+		//rb.velocity = Vector3.zero;
+		//transform.GetChild(0).gameObject.SetActive(false);
+		//GetComponent<ParticleSystem> ().Play ();
+		//StartCoroutine (Despawn ());
+		if (GetComponent<ReflectionObj>().reflection != null) {
+			reflection = GetComponent<ReflectionObj> ().reflection;
+			reflection.SetActive(false);
+			Destroy(reflection);
+		}
 		gameObject.SetActive(false);
 		Destroy(gameObject);
-		reflection.SetActive(false);
-		Destroy(reflection);
 	}
 
 	//*
 	private void OnTriggerEnter(Collider collider){
-		if(collider.tag != "lasergun" && collider.tag != "spaceshape")
+		if(collider.tag != "lasergun" && !hasCollided && collider.gameObject.layer != 8)
 		{
 			hasCollided = true;
-			StartCoroutine (ScaleDown (collider));
-		}
-		else if (collider.GetComponent<SpaceShape>())
-		{
-			collider.GetComponent<SpaceShape>().Kill();
+			Kill();
+			if (collider.GetComponent<SpaceShape> () != null) {
+				collider.GetComponent<SpaceShape>().Kill();
+			}
 		}
 	}
 	//*/
 
 	private IEnumerator ScaleUp(){
-		Debug.Log ("starting scaling");
+		//Debug.Log ("starting scaling");
 		while (transform.localScale.z < scaleTo) {
 			transform.localScale += Vector3.forward * Time.deltaTime * speed;
-			if (!hasCollided) {
-				yield return null;
+			if (hasCollided) {
+				yield break;
 			}
-		}
-		rb.velocity = transform.forward * speed;
-		Debug.Log ("speeding");
-	}
-
-	private IEnumerator ScaleDown(Collider collider){
-		Debug.Log ("scaling down");
-		//rb.velocity = Vector3.zero;
-		while (transform.localScale.z > 0f){
-			transform.localScale -= Vector3.forward * Time.deltaTime * speed;
-			//Debug.Log (transform.localScale);
 			yield return null;
 		}
-		rb.velocity = Vector3.zero;
-		Kill();
+		rb.velocity = transform.forward * speed;
+		//Debug.Log ("speeding");
+	}
+
+	private IEnumerator Despawn(){
+		yield return new WaitForSeconds (3);
+		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 
 	public void FixedUpdate(){
