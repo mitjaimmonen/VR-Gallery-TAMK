@@ -178,6 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   operation: 1
-  checkType: 1
+  checkType: 2
   identifiers:
   - VRTK_DestinationPoint
