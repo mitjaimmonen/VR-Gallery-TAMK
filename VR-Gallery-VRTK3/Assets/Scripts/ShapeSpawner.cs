@@ -49,6 +49,10 @@ public class ShapeSpawner : MonoBehaviour {
 			} else {
 				Sprite sprite = sprites [i];
 				s.GetComponent<SpriteRenderer> ().sprite = sprite;
+				GameObject lgo = new GameObject ("spot");
+				Light l = lgo.AddComponent<Light> ();
+				l.type = LightType.Spot;
+				lgo.transform.position = pos + Vector3.up * 5;
 			}
 			if (tag != null && tag != "") {
 				s.gameObject.tag = tag;
