@@ -102,7 +102,7 @@ MonoBehaviour:
   blinkTransitionSpeed: 0.6
   distanceBlinkDelay: 0
   headsetPositionCompensation: 1
-  targetListPolicy: {fileID: 0}
+  targetListPolicy: {fileID: 114723349782905994}
   navMeshLimitDistance: 0
 --- !u!114 &114324206905844696
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2aa1a29b92ca4f84a26a5f6e9218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  operation: 0
-  checkType: 1
+  operation: 1
+  checkType: 2
   identifiers:
   - VRTK_DestinationPoint

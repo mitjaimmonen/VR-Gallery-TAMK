@@ -11,6 +11,7 @@ public class LaserGun : VRTK_InteractableObject {
 	[SerializeField] private float scale = 5f;
 	[SerializeField] private int life = 60*3;
 	[SerializeField] private Transform spawnPoint;
+	[SerializeField] private AudioClip[] throwSounds;
 	private Vector3 spawnPointV;
 	private VRTK_BasicTeleport teleport;
 	//private VRTK_ControllerEvents controllerEvents;
@@ -19,21 +20,36 @@ public class LaserGun : VRTK_InteractableObject {
 
 	private float minTriggerRotation = -10f;
 	private float maxTriggerRotation = 45f;
+	private Dictionary<string, AudioSource> sources = new Dictionary<string, AudioSource> ();
 
 	protected void Start()
 	{
-		//base.Start();
 		if (!spawnPoint) {
 			spawnPoint = transform;
 		}
 		teleport = GameMaster.Instance.SceneBehaviour ().GetComponent<VRTK_BasicTeleport> ();
-		//pointer = GameMaster.Instance.GetComponent<ControllerSetter> ().GetController ().GetComponent<VRTK_Pointer>();
-
-		//ps = gameObject.GetComponent<ParticleSystem> ();
+		AudioSource[] ass = gameObject.GetComponentsInChildren<AudioSource> ();
+		for (int i = 0; i < ass.Length; i++) {
+			switch (ass[i].name) {
+			case "Throw":
+				sources.Add ("throw", ass [i]);
+				sources ["throw"].clip = throwSounds [Random.Range (0, throwSounds.Length)];
+				break;
+			case "Shoot":
+				sources.Add ("shoot", ass [i]);
+				break;
+			case "Grab":
+				sources.Add ("grab", ass [i]);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	public override void Grabbed(VRTK_InteractGrab currentGrabbingObject)
 	{
+		sources["grab"].Play();
 		base.Grabbed(currentGrabbingObject);
 		//controllerEvents = currentGrabbingObject.GetComponent<VRTK_ControllerEvents>();
 		grabbingObject = GetGrabbingObject ();
@@ -43,33 +59,19 @@ public class LaserGun : VRTK_InteractableObject {
 
 	public override void Ungrabbed(VRTK_InteractGrab previousGrabbingObject)
 	{
+		sources["throw"].Play();
 		base.Ungrabbed(previousGrabbingObject);
+		sources ["throw"].clip = throwSounds [Random.Range (0, throwSounds.Length)];
 		teleport.enabled = true;
 		grabbingObject.GetComponent<VRTK_Pointer> ().enabled = true;
 		grabbingObject = null;
 		Debug.Log ("ungrabbed");
 	}
 
-	/*
-	protected override void Update()
-	{
-		base.Update();
-		if (controllerEvents)
-		{
-			var pressure = (maxTriggerRotation * controllerEvents.GetTriggerAxis()) - minTriggerRotation;
-			trigger.transform.localEulerAngles = new Vector3(0f, pressure, 0f);
-		}
-		else
-		{
-			trigger.transform.localEulerAngles = new Vector3(0f, minTriggerRotation, 0f);
-		}
-	}
-	//*/
-
 	public override void StartUsing(VRTK_InteractUse currentUsingObject)
 	{
+		sources["shoot"].Play();
 		base.StartUsing(currentUsingObject);
-		Debug.Log ("using");
 		Fire ();
 	}
 
