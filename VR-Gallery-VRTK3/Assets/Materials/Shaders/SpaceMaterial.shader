@@ -7,9 +7,8 @@
 		_LerpThreshold ("Interpolate gradient switch", Range(0,1)) = 0.1
 		_Emission ("Emission", Range(0,1)) = 0.1
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Refract ("Refract", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_Normal ("Normal", 2D) = "white" {}
+		_Alpha ("Transparency", Range(0,1)) = 1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -36,15 +35,14 @@
 
 		half _Glossiness;
 		half _Metallic;
-		half _Refract;
 		half _Shine;
 		half _LerpThreshold;
 		half _Emission;
+		half _Alpha;
 		fixed4 _ColorTT;
 		fixed4 _ColorTB;
 		fixed4 _ColorBT;
 		fixed4 _ColorBB;
-		fixed4 _ColorShine;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -75,7 +73,7 @@
 			//Calculate gradient split
 			half z = 5;
 			half split = (sin(10*localPos.x + _Time.y)+cos(10*localPos.z + _Time.y))/20 + 0.5;
-			split = split + (normalMap.g - 0.5) * _Refract;
+			//split = split + (normalMap.g - 0.5) * _Refract;
 
 			//Interpolate gradients
 			half lerpvalue = abs(localPos.y);
@@ -100,7 +98,7 @@
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = 1;
+			o.Alpha = _Alpha;
 		}
 		ENDCG
 	}

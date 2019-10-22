@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 23437457039599390}
   - component: {fileID: 33257699287530526}
   - component: {fileID: 114324206905844696}
-  - component: {fileID: 114437998808634208}
   - component: {fileID: 114000853923829768}
   - component: {fileID: 114337767884440898}
   - component: {fileID: 114723349782905994}
+  - component: {fileID: 82990117907062586}
   m_Layer: 0
   m_Name: SceneBehaviour
   m_TagString: SceneBehaviour
@@ -87,6 +87,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1815734484045746}
   m_Mesh: {fileID: 0}
+--- !u!82 &82990117907062586
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815734484045746}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000853923829768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,32 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMasterPrefab: {fileID: 1823963889701006, guid: 13a64ce2d45ec994caa2ee13418dd877,
     type: 2}
---- !u!114 &114437998808634208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815734484045746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0522eaef74d984591c060d05a095c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  borderThickness: 0.1
-  wireframeHeight: 1.5
-  drawWireframeWhenSelectedOnly: 1
-  drawInGame: 1
-  size: 2
-  color: {r: 0, g: 1, b: 1, a: 0.559}
-  vertices:
-  - {x: 1.5, y: 0.01, z: -1.125}
-  - {x: -1.5, y: 0.01, z: -1.125}
-  - {x: -1.5, y: 0.01, z: 1.125}
-  - {x: 1.5, y: 0.01, z: 1.125}
-  - {x: 1.6, y: 0.01, z: -1.225}
-  - {x: -1.6, y: 0.01, z: -1.225}
-  - {x: -1.6, y: 0.01, z: 1.225}
-  - {x: 1.6, y: 0.01, z: 1.225}
 --- !u!114 &114723349782905994
 MonoBehaviour:
   m_ObjectHideFlags: 1

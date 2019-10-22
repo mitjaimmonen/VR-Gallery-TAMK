@@ -14,9 +14,11 @@ public class Card : VRTK_InteractableObject {
 	private ParticleSystem ps;
 	private Vector3 startPos;
 	private bool touched = false;
+    private AudioSource audioSource;
 
 	//*
 	void Start(){
+        audioSource = GetComponent<AudioSource>();
 		texture = new Texture2D(256, 256, TextureFormat.RGB24, true);
 		texture.name = "Noise Tex";	
 		float step = 1f/256f;
@@ -51,6 +53,7 @@ public class Card : VRTK_InteractableObject {
 	public override void StartUsing(VRTK_InteractUse currentUsingObject)
 	{
 		base.StartUsing(currentUsingObject);
+        audioSource.Play();
 		touched = true;
 		pst = transform.GetChild(0);
 		sr = GetComponent<SpriteRenderer>();

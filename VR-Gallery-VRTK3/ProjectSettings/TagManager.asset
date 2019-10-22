@@ -14,6 +14,7 @@ TagManager:
   - FxTemporaire
   - spaceshape
   - lasergun
+  - controller
   layers:
   - Default
   - TransparentFX

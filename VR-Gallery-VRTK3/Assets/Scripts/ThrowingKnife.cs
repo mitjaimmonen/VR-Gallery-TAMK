@@ -16,10 +16,12 @@ public class ThrowingKnife : VRTK_InteractableObject
 	Rigidbody rb;
 	bool stuck = false;
 	bool grabbed = false;
+	AudioSource sound;
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		sound = GetComponent<AudioSource> ();
 		origPos = transform.position;
 	}
 	public override void OnInteractableObjectUngrabbed(InteractableObjectEventArgs e)
@@ -65,6 +67,7 @@ public class ThrowingKnife : VRTK_InteractableObject
 		if (col.impulse.magnitude >= minImpulseToStick && 
 			(layerMask == (layerMask | (1 << col.gameObject.layer))) && !stuck && !IsGrabbed() && transform.InverseTransformPoint(col.contacts[0].point).z > bladeHandleDivision.localPosition.z)
 		{
+			sound.Play ();
 			rb.isKinematic = true;
 			transform.position += (-col.contacts[0].normal * Mathf.Clamp(0.01f*col.impulse.magnitude,0.01f,1f));
 			stuck = true;

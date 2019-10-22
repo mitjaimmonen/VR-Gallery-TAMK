@@ -16,8 +16,11 @@ public class SceneContainer : MonoBehaviour
     [SerializeField]private float breakForce;
     [SerializeField]private LayerMask breakingLayers;
 
-    private Rigidbody rb;
+    [SerializeField] private AudioClip[] clips;
 
+    private Rigidbody rb;
+    private AudioSource audioSource;
+    private Transform preview;
 
     private void OnGUI()
     {
@@ -37,6 +40,9 @@ public class SceneContainer : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        preview = transform.Find("Preview");
+        audioSource.clip = clips[Random.Range(0, clips.Length)];
     }
 
     public void Reset()
@@ -53,6 +59,23 @@ public class SceneContainer : MonoBehaviour
         {
             if (col.impulse.magnitude > breakForce)
             {
+                for (int i = 0; i < preview.childCount; i++)
+                {
+                    Transform child = preview.GetChild(i);
+                    Rigidbody childRb = child.GetComponent<Rigidbody>();
+                    if (childRb == null)
+                    {
+                        Destroy(child);
+                    }
+                    else
+                    {
+                        childRb.isKinematic = false;
+                        Vector3 force = Random.insideUnitSphere * col.impulse.magnitude;
+                        force.y = Mathf.Abs(force.y);
+                        childRb.AddForce(force);
+                    }
+                }
+                audioSource.Play();
                 rb.isKinematic = true;
                 if (destroyPS)
                     destroyPS.Play();

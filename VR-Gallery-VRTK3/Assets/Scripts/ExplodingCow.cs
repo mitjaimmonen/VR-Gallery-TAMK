@@ -216,9 +216,10 @@ public class ExplodingCow : MonoBehaviour {
 		Vector3 midPos = ((meshAliveTrans.localPosition + meshDeadTrans.localPosition) / 2) + (Vector3.up * jumpMultiplier);
 		Vector3 crossLerpStart = Vector3.zero;
 		Vector3 crossLerpEnd = Vector3.zero;
-		
+        PlayOneShot(boomOneShot);
 
-		while (t <= cowCollapseDuration)
+
+        while (t <= cowCollapseDuration)
 		{	
 			lerpT = Easing.Ease((t/cowCollapseDuration), Curve.logarithmic);
 			crossLerpStart = Vector3.Lerp(meshAliveTrans.localPosition, midPos, (t/cowCollapseDuration));
@@ -234,7 +235,6 @@ public class ExplodingCow : MonoBehaviour {
 		StartCoroutine(PlayExplosionParticles());
 		StartCoroutine(VeggieRbBlowUp());
 		StartCoroutine(MeshBlowUp());
-		PlayOneShot(boomOneShot);
 	}
 
 	///<summary>Plays a sound once and instantly forgets it.</summary>

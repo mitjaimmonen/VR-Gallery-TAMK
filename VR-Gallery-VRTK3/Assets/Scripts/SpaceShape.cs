@@ -1,17 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class SpaceShape : MonoBehaviour {
 
 	[SerializeField] private ParticleSystem ps;
-	[SerializeField] private AudioClip[] throwSounds;
+	//[SerializeField] private AudioClip[] throwSounds;
 	[SerializeField] private AudioClip[] holdSounds;
 	[SerializeField] private AudioClip[] explosionSounds;
+	[SerializeField] private AudioClip[] collisionSounds;
 	private Dictionary<string, AudioSource> sources = new Dictionary<string, AudioSource> ();
 	private GameObject reflection;
 
-	void Start(){
+	void Awake(){
+		VRTK_InteractableObject io = GetComponent<VRTK_InteractableObject>();
+		io.InteractableObjectGrabbed += Grabbed;
+		io.InteractableObjectUngrabbed += Released;
+
+
 		AudioSource[] ass = GetComponentsInChildren<AudioSource> ();
 		for (int i = 0; i < ass.Length; i++) {
 			switch (ass[i].name) {
@@ -21,7 +28,6 @@ public class SpaceShape : MonoBehaviour {
 				break;
 			case "Release":
 				sources.Add ("throw", ass [i]);
-				sources ["throw"].clip = throwSounds [Random.Range (0, throwSounds.Length)];
 				break;
 			case "Hold":
 				sources.Add ("hold", ass [i]);
@@ -29,6 +35,10 @@ public class SpaceShape : MonoBehaviour {
 				break;
 			case "Grab":
 				sources.Add ("grab", ass [i]);
+				break;
+			case "Collision":
+				sources.Add ("collision", ass [i]);
+				sources ["collision"].clip = collisionSounds [Random.Range (0, collisionSounds.Length)];
 				break;
 			default:
 				break;
@@ -47,14 +57,14 @@ public class SpaceShape : MonoBehaviour {
 		StartCoroutine (Destroy());
 	}
 
-	public void Grabbed(){
+	public void Grabbed(object o, InteractableObjectEventArgs e){
 		sources ["grab"].Play ();
 		sources ["hold"].Play ();
 	}
-	public void Released(){
+	public void Released(object o, InteractableObjectEventArgs e){
 		sources ["hold"].Stop ();
+		sources ["throw"].volume = Mathf.Clamp(VRTK_DeviceFinder.GetControllerVelocity(VRTK_ControllerReference.GetControllerReference(VRTK_DeviceFinder.GetControllerIndex(e.interactingObject))).magnitude/2, 0, 1);
 		sources ["throw"].Play ();
-		sources ["throw"].clip = throwSounds [Random.Range (0, throwSounds.Length)];
 	}
 
 	IEnumerator Destroy(){

@@ -50,9 +50,9 @@ public class ExitSign : VRTK_InteractableObject {
 		Debug.Log("StartUsing called");
 	}
 
-	public override void StopUsing(VRTK_InteractUse usingObject)
+	public override void StopUsing(VRTK_InteractUse usingObject,bool resetUsingObjectState = true)
 	{
-		base.StopUsing(usingObject);
+		base.StopUsing(usingObject, resetUsingObjectState);
 		Debug.Log("StopUsing called");
 
 		activationInProgress = false;

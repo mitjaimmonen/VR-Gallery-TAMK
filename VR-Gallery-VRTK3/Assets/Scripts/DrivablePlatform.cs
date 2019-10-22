@@ -7,13 +7,16 @@ public class DrivablePlatform : VRTK_InteractableObject {
 
 	[SerializeField] private float speed = 1f;
 	
-	Transform usingObject;
+	Transform controller;
 	VRTK_ControllerEvents leftController;
 	VRTK_ControllerEvents rightController;
+	AudioSource audioSource;
 	Color color;
 
 	void Start(){
-		color = gameObject.GetComponent<MeshRenderer> ().material.color;
+		color = GetComponent<MeshRenderer> ().material.color;
+		audioSource = GetComponent<AudioSource>();
+        StartCoroutine(getControllers());
 	}
 	IEnumerator getControllers() {
 		GameObject lgo = null;
@@ -34,20 +37,26 @@ public class DrivablePlatform : VRTK_InteractableObject {
 	}
 
 	void StartMoving(object o, ControllerInteractionEventArgs e){
-		usingObject = VRTK_DeviceFinder.GetControllerByIndex(e.controllerIndex, false).transform;
+        Debug.Log("start moving");
+		controller = VRTK_DeviceFinder.GetControllerByIndex(e.controllerReference.index, false).transform;
+		audioSource.Play();
 	}
 
 	void StopMoving(object o, ControllerInteractionEventArgs e){
-		usingObject = null;
+		controller = null;
+		audioSource.Stop();
 	}
 	
-	void Update () {
-		if (usingObject != null) {
-			VRTK_StraightPointerRenderer pointer = usingObject.GetComponent<VRTK_StraightPointerRenderer> ();
-			Vector3 pos = Quaternion.AngleAxis (usingObject.transform.rotation.eulerAngles.y, Vector3.up) * Vector3.forward * speed * Time.deltaTime;
+	protected override void Update () {
+		base.Update();
+
+		if (controller != null) {
+			VRTK_StraightPointerRenderer pointer = controller.GetComponent<VRTK_StraightPointerRenderer> ();
+			Vector3 pos = Quaternion.AngleAxis (controller.transform.rotation.eulerAngles.y, Vector3.up) * Vector3.forward * speed * Time.deltaTime;
 			transform.position += pos;
 			pointer.validCollisionColor = color;
 			pointer.invalidCollisionColor = color;
+			//VRTK_DeviceFinder.HeadsetTransform.pointerActivatesUseAction += pos;
 			GameObject.Find ("[CameraRig]").transform.position += pos;
 		}
 	}

@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 114040551682641374}
   - component: {fileID: 114737441834647600}
   - component: {fileID: 114414861749567766}
+  - component: {fileID: 82325618442322242}
   m_Layer: 0
   m_Name: SceneItemSphere
   m_TagString: SceneContainer
@@ -7650,6 +7651,86 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &82325618442322242
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275295309721612}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114040551682641374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7686,12 +7767,17 @@ MonoBehaviour:
   sceneCallDelay: 0.5
   destroyPS: {fileID: 0}
   sceneToLoad:
-    sceneAsset: {fileID: 102900000, guid: fdbe76852d355ba4ea403d7dc6322f9c, type: 3}
+    sceneAsset: {fileID: 102900000, guid: c9647a0730febd34a931047a01031558, type: 3}
     scenePath: Assets/Scenes/02JakobCow.unity
   breakForce: 5
   breakingLayers:
     serializedVersion: 2
     m_Bits: 1281
+  clips:
+  - {fileID: 8300000, guid: 7df602b4c91f15c4c8f1ec3ca4a62727, type: 3}
+  - {fileID: 8300000, guid: c51b8c11347b7704bb89e17085dc5ae8, type: 3}
+  - {fileID: 8300000, guid: 6c59df3742755b640914bbc2c9c62bd2, type: 3}
+  - {fileID: 8300000, guid: 624bdda950e627f458e3f88a176b958a, type: 3}
 --- !u!114 &114414861749567766
 MonoBehaviour:
   m_ObjectHideFlags: 1
