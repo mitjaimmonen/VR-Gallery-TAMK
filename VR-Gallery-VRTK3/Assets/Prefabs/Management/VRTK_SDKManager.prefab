@@ -2274,6 +2274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0893f0c8a7712e8458dc3722eef95aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
 --- !u!114 &114304777862745804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2686,6 +2687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0893f0c8a7712e8458dc3722eef95aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
 --- !u!114 &114705290465902310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2815,7 +2817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5837af0260a118e4d808bfe0405429a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistOnLoad: 0
   autoManageScriptDefines: 1
   activeScriptingDefineSymbolsWithoutSDKClasses:
   - symbol: VRTK_DEFINE_SDK_OCULUS_AVATAR
@@ -2826,8 +2827,8 @@ MonoBehaviour:
   autoLoadSetup: 1
   setups:
   - {fileID: 114473057727754550}
-  - {fileID: 114374707336657908}
-  - {fileID: 114414110040226898}
+  excludeTargetGroups: 1b0000001a000000
+  persistOnLoad: 0
 --- !u!114 &114846881867938406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2997,15 +2998,20 @@ MonoBehaviour:
   showControlHints: 1
   hideHandsAtSwitch: 0
   resetHandsAtSwitch: 1
-  mouseMovementInput: 0
+  showHandAxisHelpers: 1
   lockMouseToView: 1
+  mouseMovementInput: 0
   handMoveMultiplier: 0.2
   handRotationMultiplier: 30
   playerMoveMultiplier: 5
   playerRotationMultiplier: 0.5
   playerSprintMultiplier: 2
+  lockedCursorMultiplier: 5
+  leftHandColor: {r: 1, g: 0, b: 0, a: 1}
+  rightHandColor: {r: 0, g: 1, b: 0, a: 1}
   mouseMovementKey: 325
   toggleControlHints: 282
+  toggleMouseLock: 285
   changeHands: 9
   handsOnOff: 308
   rotationPosition: 304
