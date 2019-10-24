@@ -5,6 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - SceneContainer
+  - ExcludeTeleport
+  - TeleportIgnore
+  - SDKManager
+  - SceneBehaviour
+  - projectile
+  - pedestal
+  - FxTemporaire
+  - spaceshape
+  - lasergun
+  - controller
   layers:
   - Default
   - TransparentFX
@@ -15,9 +25,9 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
-  - 
+  - PostProcessing
+  - Environment
+  - StereoRender_Ignore
   - 
   - 
   - 

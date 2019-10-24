@@ -1,0 +1,596 @@
+fileFormatVersion: 2
+guid: 8ccd04b6300f37b4a9c11a8a8bd2f361
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: flying robbin spritesheet_0
+    21300002: flying robbin spritesheet_1
+    21300004: flying robbin spritesheet_2
+    21300006: flying robbin spritesheet_3
+    21300008: flying robbin spritesheet_4
+    21300010: flying robbin spritesheet_5
+    21300012: flying robbin spritesheet_6
+    21300014: flying robbin spritesheet_7
+    21300016: flying robbin spritesheet_8
+    21300018: flying robbin spritesheet_9
+    21300020: flying robbin spritesheet_10
+    21300022: flying robbin spritesheet_11
+    21300024: flying robbin spritesheet_12
+    21300026: flying robbin spritesheet_13
+    21300028: flying robbin spritesheet_14
+    21300030: flying robbin spritesheet_15
+    21300032: flying robbin spritesheet_18
+    21300034: flying robbin spritesheet_19
+    21300036: flying robbin spritesheet_20
+    21300038: flying robbin spritesheet_21
+    21300040: flying robbin spritesheet_23
+    21300042: flying robbin spritesheet_25
+    21300044: flying robbin spritesheet_27
+    21300046: flying robbin spritesheet_29
+    21300048: flying robbin spritesheet_30
+    21300050: flying robbin spritesheet_31
+    21300052: flying robbin spritesheet_32
+    21300054: flying robbin spritesheet_33
+    21300056: flying robbin spritesheet_34
+    21300058: flying robbin spritesheet_35
+    21300060: flying robbin spritesheet_36
+    21300062: flying robbin spritesheet_39
+    21300064: flying robbin spritesheet_40
+    21300066: flying robbin spritesheet_41
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: flying robbin spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1285
+        width: 191
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1285
+        width: 193
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1274
+        width: 186
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 1279
+        width: 184
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1306
+        width: 185
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 1305
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1042
+        y: 1279
+        width: 14
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1039
+        width: 184
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 975
+        width: 186
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1063
+        width: 184
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1096
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 975
+        width: 183
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 975
+        width: 185
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 1066
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 1066
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1066
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 748
+        width: 187
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 920
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 748
+        width: 192
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 921
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 661
+        width: 193
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 748
+        width: 193
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 748
+        width: 193
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 434
+        width: 188
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 348
+        width: 193
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 410
+        width: 192
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 468
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 365
+        width: 193
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 340
+        width: 191
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 1171
+        y: 468
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 438
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 348
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 18
+        width: 191
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: flying robbin spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 29
+        width: 193
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
